@@ -210,7 +210,8 @@ def plot_macd_signal(data, symbol, MACD, signal):
 
 def get_stock(request, symbol='AAPL'):
     stocks = Stock.objects.all()
-
+    print(request.path)
+    # print(request.get_full_path)
     # allData = []
     # print(stock_data)
     # for i in range(stock_data.shape[0]):

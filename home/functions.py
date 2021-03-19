@@ -1,4 +1,3 @@
-import requests
 import pandas as pd
 import json
 from django.shortcuts import render

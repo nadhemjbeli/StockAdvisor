@@ -34,7 +34,7 @@
                         <hr>
                         {% if not message_error %}
                             <div class="alert alert-success text-center" role="alert">
-                                <span>{{stock_data.symbol}} @ {{stock_data.name}}</span>
+                                <span>{{stock_data.symbol}} @ {{stock_data.name}} </span>
                             </div>
                         {% else %}
                             <br>
@@ -55,10 +55,14 @@
             <div class="col-sm-9 col-md-9 col-xs-12 py-5">
                 <div class="card text-center">
                     {% if not message_error %}
+                        {%load plotly_dash %}
                         <div class="alert alert-success" role="alert">
-                            <span>{{symbol}}</span>
+                            <span>{{symbol}} </span>
                         </div>
                     {% endif %}
+
+                    {%load plotly_dash %}
+                        {% plotly_app name='price' %}
 
                     <div>  {{candlestick | safe}} </div>
                     <br>
