@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{symbol}} {{stock_data.high}}{% endblock %}
+
+
+
+
+{% block content %}
+
+    {% include 'home/topstock.html'%}
+
+
+    <div class="container-fluid">
+        <div class="row mt-5 mb-5 justify-content-center">
+
+            <div class="col-sm-3 col-md-3 col-xs-12 py-5">
+                <div class="card">
+                    <div class="card-header"> Stock Spot Quote</div>
+                    <div class="card-body">
+                        <form method="POST" action="">{% csrf_token %}
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="symbol" placeholder="Symbol..." class="form-control" required>
+                            </div>
+
+                            <div class="card justify-content-center mt-3">
+                                <input class="btn-primary btn-lg" type="submit" value="Search">
+                            </div>
+                        </form>
+
+                        <hr>
+                        {% if not message_error %}
+                            <div class="alert alert-success text-center" role="alert">
+                                <span>{{stock_data.symbol}} @ {{stock_data.name}}</span>
+                            </div>
+                        {% else %}
+                            <br>
+                        {% endif %}
+                        <hr>
+
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-success"><bold>Quick Info</bold></li>
+                            <li class="list-group-item list-group-item-success">High: {{stock_data.high}} </li>
+                            <li class="list-group-item list-group-item-success">Low: {{stock_data.low}}</li>
+                            <li class="list-group-item list-group-item-success">Volume: {{stock_data.average_volume}} </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-9 col-md-9 col-xs-12 py-5">
+                <div class="card text-center">
+                    {% if not message_error %}
+                        <div class="alert alert-success" role="alert">
+                            <span>{{symbol}}</span>
+                        </div>
+                    {% endif %}
+
+                    <div>  {{candlestick | safe}} </div>
+                    <br>
+                    <br>
+                    <div>  {{plotly_slider | safe}} </div>
+                    <br>
+                    <br>
+                    <div>  {{plotly | safe}} </div>
+                    <br>
+                    <br>
+                    <div>  {{compare_stock | safe}} </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+{%endblock%}

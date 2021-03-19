@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} stocks {% endblock %}
+{% block content %}
+    <style>
+        {#body{#}
+        {#    background:#000;#}
+        {#    color:#fff;#}
+        {# }#}
+    </style>
+<div class="container">
+    <h1> {{ symbol }}</h1>
+    {% if graph %}
+        <img src="data:image/png;base64, {{ graph | safe }}">
+    {% endif %}
+    <br>
+    <br>
+    {{ plotly | safe }}
+</div>
+
+{% endblock content %}

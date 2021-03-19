@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Stock group {% endblock %}
+
+
+
+
+{% block content %}
+    <div class="container">
+        <h1>stocks table</h1>
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Symbol</th>
+                    <th>name</th>
+                    <th>Currency</th>
+                    <th>Analysis</th>
+                </tr>
+                {% for stock in stocks %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'home:show_stock_vis' stock.symbol %}">{{ stock.symbol }}</a>
+                        </td>
+                        <td>
+                            {{ stock.name }}
+                        </td>
+                        <td>
+                            {{ stock.currency }}
+                        </td>
+                        <td>
+                            <a href="{% url 'home:stock_analysis' stock.symbol 365 %}">Analysis of <b>{{ stock.symbol }}</b></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}

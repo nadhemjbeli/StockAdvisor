@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{stock.symbol}} Analysis{% endblock %}
+
+
+
+
+{% block content %}
+    <br>
+    <br>
+    {% include 'nav_days.html'%}
+
+    <div class="container">
+        <h1>Stock analysis for: {{ stock.symbol }} ({{ stock.name }})</h1>
+{#        {% if graph %}#}
+{#            <img src="data:image/png;base64, {{ graph | safe }}">#}
+{#        {% endif %}#}
+        <br>
+        <br>
+        {{ plot_macd | safe }}
+        <br>
+        <br>
+        {{ p_b_s | safe }}
+        <br>
+        <br>
+        {{ graph_plotly1 | safe }}
+        <br>
+        <br>
+        {{ graph_plotly2 | safe }}
+        <br>
+        <br>
+        {{ graph_plotly3 | safe }}
+    </div>
+{% endblock %}
