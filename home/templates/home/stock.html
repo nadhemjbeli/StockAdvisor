@@ -47,7 +47,6 @@
                             <li class="list-group-item list-group-item-success">Low: {{stock_data.low}}</li>
                             <li class="list-group-item list-group-item-success">Volume: {{stock_data.average_volume}} </li>
                         </ul>
-
                     </div>
                 </div>
             </div>
@@ -55,14 +54,15 @@
             <div class="col-sm-9 col-md-9 col-xs-12 py-5">
                 <div class="card text-center">
                     {% if not message_error %}
+{#                        {%load plotly_dash %}#}
                         {%load plotly_dash %}
+                        {% plotly_app name='price' %}
                         <div class="alert alert-success" role="alert">
                             <span>{{symbol}} </span>
                         </div>
                     {% endif %}
 
-                    {%load plotly_dash %}
-                        {% plotly_app name='price' %}
+
 
                     <div>  {{candlestick | safe}} </div>
                     <br>

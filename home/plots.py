@@ -45,6 +45,16 @@ def plotly_slider(ts_df):
     plotly_div = plot(fig, output_type='div')
     return plotly_div
 
+def compare_stock():
+    df = px.data.stocks()
+    fig = px.line(df, x="date", y=df.columns,
+                  hover_data={"date": "|%B %d, %Y"},
+                  title='custom tick labels')
+    fig.update_xaxes(
+        dtick="M1",
+        tickformat="%b\n%Y")
+    compare_div = plot(fig, output_type='div')
+    return compare_div
 
 def compute_bollinger_bands(df, symbol, dtime, *args, **kwargs):
     plt.switch_backend("AGG")
@@ -208,19 +218,19 @@ def plot_macd_signal(data, symbol, MACD, signal):
     return plotly_div
 
 
-def get_stock(request, symbol='AAPL'):
-    stocks = Stock.objects.all()
-    print(request.path)
-    # print(request.get_full_path)
-    # allData = []
-    # print(stock_data)
-    # for i in range(stock_data.shape[0]):
-    #     temp = stock_data.iloc[i]
-    #     allData.append(dict(temp))
-    context = {
-        'stocks': stocks,
-        'symbol': symbol,
-        # 'stock_data': stock_data,
-    }
-    # print(stock_data)
-    return render(request, "home/table_stock.html", context)
+# def get_stock(request, symbol='AAPL'):
+#     stocks = Stock.objects.all()
+#     print(request.path)
+#     # print(request.get_full_path)
+#     # allData = []
+#     # print(stock_data)
+#     # for i in range(stock_data.shape[0]):
+#     #     temp = stock_data.iloc[i]
+#     #     allData.append(dict(temp))
+#     context = {
+#         'stocks': stocks,
+#         'symbol': symbol,
+#         # 'stock_data': stock_data,
+#     }
+#     # print(stock_data)
+#     return render(request, "home/table_stock.html", context)
