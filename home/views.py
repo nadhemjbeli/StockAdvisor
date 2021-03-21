@@ -34,14 +34,18 @@ def home(request):
 
 
 def get_income_statements(request, symbol):
-    financials_longfmt = load_yahoo_financials(symbol, 'longFmt')
-    financials_fmt = load_yahoo_financials(symbol, 'fmt')
-    print(financials_fmt['annual_income_statements'])
+    stocks = Stock.objects.get(symbol=symbol)
+    print('fmtlong')
+    annual_income_statement_longfmt = load_yahoo_annual_income_statement(symbol, 'longFmt')
+    print('fmt')
+    annual_income_statement_fmt = load_yahoo_annual_income_statement(symbol, 'fmt')
+    # print(financials_fmt['annual_income_statements'])
     # financials_raw = load_yahoo_financials(symbol, 'raw')
     context = {
+        'stocks': stocks,
         # 'financials_raw': financials_raw,
-        'financials_fmt': financials_fmt,
-        'financials_longfmt': financials_longfmt,
+        'annual_income_statement_fmt': annual_income_statement_fmt,
+        'annual_income_statement_longfmt': annual_income_statement_longfmt,
         'symbol': symbol,
 
     }

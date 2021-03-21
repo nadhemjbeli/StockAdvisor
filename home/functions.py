@@ -213,3 +213,12 @@ def load_yahoo_financials(stock = 'AAPL', dtype = 'raw'):
         statements[key] = scrape_yahoo_numbered_data(val, dtype)
 
     return statements
+
+
+def load_yahoo_annual_income_statement(stock = 'AAPL', dtype = 'raw'):
+    url_financials = 'https://finance.yahoo.com/quote/{}/financials?p={}'
+    json_data_financials = load_url(url_financials, stock)
+    annual_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistory']['incomeStatementHistory']
+    annual_income_statement = scrape_yahoo_numbered_data(annual_is, dtype)
+    print(annual_income_statement)
+    return annual_income_statement
