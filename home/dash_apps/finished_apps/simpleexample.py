@@ -143,26 +143,18 @@ def get_live_update(stock):
 
 def get_stock(request, symbol='AAPL'):
     stocks = Stock.objects.all()
-    # print(request.path)
-    # print(request.get_full_path)
-    # allData = []
-    # print(stock_data)
-    # for i in range(stock_data.shape[0]):
-    #     temp = stock_data.iloc[i]
-    #     allData.append(dict(temp))
 
     context = {
         'stocks': stocks,
         'symbol': symbol,
-        # 'stock_data': stock_data,
     }
-    # print(stock_data)
     return render(request, "home/table_stock.html", context)
 
 def single_stock(request, symbol='AAPL'):
+    get_live_update(symbol)
     message_error = None
     stock = Stock.objects.get(symbol=symbol)
-    print(stock)
+    # print(stock)
     from pandas_datareader._utils import RemoteDataError
     try:
         ts_df = get_data(symbol)
@@ -175,18 +167,19 @@ def single_stock(request, symbol='AAPL'):
 
     # PlotlyGraph
 
-    token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
-    api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
-    data = requests.get(api_url).json()
-    print(f'data:\n{data}')
-    data['changePercent'] = round(data['changePercent'], 3)
-    stock_data = get_stock_quote(symbol, api_key)
-    print(f'stock_data:\n{stock_data}')
-    models.Stock.objects.get_or_create(symbol=symbol, name=stock_data['name'], currency=stock_data['currency'])
+    # token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
+    # api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
+    # data = requests.get(api_url).json()
+    # print(f'data:\n{data}')
+    # data['changePercent'] = round(data['changePercent'], 3)
+    # stock_data = get_stock_quote(symbol, api_key)
+    # print(f'stock_data:\n{stock_data}')
+    # models.Stock.objects.get_or_create(symbol=symbol, name=stock_data['name'], currency=stock_data['currency'])
     context = {
+        'stock': stock,
         'symbol': symbol,
-        'stock_data': stock_data,
-        'data': data,
+        # 'stock_data': stock_data,
+        # 'data': data,
         'candlestick': candlestick(ts_df),
         'plotly': plotly(ts_df),
         'plotly_slider': plotly_slider(ts_df),
@@ -194,7 +187,7 @@ def single_stock(request, symbol='AAPL'):
         'message_error': message_error,
     }
 
-    get_live_update(symbol)
+
 
 
 
@@ -214,7 +207,6 @@ def search_stock(request):
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
-
     def compare_stock():
         df = px.data.stocks()
         fig = px.line(df, x="date", y=df.columns,
@@ -226,15 +218,15 @@ def search_stock(request):
         compare_div = plot(fig, output_type='div')
         return compare_div
 
-    token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
-    api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
-    # api_url = f'https://sandbox.iexapis.com/stable/stock/aapl/quote?token={token}'
-    data = requests.get(api_url).json()
-    data['changePercent'] = round(data['changePercent'], 3)
-    print(f'data:\n{data}')
-    stock_data = get_stock_quote(symbol, api_key)
-    print(f'stock_data:\n{stock_data}')
-    models.Stock.objects.get_or_create(symbol=symbol, name=stock_data['name'], currency=stock_data['currency'])
+    # token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
+    # api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
+    # # api_url = f'https://sandbox.iexapis.com/stable/stock/aapl/quote?token={token}'
+    # data = requests.get(api_url).json()
+    # data['changePercent'] = round(data['changePercent'], 3)
+    # print(f'data:\n{data}')
+    # stock_data = get_stock_quote(symbol, api_key)
+    # print(f'stock_data:\n{stock_data}')
+    # models.Stock.objects.get_or_create(symbol=symbol, name=stock_data['name'], currency=stock_data['currency'])
     context = {
         'symbol': symbol,
         # 'moredata': moredata,
@@ -244,8 +236,8 @@ def search_stock(request):
         # 'percentchange': percentchange,
         # 'buyers': buyers,
         # 'sellers': sellers,
-        'stock_data': stock_data,
-        'data': data,
+        # 'stock_data': stock_data,
+        # 'data': data,
         'candlestick': candlestick(ts_df),
         'plotly': plotly(ts_df),
         'plotly_slider': plotly_slider(ts_df),
@@ -253,5 +245,6 @@ def search_stock(request):
         'message_error': message_error,
     }
 
-    get_live_update(symbol)
-    return render(request, 'home/stock.html', context)
+    # get_live_update(symbol)
+
+    return render(request, 'home/stock.html', context, )

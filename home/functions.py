@@ -4,6 +4,9 @@ from django.shortcuts import render
 import pandas_datareader as pdr
 import matplotlib.pyplot as plt
 import numpy as np
+import re
+from io import StringIO
+from bs4 import BeautifulSoup
 import plotly.graph_objects as go
 from plotly.offline import plot
 from alpha_vantage.techindicators import TechIndicators
@@ -153,3 +156,32 @@ def get_stock_quote(ticker_symbol, api):
         if isinstance(response[i], float):
             response[i] = round(response[i], 3)
     return response
+
+
+####################################################################################################################
+# Yahoo scraping
+####################################################################################################################
+
+def scrape_yahoo_numbered_data(some_list, dtype):
+    list_smts = []
+    for s in some_list:
+        statement = {}
+        for key, val in s.items():
+            try:
+                statement[key] = val[dtype]
+            except TypeError:
+                continue
+            except KeyError:
+                continue
+        list_smts.append(statement)
+    return list_smts
+
+def load_url(url, stock):
+    response = requests.get(url.format(stock, stock))
+    soup = BeautifulSoup(response.text, 'html.parser')
+    pattern = re.compile(r'\s--\sData\s--\s')
+    script_data = soup.find('script', text=pattern).contents[0]
+    start = script_data.find('context') - 2
+    json_data = json.loads(script_data[start: -12])
+    return json_data
+
