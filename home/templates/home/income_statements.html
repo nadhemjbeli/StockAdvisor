@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{symbol}}{% endblock %}
+{% block title %}{{symbol}} - Income Statement{% endblock %}
 
 
 
@@ -12,7 +12,7 @@
     <div class="container">
         <h1>{{ symbol }} - {{ stocks.name }}</h1>
         <br>
-        <table class="table table-light table-hover table-borderless">
+        <table class="table table-light table-hover table-borderless table-striped">
             <tr>
                 <th scope="col">Breakdown</th>
                 {% for income in annual_income_statement_fmt %}
@@ -73,6 +73,66 @@
                     {% else %}
                         <td>
                             <span>{{ income.incomeBeforeTax }}</span>
+                        </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Tax Provision</th>
+                {% for income in annual_income_statement_longfmt %}
+                    {% if not income.incomeTaxExpense %}
+                        <td>Nan</td>
+                    {% else %}
+                        <td>
+                            <span>{{ income.incomeTaxExpense }}</span>
+                        </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">EBIT</th>
+                {% for income in annual_income_statement_longfmt %}
+                    {% if not income.ebit %}
+                        <td>Nan</td>
+                    {% else %}
+                        <td>
+                            <span>{{ income.ebit }}</span>
+                        </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Net Income from Continuing Ops</th>
+                {% for income in annual_income_statement_longfmt %}
+                    {% if not income.netIncomeFromContinuingOps %}
+                        <td>Nan</td>
+                    {% else %}
+                        <td>
+                            <span>{{ income.netIncomeFromContinuingOps }}</span>
+                        </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Total Other Income Expense Net</th>
+                {% for income in annual_income_statement_longfmt %}
+                    {% if not income.totalOtherIncomeExpenseNet %}
+                        <td>Nan</td>
+                    {% else %}
+                        <td>
+                            <span>{{ income.totalOtherIncomeExpenseNet }}</span>
+                        </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Net Income Applicable To Common Shares</th>
+                {% for income in annual_income_statement_longfmt %}
+                    {% if not income.netIncomeApplicableToCommonShares %}
+                        <td>Nan</td>
+                    {% else %}
+                        <td>
+                            <span>{{ income.netIncomeApplicableToCommonShares }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}

@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/templates/home/income_statements.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/income_statements.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +79,7 @@
       <option name="presentableId" value="Default" />
       <updated>1615841501830</updated>
       <workItem from="1615841513622" duration="6024000" />
-      <workItem from="1615849101833" duration="55284000" />
+      <workItem from="1615849101833" duration="56888000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
@@ -120,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616360175014</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Income statement">
+      <created>1616364531084</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1616364531085</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +132,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="price change live update" />
     <MESSAGE value="interest income" />
-    <option name="LAST_COMMIT_MESSAGE" value="interest income" />
+    <MESSAGE value="Income statement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Income statement" />
   </component>
 </project>
