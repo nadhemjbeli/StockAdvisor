@@ -185,3 +185,31 @@ def load_url(url, stock):
     json_data = json.loads(script_data[start: -12])
     return json_data
 
+def load_yahoo_financials(stock = 'AAPL', dtype = 'raw'):
+    #     url_stats = 'https://finance.yahoo.com/quote/{}/key-statistics?p={}'
+    #     url_profile = 'https://finance.yahoo.com/quote/{}/profile?p={}'
+    url_financials = 'https://finance.yahoo.com/quote/{}/financials?p={}'
+
+    json_data_financials = load_url(url_financials, stock)
+    annual_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistory']['incomeStatementHistory']
+    quarterly_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistoryQuarterly']['incomeStatementHistory']
+
+    annual_cf = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['cashflowStatementHistory']['cashflowStatements']
+    quarterly_cf = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['cashflowStatementHistoryQuarterly']['cashflowStatements']
+
+    annual_bs = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['balanceSheetHistory']['balanceSheetStatements']
+    quarterly_bs = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['balanceSheetHistoryQuarterly']['balanceSheetStatements']
+
+    statements = {
+        'annual_income_statements': annual_is,
+        'quarterly_income_statements': quarterly_is,
+        'annual_cash_flow': annual_cf,
+        'quarterly_cash_flow': quarterly_cf,
+        'annual_balance_sheet': annual_bs,
+        'quarterly_balance_sheet': quarterly_bs,
+    }
+
+    for key, val in statements.items():
+        statements[key] = scrape_yahoo_numbered_data(val, dtype)
+
+    return statements

@@ -1,34 +1,52 @@
-
 from django.shortcuts import render
 from plotly.offline import plot
 import plotly.graph_objects as go
 from .plots import *
+
 # Create your views here.
 symbol = 'AAPL'
+
+
 def home(request):
     def scatter():
-        x1 = [1,2,3,4]
+        x1 = [1, 2, 3, 4]
         y1 = [30, 35, 25, 45]
 
         trace = go.Scatter(
             x=x1,
-            y = y1
+            y=y1
         )
         layout = dict(
             title='Simple Graph',
             xaxis=dict(range=[min(x1), max(x1)]),
-            yaxis = dict(range=[min(y1), max(y1)])
+            yaxis=dict(range=[min(y1), max(y1)])
         )
 
         fig = go.Figure(data=[trace], layout=layout)
         plot_div = plot(fig, output_type='div', include_plotlyjs=False)
         return plot_div
 
-    context ={
+    context = {
         'plot1': scatter()
     }
 
     return render(request, 'home/welcome.html', context)
+
+
+def get_income_statements(request, symbol):
+    financials_longfmt = load_yahoo_financials(symbol, 'longFmt')
+    financials_fmt = load_yahoo_financials(symbol, 'fmt')
+    print(financials_fmt['annual_income_statements'])
+    # financials_raw = load_yahoo_financials(symbol, 'raw')
+    context = {
+        # 'financials_raw': financials_raw,
+        'financials_fmt': financials_fmt,
+        'financials_longfmt': financials_longfmt,
+        'symbol': symbol,
+
+    }
+
+    return render(request, 'home/income_statements.html', context)
 
 
 # def show_data(request):
@@ -42,12 +60,6 @@ def home(request):
 #         'graph': graph,
 #     }
 #     return render(request, "home/visualize.html", context)
-
-
-
-
-
-
 
 
 def stockAnalysis(request, symbol, dtime):

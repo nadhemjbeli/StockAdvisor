@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{symbol}}{% endblock %}
+
+
+
+
+{% block content %}
+    <h1>{{ symbol }}</h1>
+    <div class="container">
+        <table class="table table-light table-hover table-borderless">
+            <tr>
+                <th scope="col">Breakdown</th>
+                {% for income in financials_fmt.annual_income_statements %}
+                    <th scope="col">{{ income.endDate }}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">
+                    <span>Total Revenue</span>
+                </th>
+                {% for income in financials_longfmt.annual_income_statements %}
+                    <td>
+                        <span>{{ income.totalRevenue }}</span>
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Gross Profit</th>
+                {% for income in financials_longfmt.annual_income_statements %}
+                    <td>
+                        <span>{{ income.grossProfit }}</span>
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Operating Expenses</th>
+                {% for income in financials_longfmt.annual_income_statements %}
+                    <td>
+                        <span>{{ income.totalOperatingExpenses  }}</span>
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Operating Income</th>
+                {% for income in financials_longfmt.annual_income_statements %}
+                    <td>
+                        <span>{{ income.operatingIncome }}</span>
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Interest Expenses</th>
+                {% for income in financials_longfmt.annual_income_statements %}
+                    {% if not income.interestExpense %}
+                        <td>Nan</td>
+                    {% else %}
+                        <td>
+                            <span>{{ income.interestExpense }}</span>
+                        </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+{% endblock %}
