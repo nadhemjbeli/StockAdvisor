@@ -176,8 +176,21 @@ def scrape_yahoo_numbered_data(some_list, dtype):
         list_smts.append(statement)
     return list_smts
 
-def load_url(url, stock):
-    response = requests.get(url.format(stock, stock))
+def scrape_yahoo_dict_data(some_dict, dtype):
+    statement = {}
+    for key, val in some_dict.items():
+        try:
+            statement[key] = val[dtype]
+        except TypeError:
+            continue
+        except KeyError:
+            continue
+    print(statement)
+    return statement
+
+def load_url_financials(stock):
+    url_financials = 'https://finance.yahoo.com/quote/{}/financials?p={}'
+    response = requests.get(url_financials.format(stock, stock))
     soup = BeautifulSoup(response.text, 'html.parser')
     pattern = re.compile(r'\s--\sData\s--\s')
     script_data = soup.find('script', text=pattern).contents[0]
@@ -185,12 +198,8 @@ def load_url(url, stock):
     json_data = json.loads(script_data[start: -12])
     return json_data
 
-def load_yahoo_financials(stock = 'AAPL', dtype = 'raw'):
-    #     url_stats = 'https://finance.yahoo.com/quote/{}/key-statistics?p={}'
-    #     url_profile = 'https://finance.yahoo.com/quote/{}/profile?p={}'
-    url_financials = 'https://finance.yahoo.com/quote/{}/financials?p={}'
+def load_yahoo_financials(json_data_financials, dtype = 'raw'):
 
-    json_data_financials = load_url(url_financials, stock)
     annual_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistory']['incomeStatementHistory']
     quarterly_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistoryQuarterly']['incomeStatementHistory']
 
@@ -215,10 +224,19 @@ def load_yahoo_financials(stock = 'AAPL', dtype = 'raw'):
     return statements
 
 
-def load_yahoo_annual_income_statement(stock = 'AAPL', dtype = 'raw'):
-    url_financials = 'https://finance.yahoo.com/quote/{}/financials?p={}'
-    json_data_financials = load_url(url_financials, stock)
+def load_yahoo_annual_income_statement(json_data_financials, dtype = 'raw'):
     annual_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistory']['incomeStatementHistory']
     annual_income_statement = scrape_yahoo_numbered_data(annual_is, dtype)
     print(annual_income_statement)
     return annual_income_statement
+
+def quote_type_yahoo(json_data_quote):
+    json_quote = json_data_quote['context']['dispatcher']['stores']['QuoteSummaryStore']['quoteType']
+    print(json_quote)
+    return json_quote
+
+def stock_price_yahoo(json_data_price, dtype = 'raw'):
+    json_price = json_data_price['context']['dispatcher']['stores']['QuoteSummaryStore']['price']
+    price_dict = scrape_yahoo_dict_data(json_price, dtype)
+    print(price_dict)
+    return price_dict

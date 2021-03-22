@@ -30,7 +30,9 @@
                 {% endfor %}
             </tr>
             <tr>
-                <th scope="row">Gross Profit</th>
+                <th scope="row">
+                    <span>Gross Profit</span>
+                </th>
                 {% for income in annual_income_statement_longfmt %}
                     <td>
                         <span>{{ income.grossProfit }}</span>
@@ -38,7 +40,9 @@
                 {% endfor %}
             </tr>
             <tr>
-                <th scope="row">Operating Expenses</th>
+                <th scope="row">
+                    <span>Operating Expenses</span>
+                </th>
                 {% for income in annual_income_statement_longfmt %}
                     <td>
                         <span>{{ income.totalOperatingExpenses  }}</span>
@@ -46,7 +50,9 @@
                 {% endfor %}
             </tr>
             <tr>
-                <th scope="row">Operating Income</th>
+                <th scope="row">
+                    <span>Operating Income</span>
+                </th>
                 {% for income in annual_income_statement_longfmt %}
                     <td>
                         <span>{{ income.operatingIncome }}</span>
@@ -54,10 +60,12 @@
                 {% endfor %}
             </tr>
             <tr>
-                <th scope="row">Net Income</th>
+                <th scope="row">
+                    <span>Net Income</span>
+                </th>
                 {% for income in annual_income_statement_longfmt %}
                     {% if not income.netIncome %}
-                        <td>Nan</td>
+                        <td><span>Nan</span></td>
                     {% else %}
                         <td>
                             <span>{{ income.netIncome }}</span>
@@ -66,10 +74,12 @@
                 {% endfor %}
             </tr>
             <tr>
-                <th scope="row">Pre Tax Income</th>
+                <th scope="row">
+                    <span>Pre Tax Income</span>
+                </th>
                 {% for income in annual_income_statement_longfmt %}
                     {% if not income.incomeBeforeTax %}
-                        <td>Nan</td>
+                        <td><span>Nan</span></td>
                     {% else %}
                         <td>
                             <span>{{ income.incomeBeforeTax }}</span>
@@ -78,10 +88,12 @@
                 {% endfor %}
             </tr>
             <tr>
-                <th scope="row">Tax Provision</th>
+                <th scope="row">
+                    <span>Tax Provision</span>
+                </th>
                 {% for income in annual_income_statement_longfmt %}
                     {% if not income.incomeTaxExpense %}
-                        <td>Nan</td>
+                        <td><span>Nan</span></td>
                     {% else %}
                         <td>
                             <span>{{ income.incomeTaxExpense }}</span>
@@ -90,10 +102,12 @@
                 {% endfor %}
             </tr>
             <tr>
-                <th scope="row">EBIT</th>
+                <th scope="row">
+                    <span>EBIT</span>
+                </th>
                 {% for income in annual_income_statement_longfmt %}
                     {% if not income.ebit %}
-                        <td>Nan</td>
+                        <td><span>Nan</span></td>
                     {% else %}
                         <td>
                             <span>{{ income.ebit }}</span>
@@ -102,10 +116,12 @@
                 {% endfor %}
             </tr>
             <tr>
-                <th scope="row">Net Income from Continuing Ops</th>
+                <th scope="row">
+                    <span>Net Income from Continuing Ops</span>
+                </th>
                 {% for income in annual_income_statement_longfmt %}
                     {% if not income.netIncomeFromContinuingOps %}
-                        <td>Nan</td>
+                        <td><span>Nan</span></td>
                     {% else %}
                         <td>
                             <span>{{ income.netIncomeFromContinuingOps }}</span>
@@ -114,10 +130,12 @@
                 {% endfor %}
             </tr>
             <tr>
-                <th scope="row">Total Other Income Expense Net</th>
+                <th scope="row">
+                    <span>Total Other Income Expense Net</span>
+                </th>
                 {% for income in annual_income_statement_longfmt %}
                     {% if not income.totalOtherIncomeExpenseNet %}
-                        <td>Nan</td>
+                        <td><span>Nan</span></td>
                     {% else %}
                         <td>
                             <span>{{ income.totalOtherIncomeExpenseNet }}</span>
@@ -126,10 +144,10 @@
                 {% endfor %}
             </tr>
             <tr>
-                <th scope="row">Net Income Applicable To Common Shares</th>
+                <th scope="row"><span>Net Income Applicable To Common Shares</span></th>
                 {% for income in annual_income_statement_longfmt %}
                     {% if not income.netIncomeApplicableToCommonShares %}
-                        <td>Nan</td>
+                        <td><span>Nan</span></td>
                     {% else %}
                         <td>
                             <span>{{ income.netIncomeApplicableToCommonShares }}</span>

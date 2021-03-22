@@ -34,7 +34,7 @@
                         <hr>
                         {% if not message_error %}
                             <div class="alert alert-success text-center" role="alert">
-                                <span>{{stock_data.symbol}} @ {{stock_data.name}} </span>
+                                <span>{{quote.symbol}} @ {{quote.shortName}} </span>
                             </div>
                         {% else %}
                             <br>
@@ -59,7 +59,7 @@
 {#                        {%load plotly_dash %}#}
 
                         <div class="alert alert-success" role="alert">
-                            <span>{{symbol}} </span>
+                            <span>{{quote.symbol}} </span>
                         </div>
                     {% endif %}
 

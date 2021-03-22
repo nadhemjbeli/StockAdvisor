@@ -5,6 +5,8 @@ class Stock(models.Model):
     symbol = models.CharField(max_length=500)
     name = models.CharField(max_length=500)
     currency = models.CharField(max_length=500)
+    exchangeTimezoneName = models.CharField(max_length=500)
+    market = models.CharField(max_length=500)
     created = models.DateTimeField(auto_now=True)
 
     def __str__(self):

@@ -118,7 +118,7 @@ def get_live_update(stock):
         # html.H2(id='live-update-change', children='Change:'),
         dcc.Interval(
             id='interval-component',
-            interval=5000, # 3000 milliseconds = 3 seconds
+            interval=4000, # 3000 milliseconds = 3 seconds
             n_intervals=0
         ),
     ])
@@ -134,11 +134,13 @@ def get_live_update(stock):
         r = requests.get(url)
         # soup = bs4.BeautifulSoup(r.text, 'html.parser')
         soup = BeautifulSoup(r.text, 'lxml')
-        price = soup.find('div', {'class':'D(ib) Mend(20px)'}).findChildren()[0].text
-        print('Price: {}'.format(price))
+        # price = soup.find('div', {'class': 'D(ib) Va(m) Maw(65%) Ov(h)'}).find('p').findChildren()[0].text
+        price = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[0].text
+        change = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[1].text
+        print('Price: {} {}'.format(price, change))
         # change = soup.find('div', {'class':'D(ib) Mend(20px)'}).findChildren()[0].text
         # return price, change
-        return 'Price: {} '.format(price)
+        return 'Price: {} {}'.format(price, change)
 
 
 def get_stock(request, symbol='AAPL'):
@@ -166,6 +168,12 @@ def single_stock(request, symbol='AAPL'):
 
 
     # PlotlyGraph
+    json_data_financials = load_url_financials(symbol)
+
+    quote = quote_type_yahoo(json_data_financials)
+    print(quote)
+    price_dict_raw = stock_price_yahoo(json_data_financials)
+    price_dict_fmt = stock_price_yahoo(json_data_financials, 'fmt')
 
     # token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
     # api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
@@ -174,16 +182,19 @@ def single_stock(request, symbol='AAPL'):
     # data['changePercent'] = round(data['changePercent'], 3)
     # stock_data = get_stock_quote(symbol, api_key)
     # print(f'stock_data:\n{stock_data}')
-    # models.Stock.objects.get_or_create(symbol=symbol, name=stock_data['name'], currency=stock_data['currency'])
+    models.Stock.objects.get_or_create(symbol=quote['symbol'], name=quote['shortName'], currency=quote['currency'])
     context = {
         'stock': stock,
         'symbol': symbol,
         # 'stock_data': stock_data,
         # 'data': data,
+        'quote': quote,
         'candlestick': candlestick(ts_df),
         'plotly': plotly(ts_df),
         'plotly_slider': plotly_slider(ts_df),
         'compare_stock': compare_stock(),
+        'price_dict_raw': price_dict_raw,
+        'price_dict_fmt': price_dict_fmt,
         'message_error': message_error,
     }
 
@@ -194,6 +205,7 @@ def single_stock(request, symbol='AAPL'):
     return render(request, 'home/stock.html', context)
 
 def search_stock(request):
+
     message_error = None
     if request.method == 'POST':
         symbol = request.POST.get('symbol')
@@ -207,6 +219,7 @@ def search_stock(request):
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
+    get_live_update(symbol)
     def compare_stock():
         df = px.data.stocks()
         fig = px.line(df, x="date", y=df.columns,
@@ -217,7 +230,8 @@ def search_stock(request):
             tickformat="%b\n%Y")
         compare_div = plot(fig, output_type='div')
         return compare_div
-
+    quote = quoteType(symbol)
+    print(quote)
     # token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
     # api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
     # # api_url = f'https://sandbox.iexapis.com/stable/stock/aapl/quote?token={token}'
@@ -229,15 +243,9 @@ def search_stock(request):
     # models.Stock.objects.get_or_create(symbol=symbol, name=stock_data['name'], currency=stock_data['currency'])
     context = {
         'symbol': symbol,
-        # 'moredata': moredata,
-        # 'eth': eth,
-        # 'btc': btc,
-        # 'ltc': ltc,
-        # 'percentchange': percentchange,
-        # 'buyers': buyers,
-        # 'sellers': sellers,
         # 'stock_data': stock_data,
         # 'data': data,
+        'quote': quote,
         'candlestick': candlestick(ts_df),
         'plotly': plotly(ts_df),
         'plotly_slider': plotly_slider(ts_df),
@@ -245,6 +253,5 @@ def search_stock(request):
         'message_error': message_error,
     }
 
-    # get_live_update(symbol)
 
     return render(request, 'home/stock.html', context, )
