@@ -3,7 +3,6 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 from django_plotly_dash import DjangoDash
-from bs4 import BeautifulSoup
 from home.plots import *
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -103,6 +102,7 @@ def display_value(value):
 
 def get_live_update(stock):
     app1 = DjangoDash('price', external_stylesheets=external_stylesheets)
+
     app1.layout = html.Div([
         html.H2(id='live-update-text', children=''),
         # dcc.Interval(
@@ -125,26 +125,28 @@ def get_live_update(stock):
         # print(dir(HttpResponse()))
         # print(HttpResponse())
         url_quote = 'https://finance.yahoo.com/quote/{}?p={}'
+
         url = url_quote.format(stock, stock)
         # print(url)
         r = requests.get(url)
         # soup = bs4.BeautifulSoup(r.text, 'html.parser')
         soup = BeautifulSoup(r.text, 'lxml')
         # price = soup.find('div', {'class': 'D(ib) Va(m) Maw(65%) Ov(h)'}).find('p').findChildren()[0].text
-        price = soup.find('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'}).find('div').findChildren()[0].text
+        price = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[0].text
         change = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[1].text
-        print('Price: {} {}'.format(price, change))
+        time = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[3].text
+        print('Price: {} {} {}'.format(price, change, time))
         style1 = {'padding': '5px', 'fontSize': '30px'}
         style2 = {'padding': '5px', 'fontSize': '26px', 'font-weight': '26px'}
         if change[0] == '+':
             style2['color'] = 'green'
         else:
             style2['color'] = 'red'
-        # return [
-        #     html.Span('Price: {},'.format(price), style=style1),
-        #     html.Span('change: {}'.format(change), style=style2),
-        # ]
-        return 'price: {}'.format(price)
+        return [
+            html.Span('Price: {},'.format(price), style=style1),
+            html.Span('change: {}'.format(change), style=style2),
+        ]
+
 
 def get_stock(request, symbol='AAPL'):
     stocks = Stock.objects.all()
@@ -163,7 +165,7 @@ def single_stock(request, symbol='AAPL'):
     # print(stock)
     from pandas_datareader._utils import RemoteDataError
     try:
-        ts_df = get_data(symbol)
+        ts_df = get_data(symbol, 730)
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
@@ -197,7 +199,7 @@ def single_stock(request, symbol='AAPL'):
         'message_error': message_error,
     }
 
-    return render(request, 'home/stock.html', context)
+    return render(request, 'home/single_stock.html', context)
 
 
 def search_stock(request):

@@ -9,6 +9,9 @@ api_key = '701005b908bc42b8800ca2fac03f2736'
 
 # PlotlyGraph
 def candlestick(ts_df):
+    dt_all = pd.date_range(start=ts_df.index[0], end=ts_df.index[-1])
+    dt_obs = [d.strftime("%Y-%m-%d") for d in ts_df.index]
+    dt_breaks = [d for d in dt_all.strftime("%Y-%m-%d").tolist() if not d in dt_obs]
     figure = go.Figure(
         data=[
             go.Candlestick(
@@ -21,6 +24,22 @@ def candlestick(ts_df):
         ]
     )
 
+    figure.update_xaxes(
+        rangebreaks=[dict(values=dt_breaks)]  # hide dates with no values
+    )
+
+    figure.update_xaxes(
+        rangeslider_visible=False,
+        rangeselector=dict(
+            buttons=list([
+                # dict(count=1, label="day", step="day", stepmode="todate"),
+                dict(count=1, label="this month", step="month", stepmode="todate"),
+                dict(count=31, label="1 month", step="day", stepmode="todate"),
+                dict(count=1, label="this year", step="year", stepmode="todate"),
+                dict(count=12, label="1 year", step="month", stepmode="todate"),
+                dict(step="all")
+            ])
+        ))
     candlestick_div = plot(figure, output_type='div')
     return candlestick_div
 

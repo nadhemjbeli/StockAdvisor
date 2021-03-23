@@ -72,7 +72,7 @@ def get_bollinger_bands(rm, rstd):
     return upper_band, lower_band
 
 
-def get_data(symbol, dtime=365):
+def get_data(symbol, dtime=3650):
     start = dt.datetime.now() - dt.timedelta(dtime)
     now = dt.datetime.now()
     data = pdr.DataReader(symbol, 'yahoo', start, now)
