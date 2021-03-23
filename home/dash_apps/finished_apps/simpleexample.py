@@ -24,8 +24,6 @@ app.layout = html.Div([
 ])
 
 
-
-
 @app.callback(
     Output('slider-graph', 'figure'),
     [Input('slider-updatemode', 'value')])
@@ -85,8 +83,6 @@ def display_value(value):
 #     return price
 
 
-
-
 # @app1.callback(Output('live-update-change', 'children'),
 #                [Input('interval-component', 'n_intervals')])
 # def update_change(n):
@@ -118,8 +114,8 @@ def get_live_update(stock):
         # html.H2(id='live-update-change', children='Change:'),
         dcc.Interval(
             id='interval-component',
-            interval=4000, # 3000 milliseconds = 3 seconds
-            n_intervals=0
+            interval=1*4000,  # 3000 milliseconds = 3 seconds
+            n_intervals=1
         ),
     ])
 
@@ -135,13 +131,20 @@ def get_live_update(stock):
         # soup = bs4.BeautifulSoup(r.text, 'html.parser')
         soup = BeautifulSoup(r.text, 'lxml')
         # price = soup.find('div', {'class': 'D(ib) Va(m) Maw(65%) Ov(h)'}).find('p').findChildren()[0].text
-        price = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[0].text
+        price = soup.find('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'}).find('div').findChildren()[0].text
         change = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[1].text
         print('Price: {} {}'.format(price, change))
-        # change = soup.find('div', {'class':'D(ib) Mend(20px)'}).findChildren()[0].text
-        # return price, change
-        return 'Price: {} {}'.format(price, change)
-
+        style1 = {'padding': '5px', 'fontSize': '30px'}
+        style2 = {'padding': '5px', 'fontSize': '26px', 'font-weight': '26px'}
+        if change[0] == '+':
+            style2['color'] = 'green'
+        else:
+            style2['color'] = 'red'
+        # return [
+        #     html.Span('Price: {},'.format(price), style=style1),
+        #     html.Span('change: {}'.format(change), style=style2),
+        # ]
+        return 'price: {}'.format(price)
 
 def get_stock(request, symbol='AAPL'):
     stocks = Stock.objects.all()
@@ -151,6 +154,7 @@ def get_stock(request, symbol='AAPL'):
         'symbol': symbol,
     }
     return render(request, "home/table_stock.html", context)
+
 
 def single_stock(request, symbol='AAPL'):
     get_live_update(symbol)
@@ -164,17 +168,13 @@ def single_stock(request, symbol='AAPL'):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
 
-
-
-
     # PlotlyGraph
     json_data_financials = load_url_financials(symbol)
 
     quote = quote_type_yahoo(json_data_financials)
     print(quote)
-    price_dict_raw = stock_price_yahoo(json_data_financials)
-    price_dict_fmt = stock_price_yahoo(json_data_financials, 'fmt')
-
+    price_dict = stock_price_yahoo(json_data_financials)
+    # price_dict_long_fmt = stock_price_yahoo(json_data_financials, 'longFmt')
     # token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
     # api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
     # data = requests.get(api_url).json()
@@ -182,7 +182,7 @@ def single_stock(request, symbol='AAPL'):
     # data['changePercent'] = round(data['changePercent'], 3)
     # stock_data = get_stock_quote(symbol, api_key)
     # print(f'stock_data:\n{stock_data}')
-    models.Stock.objects.get_or_create(symbol=quote['symbol'], name=quote['shortName'], currency=quote['currency'])
+    # models.Stock.objects.get_or_create(symbol=quote['symbol'], name=quote['shortName'], currency=quote['currency'])
     context = {
         'stock': stock,
         'symbol': symbol,
@@ -190,22 +190,17 @@ def single_stock(request, symbol='AAPL'):
         # 'data': data,
         'quote': quote,
         'candlestick': candlestick(ts_df),
-        'plotly': plotly(ts_df),
-        'plotly_slider': plotly_slider(ts_df),
-        'compare_stock': compare_stock(),
-        'price_dict_raw': price_dict_raw,
-        'price_dict_fmt': price_dict_fmt,
+        # 'plotly': plotly(ts_df),
+        # 'plotly_slider': plotly_slider(ts_df),
+        # 'compare_stock': compare_stock(),
+        'price_dict': price_dict,
         'message_error': message_error,
     }
 
-
-
-
-
     return render(request, 'home/stock.html', context)
 
-def search_stock(request):
 
+def search_stock(request):
     message_error = None
     if request.method == 'POST':
         symbol = request.POST.get('symbol')
@@ -220,6 +215,7 @@ def search_stock(request):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
     get_live_update(symbol)
+
     def compare_stock():
         df = px.data.stocks()
         fig = px.line(df, x="date", y=df.columns,
@@ -230,17 +226,14 @@ def search_stock(request):
             tickformat="%b\n%Y")
         compare_div = plot(fig, output_type='div')
         return compare_div
-    quote = quoteType(symbol)
+
+    json_data_financials = load_url_financials(symbol)
+
+    quote = quote_type_yahoo(json_data_financials)
     print(quote)
-    # token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
-    # api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
-    # # api_url = f'https://sandbox.iexapis.com/stable/stock/aapl/quote?token={token}'
-    # data = requests.get(api_url).json()
-    # data['changePercent'] = round(data['changePercent'], 3)
-    # print(f'data:\n{data}')
-    # stock_data = get_stock_quote(symbol, api_key)
-    # print(f'stock_data:\n{stock_data}')
-    # models.Stock.objects.get_or_create(symbol=symbol, name=stock_data['name'], currency=stock_data['currency'])
+    price_dict = stock_price_yahoo(json_data_financials)
+
+    models.Stock.objects.get_or_create(symbol=quote['symbol'], name=quote['shortName'], currency=price_dict['currency'])
     context = {
         'symbol': symbol,
         # 'stock_data': stock_data,
@@ -250,8 +243,8 @@ def search_stock(request):
         'plotly': plotly(ts_df),
         'plotly_slider': plotly_slider(ts_df),
         'compare_stock': compare_stock(),
+        'price_dict': price_dict,
         'message_error': message_error,
     }
-
 
     return render(request, 'home/stock.html', context, )

@@ -8,8 +8,12 @@
 
 {% block content %}
 
-    {% include 'home/topstock.html'%}
-
+{#    {% include 'home/topstock.html'%}#}
+    <style>
+        .light_blue{
+            background-color: #c7d6ff;
+        }
+    </style>
 
     <div class="container-fluid">
         <div class="row mt-5 mb-5 justify-content-center">
@@ -33,7 +37,7 @@
 
                         <hr>
                         {% if not message_error %}
-                            <div class="alert alert-success text-center" role="alert">
+                            <div class="alert  text-center light_blue" role="alert">
                                 <span>{{quote.symbol}} @ {{quote.shortName}} </span>
                             </div>
                         {% else %}
@@ -42,10 +46,10 @@
                         <hr>
 
                         <ul class="list-group">
-                            <li class="list-group-item list-group-item-success"><bold>Quick Info</bold></li>
-                            <li class="list-group-item list-group-item-success">High: {{stock_data.high}} </li>
-                            <li class="list-group-item list-group-item-success">Low: {{stock_data.low}}</li>
-                            <li class="list-group-item list-group-item-success">Volume: {{stock_data.average_volume}} </li>
+                            <li class="list-group-item light_blue"><bold>Quick Info</bold></li>
+                            <li class="list-group-item light_blue">High: {{price_dict.regularMarketDayHigh.raw}} </li>
+                            <li class="list-group-item light_blue">Low: {{price_dict.regularMarketDayLow.raw}}</li>
+                            <li class="list-group-item light_blue">Volume: {{price_dict.regularMarketVolume.longFmt}} </li>
                         </ul>
                     </div>
                 </div>
@@ -58,7 +62,7 @@
                     {% if not message_error %}
 {#                        {%load plotly_dash %}#}
 
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert light_blue" role="alert">
                             <span>{{quote.symbol}} </span>
                         </div>
                     {% endif %}

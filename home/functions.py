@@ -237,6 +237,5 @@ def quote_type_yahoo(json_data_quote):
 
 def stock_price_yahoo(json_data_price, dtype = 'raw'):
     json_price = json_data_price['context']['dispatcher']['stores']['QuoteSummaryStore']['price']
-    price_dict = scrape_yahoo_dict_data(json_price, dtype)
-    print(price_dict)
-    return price_dict
+    print(json_price)
+    return json_price
