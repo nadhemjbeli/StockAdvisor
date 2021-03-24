@@ -4,15 +4,13 @@
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/dash_apps/finished_apps/simpleexample.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/dash_apps/finished_apps/simpleexample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/plots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/income_statements.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/income_statements.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/templates/home/nav/financials_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/nav/financials_nav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_analysis.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/templates/home/table_stock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/table_stock.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/topstock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/topstock.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/nav_days.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav_days.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/_sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_sidebar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +88,7 @@
       <updated>1615841501830</updated>
       <workItem from="1615841513622" duration="6024000" />
       <workItem from="1615849101833" duration="80455000" />
-      <workItem from="1616521675026" duration="19450000" />
+      <workItem from="1616521675026" duration="27014000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
@@ -162,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616540126037</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="creating summary.html and creating a navbar that relates all the work">
+      <created>1616617023960</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1616617023961</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,6 +180,7 @@
     <MESSAGE value="income_statements.html" />
     <MESSAGE value="prices_dict_data" />
     <MESSAGE value="change the date into continuous date in plotly" />
-    <option name="LAST_COMMIT_MESSAGE" value="change the date into continuous date in plotly" />
+    <MESSAGE value="creating summary.html and creating a navbar that relates all the work" />
+    <option name="LAST_COMMIT_MESSAGE" value="creating summary.html and creating a navbar that relates all the work" />
   </component>
 </project>

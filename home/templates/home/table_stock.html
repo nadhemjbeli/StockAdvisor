@@ -6,41 +6,64 @@
 
 
 
+
 {% block content %}
+{#    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">#}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <div class="container">
         <h1>stocks table</h1>
         <div class="card card-body">
-            <table class="table">
-                <tr>
-                    <th>Symbol</th>
-                    <th>name</th>
-                    <th>Currency</th>
-                    <th>Analysis</th>
-                </tr>
-                {% for stock in stocks %}
-                    <tr>
-                        <td>
-                            <a href="{% url 'home:show_stock_vis' stock.symbol %}">{{ stock.symbol }}</a>
-                        </td>
-                        <td>
-                            {{ stock.name }}
-                        </td>
-                        <td>
-                            {{ stock.currency }}
-                        </td>
-                        <td>
-                            <a href="{% url 'home:stock_analysis' stock.symbol 365 %}">Analysis of <b>{{ stock.symbol }}</b></a>
-                        </td>
-                        <td>
-                            <a href="{% url 'home:show_summary' stock.symbol %}">summary of <b>{{ stock.symbol }}</b></a>
-                        </td>
-                    </tr>
-                {% endfor %}
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>name</th>
+                                <th>Currency</th>
+                                <th>Summary</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>name</th>
+                            <th>Currency</th>
+                            <th>Summary</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for stock in stocks %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'home:show_single_stock' stock.symbol %}">{{ stock.symbol }}</a>
+                                    </td>
+                                    <td>
+                                        {{ stock.name }}
+                                    </td>
+                                    <td>
+                                        {{ stock.currency }}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'home:show_summary' stock.symbol %}">summary of <b>{{ stock.symbol }}</b></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
 
-            </table>
+                    </table>
+                </div>
         </div>
+
     </div>
 
-
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+{#    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>#}
+{#    <script src="{% static 'vendor/datatables/jequery.datatables.js' %}"></script>#}
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        } );
+    </script>
 
 {% endblock %}

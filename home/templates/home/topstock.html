@@ -1,6 +1,6 @@
 {% load static %}
 <link rel="stylesheet" type = "text/css" href="{% static 'css/style.css' %}">
-
+{% include 'home/nav/financials_nav.html'%}
 <section id="top-crypto">
 
     {% if message_error %}
@@ -39,14 +39,14 @@
                                 <tr>
 {#                                    <th class="lead-3">Buyers</th>#}
 {#                                    <th>Sellers</th>#}
-                                    <th>Price</th>
+                                    <th>Market Cap</th>
                                 </tr>
 
                                 <tr>
 {#                                    <th>{{buyers}}</th>#}
 {#                                    <th>{{sellers}}</th>#}
 {#                                    <th>{{ data.peRatio }}</th>#}
-                                    <th>{{ data.peRatio }}</th>
+                                    <th>{{ price_dict.marketCap.fmt }}</th>
                                 </tr>
                             </table>
                         </div>
@@ -58,34 +58,34 @@
                 <div class="card text-center">
                     <div class="card-header">{% if not message_error %} {{quote.symbol}} Change {% endif %} </div>
                     <div class="card-body">
-                        <h1 class="display-4"> {{price_dict.postMarketChangePercent.fmt}} </h1>
+                        <h1 class="display-4"> {{price_dict.regularMarketChangePercent.fmt}} </h1>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-3 col-xs-12 py-3">
                 <div class="card text-center">
-                    <div class="card-header">Pe ratio</div>
+                    <div class="card-header">Currency symbol</div>
 
                     <div class="card-body">
 
-{#                        <div class="table-responsive">#}
+                        <div class="table-responsive">
 {##}
-{#                            <table class="table table-hover table-sm">#}
-{#                                <thead>#}
-{#                                <tr>#}
-{#                                    <th scope="col">Price</th>#}
-{#                                </tr>#}
-{#                                </thead>#}
-{#                                <tbody>#}
-{#                                <tr>#}
-{#                                    <th scope="row">#}
-{#                                        #}
-{#                                    </th>#}
-{#                                </tr>#}
-{#                                </tbody>#}
-{#                            </table>#}
-{#                        </div>#}
+                            <table class="table table-hover table-sm">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Currency symbol</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">
+                                        {{ price_dict.currencySymbol }}
+                                    </th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

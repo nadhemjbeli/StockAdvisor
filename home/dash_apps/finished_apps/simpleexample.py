@@ -150,7 +150,9 @@ def get_live_update(stock):
 
 def get_stock(request, symbol='AAPL'):
     stocks = Stock.objects.all()
-
+    print('stocks')
+    for stock in stocks:
+        print(stock)
     context = {
         'stocks': stocks,
         'symbol': symbol,
@@ -232,19 +234,25 @@ def search_stock(request):
     json_data_financials = load_url_financials(symbol)
 
     quote = quote_type_yahoo(json_data_financials)
-    print(quote)
+    print(f'quote: {quote}')
     price_dict = stock_price_yahoo(json_data_financials)
 
-    models.Stock.objects.get_or_create(symbol=quote['symbol'], name=quote['shortName'], currency=price_dict['currency'])
+    models.Stock.objects.get_or_create(
+        symbol=quote['symbol'],
+        name=quote['shortName'],
+        currency=price_dict['currency'],
+        exchangeTimezoneName=quote['exchangeTimezoneName'],
+        market=quote['market']
+    )
     context = {
         'symbol': symbol,
         # 'stock_data': stock_data,
         # 'data': data,
         'quote': quote,
         'candlestick': candlestick(ts_df),
-        'plotly': plotly(ts_df),
-        'plotly_slider': plotly_slider(ts_df),
-        'compare_stock': compare_stock(),
+        # 'plotly': plotly(ts_df),
+        # 'plotly_slider': plotly_slider(ts_df),
+        # 'compare_stock': compare_stock(),
         'price_dict': price_dict,
         'message_error': message_error,
     }
