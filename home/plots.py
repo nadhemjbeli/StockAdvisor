@@ -43,6 +43,80 @@ def candlestick(ts_df):
     candlestick_div = plot(figure, output_type='div')
     return candlestick_div
 
+def choose_color_area_1_day(df):
+    start = df['close'][0]
+    print('start ', start)
+    end = df['close'][-1]
+    print('end ', end)
+    if end > start:
+        figure = go.Figure(
+            data=[
+                go.Scatter(
+                    x=df.index,
+                    y=df['close'],
+                    line=dict(
+                        color='rgb(38,255,0)',
+                        width=3
+                    )
+                )
+            ]
+        )
+    else:
+        figure = go.Figure(
+            data=[
+                go.Scatter(
+                    x=df.index,
+                    y=df['close'],
+                    line=dict(
+                        color='tomato',
+                        width=3
+                    )
+                )
+            ]
+        )
+    return figure
+
+def area_plot_1_day(symbol):
+    # from twelvedata import TDClient
+    from iexfinance.stocks import get_historical_intraday
+    token = 'pk_2287fdfeab07481297cac422c06f9dc6'
+    if dt.datetime.now().hour > 9:
+        start = dt.datetime.now()
+    else:
+        start = dt.datetime.now() - dt.timedelta(1)
+    start_date = start.replace(hour=9, minute=30, second=0, microsecond=0)
+    print(start_date)
+    end_date = start.replace(hour=16, minute=0, second=0, microsecond=0)
+    # Initialize client - apikey parameter is requiered
+    ticker = 'MSFT'
+    # api_key = '701005b908bc42b8800ca2fac03f2736'
+    df = get_historical_intraday(symbol, ouput_format='pandas',token=token, start=start_date, end=end_date)
+    print(df)
+    dt_all = pd.date_range(start=df.index[0], end=df.index[-1])
+    dt_obs = [d.strftime("%Y-%m-%d") for d in df.index]
+    dt_breaks = [d for d in dt_all.strftime("%Y-%m-%d").tolist() if not d in dt_obs]
+    # figure = px.area(x=df.index, y=df['close'])
+    figure = choose_color_area_1_day(df)
+    print(dt_breaks)
+    figure.update_xaxes(
+        rangebreaks=[dict(values=dt_breaks)]  # hide dates with no values
+    )
+
+    # figure.update_xaxes(
+    #     rangeslider_visible=False,
+    #     rangeselector=dict(
+    #         buttons=list([
+    #             # dict(count=1, label="day", step="day", stepmode="todate"),
+    #             dict(count=1, label="this month", step="month", stepmode="todate"),
+    #             dict(count=31, label="1 month", step="day", stepmode="todate"),
+    #             dict(count=1, label="this year", step="year", stepmode="todate"),
+    #             dict(count=12, label="1 year", step="month", stepmode="todate"),
+    #             dict(step="all")
+    #         ])
+    #     ))
+    area_div = plot(figure, output_type='div')
+    return area_div
+
 
 def plotly(ts_df):
     figure = go.Figure(

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from plotly.offline import plot
 import plotly.graph_objects as go
 from .plots import *
-
+from .dash_apps.finished_apps.simpleexample import *
 # Create your views here.
 symbol = 'AAPL'
 
@@ -67,7 +67,7 @@ def get_income_statements(request, symbol):
 #     return render(request, "home/visualize.html", context)
 
 
-def stockAnalysis(request, symbol, dtime):
+def stockAnalysis(request, symbol, dtime=365):
     stock = Stock.objects.get(symbol=symbol)
     df = get_data(symbol, dtime)
     graph, graph_plotly1, graph_plotly2, graph_plotly3 = compute_bollinger_bands(df, symbol, dtime)
@@ -83,6 +83,7 @@ def stockAnalysis(request, symbol, dtime):
 
     p_b_s = plot_buy_sell(df, symbol)
     context = {
+        'symbol': symbol,
         'stock': stock,
         'graph_plotly1': graph_plotly1,
         'graph_plotly2': graph_plotly2,
@@ -91,3 +92,14 @@ def stockAnalysis(request, symbol, dtime):
         'p_b_s': p_b_s,
     }
     return render(request, 'home/stock_analysis.html', context)
+
+
+def get_stock_summary(request, symbol):
+    get_live_update(symbol)
+    area_1_day = area_plot_1_day(symbol)
+    context = {
+        'area_1_day': area_1_day,
+        'symbol': symbol,
+    }
+    return render(request, 'home/stock/summary.html', context)
+

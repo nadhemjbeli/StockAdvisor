@@ -2,10 +2,10 @@
 <style>
     .periods{
         {#color:#ffffff;#}
-{#        margin-left:5px#}
+        margin-left:5px
     }
 </style>
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-light">
     {#  <a class="navbar-brand" href="#"><img class="nav-img" src="{% static '/img/CryptoCrow.png' %}"></a>#}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -17,16 +17,16 @@
                 {#        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>#}
             </li>
             <li class="nav-item ml-auto">
-                <a class="nav-link periods" href="{% url 'home:stock_analysis' stock.symbol 30 %}" style="color:#ffffff;">30 Days</a>
+                <a class="nav-link periods" href="{% url 'home:stock_analysis' stock.symbol 30 %}" >30 Days</a>
             </li>
             <li class="nav-item ml-auto">
-                <a class="nav-link periods" href="{% url 'home:stock_analysis' stock.symbol 150 %}" style="color:#ffffff;">5 Months</a>
+                <a class="nav-link periods" href="{% url 'home:stock_analysis' stock.symbol 150 %}" >5 Months</a>
             </li>
             <li class="nav-item ml-auto">
-                <a class="nav-link periods" href="{% url 'home:stock_analysis' stock.symbol 365 %}" style="color:#ffffff;">1 Year</a>
+                <a class="nav-link periods" href="{% url 'home:stock_analysis' stock.symbol 365 %}" >1 Year</a>
             </li>
             <li class="nav-item ml-auto">
-                <a class="nav-link periods" href="{% url 'home:stock_analysis' stock.symbol 1095 %}" style="color:#ffffff;">3 Years</a>
+                <a class="nav-link periods" href="{% url 'home:stock_analysis' stock.symbol 1095 %}" >3 Years</a>
             </li>
 
 

@@ -114,7 +114,7 @@ def get_live_update(stock):
         # html.H2(id='live-update-change', children='Change:'),
         dcc.Interval(
             id='interval-component',
-            interval=1*4000,  # 3000 milliseconds = 3 seconds
+            interval=1*3000,  # 3000 milliseconds = 3 seconds
             n_intervals=1
         ),
     ])
@@ -136,7 +136,7 @@ def get_live_update(stock):
         change = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[1].text
         time = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[3].text
         print('Price: {} {} {}'.format(price, change, time))
-        style1 = {'padding': '5px', 'fontSize': '30px'}
+        style1 = {'padding': '5px', 'fontSize': '30px', 'font-weight': '700'}
         style2 = {'padding': '5px', 'fontSize': '26px', 'font-weight': '26px'}
         if change[0] == '+':
             style2['color'] = 'green'
@@ -250,3 +250,12 @@ def search_stock(request):
     }
 
     return render(request, 'home/stock.html', context, )
+
+def get_stock_summary(request, symbol):
+    get_live_update(symbol)
+    area_1_day = area_plot_1_day(symbol)
+    context = {
+        'area_1_day': area_1_day,
+        'symbol': symbol,
+    }
+    return render(request, 'home/stock/summary.html', context)

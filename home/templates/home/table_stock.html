@@ -31,6 +31,9 @@
                         <td>
                             <a href="{% url 'home:stock_analysis' stock.symbol 365 %}">Analysis of <b>{{ stock.symbol }}</b></a>
                         </td>
+                        <td>
+                            <a href="{% url 'home:show_summary' stock.symbol %}">summary of <b>{{ stock.symbol }}</b></a>
+                        </td>
                     </tr>
                 {% endfor %}
 

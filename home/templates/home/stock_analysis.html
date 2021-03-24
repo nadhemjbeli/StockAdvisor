@@ -7,11 +7,13 @@
 
 
 {% block content %}
-    <br>
-    <br>
+{#    <br>#}
+{#    <br>#}
+    {% include 'home/nav/financials_nav.html'%}
     {% include 'nav_days.html'%}
 
     <div class="container">
+
         <h1>Stock analysis for: {{ stock.symbol }} ({{ stock.name }})</h1>
 {#        {% if graph %}#}
 {#            <img src="data:image/png;base64, {{ graph | safe }}">#}

@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}{{symbol}} {{stock_data.high}}{% endblock %}
+
+
+
+
+{% block content %}
+    {% include 'home/nav/financials_nav.html'%}
+    <div class="container">
+        <br>
+        <h1>{{ symbol }}</h1>
+        <br>
+        {%load plotly_dash %}
+        {% plotly_app name='price' %}
+        <br>
+        <br>
+        {{ area_1_day | safe }}
+    </div>
+    <style>
+        .light_blue{
+            background-color: #26ff00;
+        }
+    </style>
+
+{% endblock %}
