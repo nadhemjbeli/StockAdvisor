@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_no_jquery.html' %}
 {% load static %}
 
 {% block title %}Stock group {% endblock %}
@@ -8,14 +8,23 @@
 
 
 {% block content %}
+    <!--Export table button CSS-->
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
+{#    {% block head %}#}
 {#    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">#}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+{#    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">#}
+{#    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>#}
+{#        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.24/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.3/fc-3.3.2/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sb-1.0.1/sp-1.2.2/sl-1.3.3/datatables.min.css"/>#}
+{#    {% endblock head %}#}
+{#    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">#}
+{#    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>#}
     <div class="container">
         <h1>stocks table</h1>
         <div class="card card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="tbl" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>Symbol</th>
@@ -24,14 +33,14 @@
                                 <th>Summary</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                        <tr>
-                            <th>Symbol</th>
-                            <th>name</th>
-                            <th>Currency</th>
-                            <th>Summary</th>
-                        </tr>
-                        </tfoot>
+{#                        <tfoot>#}
+{#                        <tr>#}
+{#                            <th>Symbol</th>#}
+{#                            <th>name</th>#}
+{#                            <th>Currency</th>#}
+{#                            <th>Summary</th>#}
+{#                        </tr>#}
+{#                        </tfoot>#}
                         <tbody>
                             {% for stock in stocks %}
                                 <tr>
@@ -56,14 +65,51 @@
         </div>
 
     </div>
+    <!--Import jQuery before export.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-{#    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>#}
-{#    <script src="{% static 'vendor/datatables/jequery.datatables.js' %}"></script>#}
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        } );
-    </script>
+
+    <!--Data Table-->
+    <script type="text/javascript"  src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"  src=" https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+
+    <!--Export table buttons-->
+    <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js" ></script>
+    <script type="text/javascript"  src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+
+{#    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jszip-2.5.0/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.3/fc-3.3.2/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sl-1.3.3/datatables.min.css"/>#}
+{##}
+{#    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>#}
+{#    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>#}
+{#    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jszip-2.5.0/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.3/fc-3.3.2/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sl-1.3.3/datatables.min.js"></script>#}
+
+
+
+    {#    {% block js %}#}
+{#        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>#}
+{#    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>#}
+{#    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>#}
+{#        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>#}
+{#        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.24/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.3/fc-3.3.2/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sb-1.0.1/sp-1.2.2/sl-1.3.3/datatables.min.js"></script>#}
+{#    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>#}
+{#        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>#}
+{#            <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>#}
+{#            <script src="{% static 'vendor/datatables/jequery.datatables.js' %}"></script>#}
+        <script>
+            $(document).ready(function() {
+                $('#tbl').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ]
+                });
+            } );
+        </script>
+{#    {% endblock js %}#}
+
+
 
 {% endblock %}

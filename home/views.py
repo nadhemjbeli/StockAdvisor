@@ -47,7 +47,7 @@ def get_income_statements(request, symbol):
         # 'financials_raw': financials_raw,
         'annual_income_statement_fmt': annual_income_statement_fmt,
         'annual_income_statement_longfmt': annual_income_statement_longfmt,
-        'symbol': symbol,
+        'symbol': symbol.upper(),
 
     }
 
@@ -83,7 +83,7 @@ def stockAnalysis(request, symbol, dtime=365):
 
     p_b_s = plot_buy_sell(df, symbol)
     context = {
-        'symbol': symbol,
+        'symbol': symbol.upper(),
         'stock': stock,
         'graph_plotly1': graph_plotly1,
         'graph_plotly2': graph_plotly2,
@@ -99,7 +99,7 @@ def get_stock_summary(request, symbol):
     area_1_day = area_plot_1_day(symbol)
     context = {
         'area_1_day': area_1_day,
-        'symbol': symbol,
+        'symbol': symbol.upper(),
     }
     return render(request, 'home/stock/summary.html', context)
 

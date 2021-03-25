@@ -36,7 +36,6 @@ def candlestick(ts_df):
                 dict(count=1, label="this month", step="month", stepmode="todate"),
                 dict(count=31, label="1 month", step="day", stepmode="todate"),
                 dict(count=1, label="this year", step="year", stepmode="todate"),
-                dict(count=12, label="1 year", step="month", stepmode="todate"),
                 dict(step="all")
             ])
         ))
@@ -55,25 +54,27 @@ def choose_color_area_1_day(df):
                     x=df.index,
                     y=df['close'],
                     line=dict(
-                        color='rgb(38,255,0)',
-                        width=3
+                        color='green',
+                        width=5
                     )
                 )
             ]
         )
     else:
+        # figure = px.line(df, x=df.index, y='close')
+        # figure.update_layout(plot_bgcolor='white')
         figure = go.Figure(
-            data=[
-                go.Scatter(
-                    x=df.index,
-                    y=df['close'],
-                    line=dict(
-                        color='tomato',
-                        width=3
+                data=[
+                    go.Scatter(
+                        x=df.index,
+                        y=df['close'],
+                        line=dict(
+                            color='tomato',
+                            width=8
+                        )
                     )
-                )
-            ]
-        )
+                ]
+            )
     return figure
 
 def area_plot_1_day(symbol):

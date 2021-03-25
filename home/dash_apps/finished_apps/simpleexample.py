@@ -214,11 +214,11 @@ def search_stock(request):
         symbol = 'AAPL'
     from pandas_datareader._utils import RemoteDataError
     try:
-        ts_df = get_data(symbol)
+        ts_df = get_data(symbol, dtime=360)
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
-    get_live_update(symbol)
+    # get_live_update(symbol)
 
     def compare_stock():
         df = px.data.stocks()

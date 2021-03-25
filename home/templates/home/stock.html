@@ -27,7 +27,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="symbol" placeholder="Symbol..." class="form-control" required>
+                                <input type="text" name="symbol" placeholder="Symbol..." class="form-control" autocomplete="off" required>
                             </div>
 
                             <div class="card justify-content-center mt-3">
@@ -56,8 +56,8 @@
             </div>
 
             <div class="col-sm-9 col-md-9 col-xs-12 py-5">
-                {%load plotly_dash %}
-                {% plotly_app name='price' %}
+{#                {%load plotly_dash %}#}
+{#                {% plotly_app name='price' %}#}
                 <div class="card text-center">
                     {% if not message_error %}
 {#                        {%load plotly_dash %}#}

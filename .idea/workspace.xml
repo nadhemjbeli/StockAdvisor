@@ -2,15 +2,272 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.bootstrap4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.bootstrap4.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.dataTables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.dataTables.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.foundation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.foundation.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.jqueryui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.jqueryui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.semanticui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/css/autoFill.semanticui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/autoFill.bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/autoFill.bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/autoFill.bootstrap4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/autoFill.bootstrap4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/autoFill.foundation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/autoFill.foundation.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/autoFill.jqueryui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/autoFill.jqueryui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/autoFill.semanticui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/autoFill.semanticui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/dataTables.autoFill.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/AutoFill-2.3.5/js/dataTables.autoFill.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Bootstrap-4-4.1.1/css/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Bootstrap-4-4.1.1/css/bootstrap.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Bootstrap-4-4.1.1/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Bootstrap-4-4.1.1/css/bootstrap.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Bootstrap-4-4.1.1/js/bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Bootstrap-4-4.1.1/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.bootstrap4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.bootstrap4.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.dataTables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.dataTables.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.foundation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.foundation.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.jqueryui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.jqueryui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.semanticui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/buttons.semanticui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/common.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/css/mixins.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.bootstrap4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.bootstrap4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.colVis.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.colVis.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.flash.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.flash.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.foundation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.foundation.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.html5.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.html5.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.jqueryui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.jqueryui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.print.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.print.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.semanticui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/buttons.semanticui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/dataTables.buttons.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/js/dataTables.buttons.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Buttons-1.7.0/swf/flashExport.swf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.bootstrap4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.bootstrap4.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.dataTables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.dataTables.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.foundation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.foundation.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.jqueryui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.jqueryui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.semanticui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/css/colReorder.semanticui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.bootstrap4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.bootstrap4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.dataTables.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.foundation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.foundation.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.jqueryui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.jqueryui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.semantic.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.semanticui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/colReorder.semanticui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/dataTables.colReorder.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/ColReorder-1.5.3/js/dataTables.colReorder.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/DateTime-1.0.3/css/dataTables.dateTime.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/DateTime-1.0.3/css/dataTables.dateTime.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/DateTime-1.0.3/js/dataTables.dateTime.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/DateTime-1.0.3/js/dataTables.dateTime.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.bootstrap4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.bootstrap4.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.dataTables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.dataTables.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.foundation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.foundation.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.jqueryui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.jqueryui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.semanticui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/css/fixedColumns.semanticui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/dataTables.fixedColumns.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/dataTables.fixedColumns.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.bootstrap4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.bootstrap4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.dataTables.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.foundation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.foundation.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.jqueryui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.jqueryui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.semanicui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.semanticui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/FixedColumns-3.3.2/js/fixedColumns.semanticui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/JSZip-2.5.0/jszip.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/JSZip-2.5.0/jszip.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.bootstrap4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.bootstrap4.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.dataTables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.dataTables.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.foundation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.foundation.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.jqueryui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.jqueryui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.semanticui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/css/keyTable.semanticui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/dataTables.keyTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/dataTables.keyTable.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.bootstrap4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.bootstrap4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.dataTables.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.foundation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.foundation.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.jqueryui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.jqueryui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.semanicui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.semanticui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/KeyTable-2.6.1/js/keyTable.semanticui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.bootstrap4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.bootstrap4.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.dataTables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.dataTables.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.foundation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.foundation.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.jqueryui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.jqueryui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.semanticui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/css/responsive.semanticui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/dataTables.responsive.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/dataTables.responsive.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/responsive.bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/responsive.bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/responsive.bootstrap4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/responsive.bootstrap4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/responsive.foundation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/responsive.foundation.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/responsive.jqueryui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/responsive.jqueryui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/responsive.semanticui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Responsive-2.2.7/js/responsive.semanticui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.bootstrap4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.bootstrap4.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.dataTables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.dataTables.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.foundation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.foundation.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.jqueryui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.jqueryui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.semanticui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/css/rowGroup.semanticui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/dataTables.rowGroup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/dataTables.rowGroup.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.bootstrap4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.bootstrap4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.dataTables.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.foundation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.foundation.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.jqueryui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.jqueryui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.semanicui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.semanticui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowGroup-1.1.2/js/rowGroup.semanticui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.bootstrap4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.bootstrap4.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.dataTables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.dataTables.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.foundation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.foundation.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.jqueryui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.jqueryui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.semanticui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/css/rowReorder.semanticui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/dataTables.rowReorder.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/dataTables.rowReorder.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/rowReorder.bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/rowReorder.bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/rowReorder.bootstrap4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/rowReorder.bootstrap4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/rowReorder.dataTables.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/rowReorder.foundation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/rowReorder.foundation.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/rowReorder.jqueryui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/rowReorder.jqueryui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/rowReorder.semanticui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/RowReorder-1.2.7/js/rowReorder.semanticui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.bootstrap4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.bootstrap4.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.dataTables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.dataTables.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.foundation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.foundation.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.jqueryui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.jqueryui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.semanticui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/css/select.semanticui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/dataTables.select.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/dataTables.select.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/select.bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/select.bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/select.bootstrap4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/select.bootstrap4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/select.dataTables.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/select.foundation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/select.foundation.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/select.jqueryui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/select.jqueryui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/select.semanticui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/Select-1.3.3/js/select.semanticui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/datatables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/datatables.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/datatables.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/datatables.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/pdfmake-0.1.36/pdfmake.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/pdfmake-0.1.36/pdfmake.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/datatables/pdfmake-0.1.36/vfs_fonts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/jquery/jeq.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/base_no_jquery.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/dash_apps/finished_apps/simpleexample.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/dash_apps/finished_apps/simpleexample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/nav/financials_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/nav/financials_nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/plots.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/templates/home/stock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/templates/home/table_stock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/table_stock.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/topstock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/topstock.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partials/_sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_sidebar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +278,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="JavaScript File" />
         <option value="HTML File" />
       </list>
     </option>
@@ -40,10 +298,11 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/vendor/datatables" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\static\vendor\datatables" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\templates" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\home\dash_apps" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\home\templates\home" />
@@ -88,7 +347,7 @@
       <updated>1615841501830</updated>
       <workItem from="1615841513622" duration="6024000" />
       <workItem from="1615849101833" duration="80455000" />
-      <workItem from="1616521675026" duration="27014000" />
+      <workItem from="1616521675026" duration="39623000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
@@ -167,7 +426,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616617023961</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="creating summary.html and creating a navbar that relates all the work">
+      <created>1616625424187</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1616625424187</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
