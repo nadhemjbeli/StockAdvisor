@@ -2,20 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/cash_flow.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/dash_apps/finished_apps/simpleexample.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/dash_apps/finished_apps/simpleexample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/income_statements.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/income_statements.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/nav/financials_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/nav/financials_nav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/single_stock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/single_stock.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/stock_analysis.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/table_stock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/table_stock.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/topstock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/topstock.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/single_stock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/single_stock.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/stock_analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/stock_analysis.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_data_vis/cash_flow.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/cash_flow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/nav_days.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav_days.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +90,7 @@
       <workItem from="1615841513622" duration="6024000" />
       <workItem from="1615849101833" duration="80455000" />
       <workItem from="1616521675026" duration="39985000" />
-      <workItem from="1616714369059" duration="5123000" />
+      <workItem from="1616714369059" duration="8226000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
@@ -191,7 +183,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616713469608</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="cash_flow.html">
+      <created>1616784650816</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1616784650816</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,6 +204,7 @@
     <MESSAGE value="prices_dict_data" />
     <MESSAGE value="change the date into continuous date in plotly" />
     <MESSAGE value="creating summary.html and creating a navbar that relates all the work" />
-    <option name="LAST_COMMIT_MESSAGE" value="creating summary.html and creating a navbar that relates all the work" />
+    <MESSAGE value="cash_flow.html" />
+    <option name="LAST_COMMIT_MESSAGE" value="cash_flow.html" />
   </component>
 </project>
