@@ -9,6 +9,7 @@ urlpatterns = [
     path('show_stocks/', get_stock, name='show_stocks'),
     path('stock/<str:symbol>', single_stock, name='show_single_stock'),
     path('stock/<str:symbol>/financials', views.get_income_statements, name='show_financials'),
+    path('stock/<str:symbol>/cash_flow', views.get_cash_flow, name='show_cash_flow'),
     path('stock/<str:symbol>/Summary', views.get_stock_summary, name='show_summary'),
     path('stock_analysis/<str:symbol>/<int:dtime>', views.stockAnalysis, name='stock_analysis'),
 ]

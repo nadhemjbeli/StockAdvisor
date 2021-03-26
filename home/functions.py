@@ -230,6 +230,13 @@ def load_yahoo_annual_income_statement(json_data_financials, dtype = 'raw'):
     print(annual_income_statement)
     return annual_income_statement
 
+
+def load_yahoo_annual_cash_flow(json_data_financials, dtype = 'raw'):
+    annual_cf = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['cashflowStatementHistory']['cashflowStatements']
+    annual_cash_flow = scrape_yahoo_numbered_data(annual_cf, dtype)
+    print(annual_cash_flow)
+    return annual_cash_flow
+
 def quote_type_yahoo(json_data_quote):
     json_quote = json_data_quote['context']['dispatcher']['stores']['QuoteSummaryStore']['quoteType']
     print(json_quote)

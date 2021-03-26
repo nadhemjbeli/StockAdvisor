@@ -1,0 +1,28 @@
+{% url 'home:show_summary' symbol=symbol as summary %}
+{% url 'home:show_financials' symbol=symbol as financials %}
+{% url 'home:show_cash_flow' symbol=symbol as cash_flow %}
+{% url 'home:stock_analysis' symbol=symbol dtime=365 as analysis %}
+{% url 'home:show_single_stock' symbol=symbol as single_stock %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link {% if request.get_full_path == summary %}active{% endif %} " href="{% url 'home:show_summary' symbol %}">Summary</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.get_full_path == financials %}active{% elif request.get_full_path == cash_flow %}active{% endif %} " href="{% url 'home:show_financials' symbol %}">Financials</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.get_full_path == analysis %}active{% endif %} " href="{% url 'home:stock_analysis' symbol 365 %}">Analysis</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.get_full_path == single_stock %}active{% endif %} " href="{% url 'home:show_single_stock' symbol %}">Visualize {{ symbol }}</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>

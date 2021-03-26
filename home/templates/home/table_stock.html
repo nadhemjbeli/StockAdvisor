@@ -29,8 +29,8 @@
                             <tr>
                                 <th>Symbol</th>
                                 <th>name</th>
-                                <th>Currency</th>
-                                <th>Summary</th>
+{#                                <th>Currency</th>#}
+                                <th>Exchange Timezone Name</th>
                             </tr>
                         </thead>
 {#                        <tfoot>#}
@@ -45,16 +45,19 @@
                             {% for stock in stocks %}
                                 <tr>
                                     <td>
-                                        <a href="{% url 'home:show_single_stock' stock.symbol %}">{{ stock.symbol }}</a>
+                                        <a href="{% url 'home:show_summary' stock.symbol %}">{{ stock.symbol }}</a>
                                     </td>
                                     <td>
                                         {{ stock.name }}
                                     </td>
+{#                                    <td>#}
+{#                                        {{ stock.currency }}#}
+{#                                    </td>#}
+{#                                    <td>#}
+{#                                        {{ stock.market }}#}
+{#                                    </td>#}
                                     <td>
-                                        {{ stock.currency }}
-                                    </td>
-                                    <td>
-                                        <a href="{% url 'home:show_summary' stock.symbol %}">summary of <b>{{ stock.symbol }}</b></a>
+                                        {{ stock.exchangeTimezoneName }}
                                     </td>
                                 </tr>
                             {% endfor %}

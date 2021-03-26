@@ -201,7 +201,7 @@ def single_stock(request, symbol='AAPL'):
         'message_error': message_error,
     }
 
-    return render(request, 'home/single_stock.html', context)
+    return render(request, 'home/stock/single_stock.html', context)
 
 
 def search_stock(request):

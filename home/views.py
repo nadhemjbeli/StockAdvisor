@@ -51,7 +51,28 @@ def get_income_statements(request, symbol):
 
     }
 
-    return render(request, 'home/income_statements.html', context)
+    return render(request, 'home/stock_data_vis/income_statements.html', context)
+
+
+def get_cash_flow(request, symbol):
+    stocks = Stock.objects.get(symbol=symbol)
+    json_data = load_url_financials(symbol)
+    print('fmtlong')
+    annual_cash_flow_longfmt = load_yahoo_annual_cash_flow(json_data, 'longFmt')
+    print('fmt')
+    annual_cash_flow_fmt = load_yahoo_annual_cash_flow(json_data, 'fmt')
+    # print(financials_fmt['annual_income_statements'])
+    # financials_raw = load_yahoo_financials(symbol, 'raw')
+    context = {
+        'stocks': stocks,
+        # 'financials_raw': financials_raw,
+        'annual_cash_flow_fmt': annual_cash_flow_fmt,
+        'annual_cash_flow_longfmt': annual_cash_flow_longfmt,
+        'symbol': symbol.upper(),
+
+    }
+
+    return render(request, 'home/stock_data_vis/cash_flow.html', context)
 
 
 # def show_data(request):
@@ -91,7 +112,7 @@ def stockAnalysis(request, symbol, dtime=365):
         "plot_macd": plot_macd,
         'p_b_s': p_b_s,
     }
-    return render(request, 'home/stock_analysis.html', context)
+    return render(request, 'home/stock/stock_analysis.html', context)
 
 
 def get_stock_summary(request, symbol):
