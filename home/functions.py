@@ -94,9 +94,9 @@ def get_data(symbol, dtime=365):
 def get_macd_signal(data, dtime):
     # Calculate the MACD and signal indicators
     # Calculate the sort term exponential moving average (EMA)
-    ShortEMA = data.Close.ewm(span=dtime//8, adjust=False).mean()
+    ShortEMA = data.Close.ewm(span=dtime // 8, adjust=False).mean()
     # Calculate the long term exponential moving average (EMA)
-    LongEMA = data.Close.ewm(span=dtime//6, adjust=False).mean()
+    LongEMA = data.Close.ewm(span=dtime // 6, adjust=False).mean()
     # Calculate the MACD line
     MACD = ShortEMA - LongEMA
     # Calculate the signal line
@@ -163,6 +163,7 @@ def scrape_yahoo_numbered_data(some_list, dtype):
         list_smts.append(statement)
     return list_smts
 
+
 def scrape_yahoo_dict_data(some_dict, dtype):
     statement = {}
     for key, val in some_dict.items():
@@ -175,6 +176,7 @@ def scrape_yahoo_dict_data(some_dict, dtype):
     print(statement)
     return statement
 
+
 def load_url_financials(stock):
     url_financials = 'https://finance.yahoo.com/quote/{}/financials?p={}'
     response = requests.get(url_financials.format(stock, stock))
@@ -185,16 +187,26 @@ def load_url_financials(stock):
     json_data = json.loads(script_data[start: -12])
     return json_data
 
-def load_yahoo_financials(json_data_financials, dtype = 'raw'):
 
-    annual_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistory']['incomeStatementHistory']
-    quarterly_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistoryQuarterly']['incomeStatementHistory']
+def load_yahoo_financials(json_data_financials, dtype='raw'):
+    annual_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistory'][
+        'incomeStatementHistory']
+    quarterly_is = \
+    json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistoryQuarterly'][
+        'incomeStatementHistory']
 
-    annual_cf = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['cashflowStatementHistory']['cashflowStatements']
-    quarterly_cf = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['cashflowStatementHistoryQuarterly']['cashflowStatements']
+    annual_cf = \
+    json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['cashflowStatementHistory'][
+        'cashflowStatements']
+    quarterly_cf = \
+    json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['cashflowStatementHistoryQuarterly'][
+        'cashflowStatements']
 
-    annual_bs = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['balanceSheetHistory']['balanceSheetStatements']
-    quarterly_bs = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['balanceSheetHistoryQuarterly']['balanceSheetStatements']
+    annual_bs = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['balanceSheetHistory'][
+        'balanceSheetStatements']
+    quarterly_bs = \
+    json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['balanceSheetHistoryQuarterly'][
+        'balanceSheetStatements']
 
     statements = {
         'annual_income_statements': annual_is,
@@ -211,25 +223,39 @@ def load_yahoo_financials(json_data_financials, dtype = 'raw'):
     return statements
 
 
-def load_yahoo_annual_income_statement(json_data_financials, dtype = 'raw'):
-    annual_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistory']['incomeStatementHistory']
+def load_yahoo_annual_income_statement(json_data_financials, dtype='raw'):
+    annual_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistory'][
+        'incomeStatementHistory']
     annual_income_statement = scrape_yahoo_numbered_data(annual_is, dtype)
     print(annual_income_statement)
     return annual_income_statement
 
 
-def load_yahoo_annual_cash_flow(json_data_financials, dtype = 'raw'):
-    annual_cf = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['cashflowStatementHistory']['cashflowStatements']
+def load_yahoo_annual_cash_flow(json_data_financials, dtype='raw'):
+    annual_cf = \
+    json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['cashflowStatementHistory'][
+        'cashflowStatements']
     annual_cash_flow = scrape_yahoo_numbered_data(annual_cf, dtype)
     print(annual_cash_flow)
     return annual_cash_flow
+
+
+def load_yahoo_annual_balance_sheet(json_data_balance_sheet, dtype='raw'):
+    annual_bs = \
+    json_data_balance_sheet['context']['dispatcher']['stores']['QuoteSummaryStore']['cashflowStatementHistory'][
+        'balanceSheetStatements']
+    annual_balance_sheet = scrape_yahoo_numbered_data(annual_bs, dtype)
+    print(annual_balance_sheet)
+    return annual_balance_sheet
+
 
 def quote_type_yahoo(json_data_quote):
     json_quote = json_data_quote['context']['dispatcher']['stores']['QuoteSummaryStore']['quoteType']
     print(json_quote)
     return json_quote
 
-def stock_price_yahoo(json_data_price, dtype = 'raw'):
+
+def stock_price_yahoo(json_data_price):
     json_price = json_data_price['context']['dispatcher']['stores']['QuoteSummaryStore']['price']
     print(json_price)
     return json_price

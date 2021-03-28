@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 from .models import Stock
 from .plots import candlestick, compute_bollinger_bands, plot_macd_signal, plot_buy_sell, area_plot_1_day
 from .functions import load_url_financials, load_yahoo_annual_income_statement, load_yahoo_annual_cash_flow, get_data, \
-    get_macd_signal, buy_sell, quote_type_yahoo, stock_price_yahoo
+    get_macd_signal, buy_sell, quote_type_yahoo, stock_price_yahoo, load_yahoo_annual_balance_sheet
 from .dash_apps.finished_apps.simpleexample import get_live_update
 # Create your views here.
 symbol = 'AAPL'
@@ -138,7 +138,7 @@ def single_stock(request, symbol='AAPL'):
 
 
 def get_income_statements(request, symbol):
-    stocks = Stock.objects.get(symbol=symbol)
+    stock = Stock.objects.get(symbol=symbol)
     json_data = load_url_financials(symbol)
     print('fmtlong')
     annual_income_statement_longfmt = load_yahoo_annual_income_statement(json_data, 'longFmt')
@@ -147,7 +147,7 @@ def get_income_statements(request, symbol):
     # print(financials_fmt['annual_income_statements'])
     # financials_raw = load_yahoo_financials(symbol, 'raw')
     context = {
-        'stocks': stocks,
+        'stock': stock,
         # 'financials_raw': financials_raw,
         'annual_income_statement_fmt': annual_income_statement_fmt,
         'annual_income_statement_longfmt': annual_income_statement_longfmt,
@@ -159,7 +159,7 @@ def get_income_statements(request, symbol):
 
 
 def get_cash_flow(request, symbol):
-    stocks = Stock.objects.get(symbol=symbol)
+    stock = Stock.objects.get(symbol=symbol)
     json_data = load_url_financials(symbol)
     print('fmtlong')
     annual_cash_flow_longfmt = load_yahoo_annual_cash_flow(json_data, 'longFmt')
@@ -168,7 +168,7 @@ def get_cash_flow(request, symbol):
     # print(financials_fmt['annual_income_statements'])
     # financials_raw = load_yahoo_financials(symbol, 'raw')
     context = {
-        'stocks': stocks,
+        'stock': stock,
         # 'financials_raw': financials_raw,
         'annual_cash_flow_fmt': annual_cash_flow_fmt,
         'annual_cash_flow_longfmt': annual_cash_flow_longfmt,
@@ -177,6 +177,24 @@ def get_cash_flow(request, symbol):
     }
 
     return render(request, 'home/stock_data_vis/cash_flow.html', context)
+
+
+def get_balance_sheet(request, symbol):
+    stock = Stock.objects.get(symbol=symbol)
+    json_data_balance_sheet = load_url_financials(symbol)
+    print('fmtlong')
+    annual_balance_sheet_longfmt = load_yahoo_annual_balance_sheet(json_data_balance_sheet, 'longFmt')
+    print('fmt')
+    annual_balance_sheet_fmt = load_yahoo_annual_cash_flow(json_data_balance_sheet, 'fmt')
+    context = {
+        'stock': stock,
+        'annual_cash_flow_fmt': annual_balance_sheet_longfmt,
+        'annual_cash_flow_longfmt': annual_balance_sheet_fmt,
+        'symbol': symbol.upper(),
+
+    }
+
+    return render(request, 'home/stock_data_vis/balance_sheet.html', context)
 
 
 # def show_data(request):
