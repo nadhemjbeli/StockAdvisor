@@ -1,21 +1,15 @@
 import pandas as pd
 import json
-from django.shortcuts import render
 import pandas_datareader as pdr
 import matplotlib.pyplot as plt
 import numpy as np
 import re
-from io import StringIO
 from bs4 import BeautifulSoup
-import plotly.graph_objects as go
-from plotly.offline import plot
-from alpha_vantage.techindicators import TechIndicators
-from alpha_vantage.timeseries import TimeSeries
+# import plotly.graph_objects as go
+# from plotly.offline import plot
+# from alpha_vantage.techindicators import TechIndicators
+# from alpha_vantage.timeseries import TimeSeries
 import datetime as dt
-import plotly.express as px
-import time
-from pandas import Timestamp
-from .models import Stock
 import requests
 from io import BytesIO
 import base64

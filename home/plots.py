@@ -1,8 +1,13 @@
 from django.shortcuts import render
 from . import models
 # from home.dash_apps import models
-from .functions import *
-from .models import Stock
+from .functions import get_rolling_mean, get_rolling_std, get_bollinger_bands, compute_daily_returns
+import pandas as pd
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+from plotly.offline import plot
+import datetime as dt
+import plotly.express as px
 
 api_key = '701005b908bc42b8800ca2fac03f2736'
 
@@ -179,7 +184,6 @@ def compute_bollinger_bands(df, symbol, dtime, *args, **kwargs):
     ax.set_xlabel('Date')
     ax.set_ylabel('Adj')
     ax.legend(loc='upper left')
-    graph = get_image()
     # df_temp['upper band'] = df_temp['High']
     figure1 = go.Figure(
         [
@@ -233,7 +237,7 @@ def compute_bollinger_bands(df, symbol, dtime, *args, **kwargs):
     figure3 = px.area(df2, x='Date', y='High', title='Daily Returns', )
     figure3.update_xaxes(rangeslider_visible=True)
     compare_div3 = plot(figure3, output_type='div')
-    return graph, compare_div1, compare_div2, compare_div3
+    return compare_div1, compare_div2, compare_div3
 
 
 def plot_buy_sell(data, symbol):

@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from plotly.offline import plot
 import plotly.graph_objects as go
-from .plots import *
-from .dash_apps.finished_apps.simpleexample import *
+from .models import Stock
+from .plots import candlestick, compute_bollinger_bands, plot_macd_signal, plot_buy_sell, area_plot_1_day
+from .functions import load_url_financials, load_yahoo_annual_income_statement, load_yahoo_annual_cash_flow, get_data, \
+    get_macd_signal, buy_sell, quote_type_yahoo, stock_price_yahoo
+from .dash_apps.finished_apps.simpleexample import get_live_update
 # Create your views here.
 symbol = 'AAPL'
 
@@ -31,6 +34,107 @@ def home(request):
     }
 
     return render(request, 'home/welcome.html', context)
+
+
+def search_stock(request):
+    message_error = None
+    if request.method == 'POST':
+        symbol = request.POST.get('symbol')
+        symbol = symbol.upper()
+
+    else:
+        symbol = 'AAPL'
+    from pandas_datareader._utils import RemoteDataError
+    try:
+        ts_df = get_data(symbol, dtime=360)
+    except (RemoteDataError, KeyError):
+        message_error = 'isn\'t a stock symbol'
+        return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
+    # get_live_update(symbol)
+
+    json_data_financials = load_url_financials(symbol)
+
+    quote = quote_type_yahoo(json_data_financials)
+    print(f'quote: {quote}')
+    price_dict = stock_price_yahoo(json_data_financials)
+
+    Stock.objects.get_or_create(
+        symbol=quote['symbol'],
+        name=quote['shortName'],
+        currency=price_dict['currency'],
+        exchangeTimezoneName=quote['exchangeTimezoneName'],
+        market=quote['market']
+    )
+    context = {
+        'symbol': symbol,
+        # 'stock_data': stock_data,
+        # 'data': data,
+        'quote': quote,
+        'candlestick': candlestick(ts_df),
+        # 'plotly': plotly(ts_df),
+        # 'plotly_slider': plotly_slider(ts_df),
+        # 'compare_stock': compare_stock(),
+        'price_dict': price_dict,
+        'message_error': message_error,
+    }
+
+    return render(request, 'home/stock.html', context, )
+
+
+def get_stock(request, symbol='AAPL'):
+    stocks = Stock.objects.all()
+    print('stocks')
+    for stock in stocks:
+        print(stock)
+    context = {
+        'stocks': stocks,
+        'symbol': symbol,
+    }
+    return render(request, "home/table_stock.html", context)
+
+
+def single_stock(request, symbol='AAPL'):
+    get_live_update(symbol)
+    message_error = None
+    stock = Stock.objects.get(symbol=symbol)
+    # print(stock)
+    from pandas_datareader._utils import RemoteDataError
+    try:
+        ts_df = get_data(symbol, 730)
+    except (RemoteDataError, KeyError):
+        message_error = 'isn\'t a stock symbol'
+        return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
+
+    # PlotlyGraph
+    json_data_financials = load_url_financials(symbol)
+
+    quote = quote_type_yahoo(json_data_financials)
+    print(quote)
+    price_dict = stock_price_yahoo(json_data_financials)
+    # price_dict_long_fmt = stock_price_yahoo(json_data_financials, 'longFmt')
+    # token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
+    # api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
+    # data = requests.get(api_url).json()
+    # print(f'data:\n{data}')
+    # data['changePercent'] = round(data['changePercent'], 3)
+    # stock_data = get_stock_quote(symbol, api_key)
+    # print(f'stock_data:\n{stock_data}')
+    # models.Stock.objects.get_or_create(symbol=quote['symbol'], name=quote['shortName'], currency=quote['currency'])
+    context = {
+        'stock': stock,
+        'symbol': symbol,
+        # 'stock_data': stock_data,
+        # 'data': data,
+        'quote': quote,
+        'candlestick': candlestick(ts_df),
+        # 'plotly': plotly(ts_df),
+        # 'plotly_slider': plotly_slider(ts_df),
+        # 'compare_stock': compare_stock(),
+        'price_dict': price_dict,
+        'message_error': message_error,
+    }
+
+    return render(request, 'home/stock/single_stock.html', context)
 
 
 def get_income_statements(request, symbol):
@@ -91,7 +195,7 @@ def get_cash_flow(request, symbol):
 def stockAnalysis(request, symbol, dtime=365):
     stock = Stock.objects.get(symbol=symbol)
     df = get_data(symbol, dtime)
-    graph, graph_plotly1, graph_plotly2, graph_plotly3 = compute_bollinger_bands(df, symbol, dtime)
+    graph_plotly1, graph_plotly2, graph_plotly3 = compute_bollinger_bands(df, symbol, dtime)
     MACD, signal = get_macd_signal(df, dtime)
     plot_macd = plot_macd_signal(df, symbol, MACD, signal)
     # Create new columns for the data
@@ -123,4 +227,5 @@ def get_stock_summary(request, symbol):
         'symbol': symbol.upper(),
     }
     return render(request, 'home/stock/summary.html', context)
+
 

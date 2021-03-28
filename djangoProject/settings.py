@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -26,7 +25,7 @@ SECRET_KEY = '9pis9he(7$^f4t^_zq2xt3jy%hg8a^mmqhu0my(hprew5+=j@='
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+APPEND_SLASH = True
 
 # Application definition
 
@@ -58,8 +57,7 @@ ROOT_URLCONF = 'djangoProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,7 +71,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'djangoProject.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -95,7 +92,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -114,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -124,23 +119,21 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
-
 USE_TZ = True
 
 PLOTLY_DASH = {
 
     # Route used for the message pipe websocket connection
-    "ws_route" :   "dpd/ws/channel",
+    "ws_route": "dpd/ws/channel",
 
     # Route used for direct http insertion of pipe messages
-    "http_route" : "dpd/views",
+    "http_route": "dpd/views",
 
     # Flag controlling existince of http poke endpoint
-    "http_poke_enabled" : True,
+    "http_poke_enabled": True,
 
     # Insert data for the demo when migrating
-    "insert_demo_migrations" : False,
+    "insert_demo_migrations": False,
 
     # Timeout for caching of initial arguments in seconds
     "cache_timeout_initial_arguments": 60,
@@ -182,10 +175,8 @@ PLOTLY_COMPONENTS = [
     'dash_core_components',
     'dash_html_components',
     'dash_renderer',
-
     'dpd_components'
 ]
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -196,4 +187,6 @@ STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'djangoProject/static')
 ]
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(
+    BASE_DIR), 'static_cdn', 'media_root')

@@ -3,7 +3,10 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 from django_plotly_dash import DjangoDash
-from home.plots import *
+import requests
+# from home.models import Stock
+from bs4 import BeautifulSoup
+
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -148,116 +151,9 @@ def get_live_update(stock):
         ]
 
 
-def get_stock(request, symbol='AAPL'):
-    stocks = Stock.objects.all()
-    print('stocks')
-    for stock in stocks:
-        print(stock)
-    context = {
-        'stocks': stocks,
-        'symbol': symbol,
-    }
-    return render(request, "home/table_stock.html", context)
 
 
-def single_stock(request, symbol='AAPL'):
-    get_live_update(symbol)
-    message_error = None
-    stock = Stock.objects.get(symbol=symbol)
-    # print(stock)
-    from pandas_datareader._utils import RemoteDataError
-    try:
-        ts_df = get_data(symbol, 730)
-    except (RemoteDataError, KeyError):
-        message_error = 'isn\'t a stock symbol'
-        return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
 
-    # PlotlyGraph
-    json_data_financials = load_url_financials(symbol)
-
-    quote = quote_type_yahoo(json_data_financials)
-    print(quote)
-    price_dict = stock_price_yahoo(json_data_financials)
-    # price_dict_long_fmt = stock_price_yahoo(json_data_financials, 'longFmt')
-    # token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
-    # api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
-    # data = requests.get(api_url).json()
-    # print(f'data:\n{data}')
-    # data['changePercent'] = round(data['changePercent'], 3)
-    # stock_data = get_stock_quote(symbol, api_key)
-    # print(f'stock_data:\n{stock_data}')
-    # models.Stock.objects.get_or_create(symbol=quote['symbol'], name=quote['shortName'], currency=quote['currency'])
-    context = {
-        'stock': stock,
-        'symbol': symbol,
-        # 'stock_data': stock_data,
-        # 'data': data,
-        'quote': quote,
-        'candlestick': candlestick(ts_df),
-        # 'plotly': plotly(ts_df),
-        # 'plotly_slider': plotly_slider(ts_df),
-        # 'compare_stock': compare_stock(),
-        'price_dict': price_dict,
-        'message_error': message_error,
-    }
-
-    return render(request, 'home/stock/single_stock.html', context)
-
-
-def search_stock(request):
-    message_error = None
-    if request.method == 'POST':
-        symbol = request.POST.get('symbol')
-        symbol = symbol.upper()
-
-    else:
-        symbol = 'AAPL'
-    from pandas_datareader._utils import RemoteDataError
-    try:
-        ts_df = get_data(symbol, dtime=360)
-    except (RemoteDataError, KeyError):
-        message_error = 'isn\'t a stock symbol'
-        return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
-    # get_live_update(symbol)
-
-    def compare_stock():
-        df = px.data.stocks()
-        fig = px.line(df, x="date", y=df.columns,
-                      hover_data={"date": "|%B %d, %Y"},
-                      title='custom tick labels')
-        fig.update_xaxes(
-            dtick="M1",
-            tickformat="%b\n%Y")
-        compare_div = plot(fig, output_type='div')
-        return compare_div
-
-    json_data_financials = load_url_financials(symbol)
-
-    quote = quote_type_yahoo(json_data_financials)
-    print(f'quote: {quote}')
-    price_dict = stock_price_yahoo(json_data_financials)
-
-    models.Stock.objects.get_or_create(
-        symbol=quote['symbol'],
-        name=quote['shortName'],
-        currency=price_dict['currency'],
-        exchangeTimezoneName=quote['exchangeTimezoneName'],
-        market=quote['market']
-    )
-    context = {
-        'symbol': symbol,
-        # 'stock_data': stock_data,
-        # 'data': data,
-        'quote': quote,
-        'candlestick': candlestick(ts_df),
-        # 'plotly': plotly(ts_df),
-        # 'plotly_slider': plotly_slider(ts_df),
-        # 'compare_stock': compare_stock(),
-        'price_dict': price_dict,
-        'message_error': message_error,
-    }
-
-    return render(request, 'home/stock.html', context, )
 
 def get_stock_summary(request, symbol):
     get_live_update(symbol)
