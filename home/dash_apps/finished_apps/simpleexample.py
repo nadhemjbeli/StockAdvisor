@@ -137,10 +137,11 @@ def get_live_update(stock):
         # price = soup.find('div', {'class': 'D(ib) Va(m) Maw(65%) Ov(h)'}).find('p').findChildren()[0].text
         price = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[0].text
         change = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[1].text
-        time = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[3].text
+        time = soup.find('div', {'class': 'D(ib) Mend(20px)'}).findChildren()[2].text
         print('Price: {} {} {}'.format(price, change, time))
-        style1 = {'padding': '5px', 'fontSize': '30px', 'font-weight': '700'}
-        style2 = {'padding': '5px', 'fontSize': '26px', 'font-weight': '26px'}
+        style1 = {'padding': '5px', 'fontSize': '35px', 'font-weight': '700'}
+        style2 = {'padding': '5px', 'fontSize': '26px'}
+        style3 = {'padding': '3px', 'fontSize': '20px', 'font-weight': '600', 'color': 'gray'}
         if change[0] == '+':
             style2['color'] = 'green'
         else:
@@ -148,18 +149,6 @@ def get_live_update(stock):
         return [
             html.Span('Price: {},'.format(price), style=style1),
             html.Span('change: {}'.format(change), style=style2),
+            html.Span(time, style=style3),
         ]
 
-
-
-
-
-
-def get_stock_summary(request, symbol):
-    get_live_update(symbol)
-    area_1_day = area_plot_1_day(symbol)
-    context = {
-        'area_1_day': area_1_day,
-        'symbol': symbol,
-    }
-    return render(request, 'home/stock/summary.html', context)

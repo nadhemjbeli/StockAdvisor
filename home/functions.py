@@ -86,13 +86,6 @@ def get_data(symbol, dtime=365):
     df_final['Close'] = df['Close']
     df_final['Volume'] = df['Volume']
 
-    # df['t'] = df.index.values
-    # df = df.rename({'Adj Close': 'Adj',
-    #                 'Open': 'o',
-    #                 'High': 'h',
-    #                 'Low': 'l',
-    #                 'Close': 'c'}, axis=1)
-
     df = df.rename({'Adj Close': 'Adj'}, axis=1)
     df_final['Adj'] = df.Adj
     return df_final
@@ -103,11 +96,11 @@ def get_macd_signal(data, dtime):
     # Calculate the sort term exponential moving average (EMA)
     ShortEMA = data.Close.ewm(span=dtime//8, adjust=False).mean()
     # Calculate the long term exponential moving average (EMA)
-    LongEMA = data.Close.ewm(span=dtime//5, adjust=False).mean()
+    LongEMA = data.Close.ewm(span=dtime//6, adjust=False).mean()
     # Calculate the MACD line
     MACD = ShortEMA - LongEMA
     # Calculate the signal line
-    signal = MACD.ewm(span=dtime//15, adjust=False).mean()
+    signal = MACD.ewm(span=2, adjust=False).mean()
     return MACD, signal
 
 

@@ -49,7 +49,7 @@ def search_stock(request):
         ts_df = get_data(symbol, dtime=360)
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
-        return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
+        return render(request, 'home/stock/stock.html', {'message_error': message_error, 'symbol': symbol, })
     # get_live_update(symbol)
 
     json_data_financials = load_url_financials(symbol)
@@ -78,7 +78,7 @@ def search_stock(request):
         'message_error': message_error,
     }
 
-    return render(request, 'home/stock.html', context, )
+    return render(request, 'home/stock/stock.html', context, )
 
 
 def get_stock(request, symbol='AAPL'):
@@ -100,10 +100,10 @@ def single_stock(request, symbol='AAPL'):
     # print(stock)
     from pandas_datareader._utils import RemoteDataError
     try:
-        ts_df = get_data(symbol, 730)
+        ts_df = get_data(symbol, 365)
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
-        return render(request, 'home/stock.html', {'message_error': message_error, 'symbol': symbol, })
+        return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
 
     # PlotlyGraph
     json_data_financials = load_url_financials(symbol)
@@ -227,5 +227,23 @@ def get_stock_summary(request, symbol):
         'symbol': symbol.upper(),
     }
     return render(request, 'home/stock/summary.html', context)
+
+
+def get_historical_data(request, symbol):
+    df = get_data(symbol, dtime=365)
+    print(df)
+    # data = dict(zip(df['Date'], df['Open']))
+    data = []
+    df = round(df, 3)
+    for i in range(df.shape[0]):
+        temp = df.iloc[i]
+        data.append(dict(temp))
+
+    print(data)
+    context = {
+        'data': data,
+        'symbol': symbol.upper(),
+    }
+    return render(request, 'home/stock/historical_data.html', context)
 
 
