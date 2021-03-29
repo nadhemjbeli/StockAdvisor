@@ -5,7 +5,7 @@ from .views import search_stock, get_stock, single_stock, get_cash_flow, get_inc
 app_name = 'home'
 urlpatterns = [
     path('', home, name='home'),
-    path('stock_vis/', search_stock, name="show_stock_vis"),
+    path('search_stock/', search_stock, name="show_stock_vis"),
     # path('show_data/', views.show_data, name='show_data'),
     path('show_stocks/', get_stock, name='show_stocks'),
     path('stock/<str:symbol>', single_stock, name='show_single_stock'),

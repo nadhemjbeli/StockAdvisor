@@ -149,6 +149,7 @@ def get_live_update(stock):
         return [
             html.Span('Price: {},'.format(price), style=style1),
             html.Span('change: {}'.format(change), style=style2),
+            html.Br(),
             html.Span(time, style=style3),
         ]
 

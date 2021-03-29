@@ -48,8 +48,17 @@
             </div>
 
             <div class="col-sm-9 col-md-9 col-xs-12 py-5">
-                {%load plotly_dash %}
-                {% plotly_app name='price' %}
+                {% if not message_error %}
+                    {%load plotly_dash %}
+                    {% plotly_app name='price' %}
+                {% else %}
+                    <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ symbol }}</strong> {{ message_error }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
                 <div class="card text-center">
                     {% if not message_error %}
                         {#                        {%load plotly_dash %}#}

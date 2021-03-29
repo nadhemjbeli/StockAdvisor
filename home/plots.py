@@ -86,7 +86,12 @@ def area_plot_1_day(symbol):
     # from twelvedata import TDClient
     from iexfinance.stocks import get_historical_intraday
     token = 'pk_2287fdfeab07481297cac422c06f9dc6'
-    if dt.datetime.now().hour > 9:
+    if dt.datetime.now().hour == 9:
+        if dt.datetime.now().minute >30:
+            start = dt.datetime.now()
+        else :
+            start = dt.datetime.now() - dt.timedelta(1)
+    elif dt.datetime.now().hour > 9:
         start = dt.datetime.now()
     else:
         start = dt.datetime.now() - dt.timedelta(1)

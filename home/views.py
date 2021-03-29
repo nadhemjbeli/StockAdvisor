@@ -46,7 +46,7 @@ def search_stock(request):
         symbol = 'AAPL'
     from pandas_datareader._utils import RemoteDataError
     try:
-        ts_df = get_data(symbol, dtime=360)
+        ts_df = get_data(symbol, dtime=365)
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock/stock.html', {'message_error': message_error, 'symbol': symbol, })
@@ -82,6 +82,7 @@ def search_stock(request):
 
 
 def get_stock(request, symbol='AAPL'):
+    symbol = symbol.upper()
     stocks = Stock.objects.all()
     print('stocks')
     for stock in stocks:
@@ -94,12 +95,18 @@ def get_stock(request, symbol='AAPL'):
 
 
 def single_stock(request, symbol='AAPL'):
+    symbol = symbol.upper()
     get_live_update(symbol)
     message_error = None
-    stock = Stock.objects.get(symbol=symbol)
+    try:
+        stock = Stock.objects.get(symbol=symbol)
+    except:
+        message_error = 'Doesn\'t Exist'
+        return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
     # print(stock)
     from pandas_datareader._utils import RemoteDataError
     try:
+
         ts_df = get_data(symbol, 365)
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
@@ -109,7 +116,7 @@ def single_stock(request, symbol='AAPL'):
     json_data_financials = load_url_financials(symbol)
 
     quote = quote_type_yahoo(json_data_financials)
-    print(quote)
+    # print(quote)
     price_dict = stock_price_yahoo(json_data_financials)
     # price_dict_long_fmt = stock_price_yahoo(json_data_financials, 'longFmt')
     # token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
@@ -138,6 +145,12 @@ def single_stock(request, symbol='AAPL'):
 
 
 def get_income_statements(request, symbol):
+    message_error = None
+    try:
+        stock = Stock.objects.get(symbol=symbol)
+    except:
+        message_error = 'Doesn\'t Exist'
+        return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
     stock = Stock.objects.get(symbol=symbol)
     json_data = load_url_financials(symbol)
     print('fmtlong')
@@ -152,13 +165,14 @@ def get_income_statements(request, symbol):
         'annual_income_statement_fmt': annual_income_statement_fmt,
         'annual_income_statement_longfmt': annual_income_statement_longfmt,
         'symbol': symbol.upper(),
-
+        'message_error': message_error,
     }
 
     return render(request, 'home/stock_data_vis/income_statements.html', context)
 
 
 def get_cash_flow(request, symbol):
+    symbol = symbol.upper()
     stock = Stock.objects.get(symbol=symbol)
     json_data = load_url_financials(symbol)
     print('fmtlong')
@@ -172,8 +186,7 @@ def get_cash_flow(request, symbol):
         # 'financials_raw': financials_raw,
         'annual_cash_flow_fmt': annual_cash_flow_fmt,
         'annual_cash_flow_longfmt': annual_cash_flow_longfmt,
-        'symbol': symbol.upper(),
-
+        'symbol': symbol,
     }
 
     return render(request, 'home/stock_data_vis/cash_flow.html', context)
@@ -238,6 +251,7 @@ def stockAnalysis(request, symbol, dtime=365):
 
 
 def get_stock_summary(request, symbol):
+
     get_live_update(symbol)
     area_1_day = area_plot_1_day(symbol)
     context = {
@@ -248,6 +262,7 @@ def get_stock_summary(request, symbol):
 
 
 def get_historical_data(request, symbol):
+    symbol = symbol.upper()
     df = get_data(symbol, dtime=365)
     print(df)
     # data = dict(zip(df['Date'], df['Open']))
@@ -256,11 +271,10 @@ def get_historical_data(request, symbol):
     for i in range(df.shape[0]):
         temp = df.iloc[i]
         data.append(dict(temp))
-
     print(data)
     context = {
         'data': data,
-        'symbol': symbol.upper(),
+        'symbol': symbol,
     }
     return render(request, 'home/stock/historical_data.html', context)
 
