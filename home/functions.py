@@ -242,10 +242,10 @@ def load_yahoo_annual_cash_flow(json_data_financials, dtype='raw'):
 
 def load_yahoo_annual_balance_sheet(json_data_balance_sheet, dtype='raw'):
     annual_bs = \
-    json_data_balance_sheet['context']['dispatcher']['stores']['QuoteSummaryStore']['cashflowStatementHistory'][
+    json_data_balance_sheet['context']['dispatcher']['stores']['QuoteSummaryStore']['balanceSheetHistory'][
         'balanceSheetStatements']
     annual_balance_sheet = scrape_yahoo_numbered_data(annual_bs, dtype)
-    print(annual_balance_sheet)
+    print(annual_balance_sheet[0])
     return annual_balance_sheet
 
 

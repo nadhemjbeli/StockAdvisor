@@ -15,56 +15,56 @@
         {% include 'home/nav/financials_nav.html'%}
     </div>
     <div class="container">
-        <h1>{{ symbol }} - {{ stocks.name }} - Cash Flow</h1>
+        <h1>{{ symbol }} - {{ stock.name }} - Balance Sheet</h1>
         <br>
         <table class="table table-light table-hover table-borderless table-striped">
             <tr>
                 <th scope="col">Breakdown</th>
-                {% for cash_flow in annual_cash_flow_fmt %}
-                    <th scope="col">{{ cash_flow.endDate }}</th>
+                {% for balance_sheet in annual_balance_sheet_fmt %}
+                    <th scope="col">{{ balance_sheet.endDate }}</th>
                 {% endfor %}
             </tr>
             <tr>
                 <th scope="row">
-                    <span>Operating Cash Flow</span>
+                    <span>Total Assets</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt%}
+                {% for balance_sheet in annual_balance_sheet_longfmt%}
                     <td>
-                        <span>{{ cash_flow.totalCashFromOperatingActivities }}</span>
+                        <span>{{ balance_sheet.totalAssets }}</span>
                     </td>
                 {% endfor %}
             </tr>
             <tr>
                 <th scope="row">
-                    <span>Net Income from Continuing Ops</span>
+                    <span>Current Assets</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.netIncome %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
+                    {% if not balance_sheet.totalCurrentAssets %}
                         <td><span>Nan</span></td>
                     {% else %}
                         <td>
-                            <span>{{ cash_flow.netIncome }}</span>
+                            <span>{{ balance_sheet.totalCurrentAssets }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}
             </tr>
             <tr>
                 <th scope="row">
-                    <span>Depreciation Amortization Depletion</span>
+                    <span>Cash, Cash Equivalents</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
                     <td>
-                        <span>{{ cash_flow.depreciation }}</span>
+                        <span>{{ balance_sheet.cash }}</span>
                     </td>
                 {% endfor %}
             </tr>
             <tr>
                 <th scope="row">
-                    <span>Capital Expenditures</span>
+                    <span>inventory</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
                     <td>
-                        <span>{{ cash_flow.capitalExpenditures  }}</span>
+                        <span>{{ balance_sheet.inventory  }}</span>
                     </td>
                 {% endfor %}
             </tr>
@@ -72,40 +72,40 @@
                 <th scope="row">
                     <span>Change To Inventory</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.changeToInventory %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
+                    {% if not balance_sheet.otherCurrentAssets %}
                         <td><span>Nan</span></td>
                     {% else %}
                         <td>
-                            <span>{{ cash_flow.changeToInventory }}</span>
+                            <span>{{ balance_sheet.otherCurrentAssets }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}
             </tr>
             <tr>
                 <th scope="row">
-                    <span>Effect Of Exchange Rate</span>
+                    <span>GoodWill</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.effectOfExchangeRate %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
+                    {% if not balance_sheet.goodWill %}
                         <td><span>Nan</span></td>
                     {% else %}
                         <td>
-                            <span>{{ cash_flow.effectOfExchangeRate }}</span>
+                            <span>{{ balance_sheet.goodWill }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}
             </tr>
             <tr>
                 <th scope="row">
-                    <span>Net Borrowings</span>
+                    <span>Long Term Investments</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.netBorrowings %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
+                    {% if not balance_sheet.longTermInvestments %}
                         <td><span>Nan</span></td>
                     {% else %}
                         <td>
-                            <span>{{ cash_flow.netBorrowings }}</span>
+                            <span>{{ balance_sheet.longTermInvestments }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}
@@ -114,12 +114,12 @@
                 <th scope="row">
                     <span>other Cashflows From Financing</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.otherCashflowsFromFinancingActivities %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
+                    {% if not balance_sheet.otherCashflowsFromFinancingActivities %}
                         <td><span>Nan</span></td>
                     {% else %}
                         <td>
-                            <span>{{ cash_flow.otherCashflowsFromFinancingActivities }}</span>
+                            <span>{{ balance_sheet.otherCashflowsFromFinancingActivities }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}
@@ -129,12 +129,12 @@
                 <th scope="row">
                     <span>Total Cashflows From Financing</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.totalCashFromFinancingActivities %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
+                    {% if not balance_sheet.totalCashFromFinancingActivities %}
                         <td><span>Nan</span></td>
                     {% else %}
                         <td>
-                            <span>{{ cash_flow.totalCashFromFinancingActivities }}</span>
+                            <span>{{ balance_sheet.totalCashFromFinancingActivities }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}
@@ -143,12 +143,12 @@
                 <th scope="row">
                     <span>other Cashflows From Investing</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.otherCashflowsFromInvestingActivities %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
+                    {% if not balance_sheet.otherCashflowsFromInvestingActivities %}
                         <td><span>Nan</span></td>
                     {% else %}
                         <td>
-                            <span>{{ cash_flow.otherCashflowsFromInvestingActivities }}</span>
+                            <span>{{ balance_sheet.otherCashflowsFromInvestingActivities }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}
@@ -157,12 +157,12 @@
                 <th scope="row">
                     <span>total Cashflows From Investing</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.totalCashflowsFromInvestingActivities %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
+                    {% if not balance_sheet.totalCashflowsFromInvestingActivities %}
                         <td><span>Nan</span></td>
                     {% else %}
                         <td>
-                            <span>{{ cash_flow.totalCashflowsFromInvestingActivities }}</span>
+                            <span>{{ balance_sheet.totalCashflowsFromInvestingActivities }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}
@@ -171,36 +171,36 @@
                 <th scope="row">
                     <span>change To Account Receivables</span>
                 </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.changeToAccountReceivables %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
+                    {% if not balance_sheet.changeToAccountReceivables %}
                         <td><span>Nan</span></td>
                     {% else %}
                         <td>
-                            <span>{{ cash_flow.changeToAccountReceivables }}</span>
+                            <span>{{ balance_sheet.changeToAccountReceivables }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}
             </tr>
             <tr>
                 <th scope="row"><span>investments</span></th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.investments %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
+                    {% if not balance_sheet.investments %}
                         <td><span>Nan</span></td>
                     {% else %}
                         <td>
-                            <span>{{ cash_flow.investments }}</span>
+                            <span>{{ balance_sheet.investments }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}
             </tr>
             <tr>
                 <th scope="row"><span>change In Cash</span></th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.changeInCash %}
+                {% for balance_sheet in annual_balance_sheet_longfmt %}
+                    {% if not balance_sheet.changeInCash %}
                         <td><span>Nan</span></td>
                     {% else %}
                         <td>
-                            <span>{{ cash_flow.changeInCash }}</span>
+                            <span>{{ balance_sheet.changeInCash }}</span>
                         </td>
                     {% endif %}
                 {% endfor %}

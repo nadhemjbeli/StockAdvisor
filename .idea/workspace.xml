@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/balance_sheet.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/nav/financials_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/nav/financials_nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_data_vis/balance_sheet.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/balance_sheet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_data_vis/cash_flow.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/cash_flow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_data_vis/income_statements.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/income_statements.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +93,7 @@
       <workItem from="1615841513622" duration="6024000" />
       <workItem from="1615849101833" duration="80455000" />
       <workItem from="1616521675026" duration="39985000" />
-      <workItem from="1616714369059" duration="28884000" />
+      <workItem from="1616714369059" duration="32698000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
@@ -209,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616970922970</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="balance_sheet method inside views.py">
+      <created>1616972158355</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1616972158355</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +238,7 @@
     <MESSAGE value="cash_flow.html" />
     <MESSAGE value="cleaning the project" />
     <MESSAGE value="historical_data.html" />
-    <option name="LAST_COMMIT_MESSAGE" value="historical_data.html" />
+    <MESSAGE value="balance_sheet method inside views.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="balance_sheet method inside views.py" />
   </component>
 </project>

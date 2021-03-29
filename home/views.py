@@ -185,11 +185,11 @@ def get_balance_sheet(request, symbol):
     print('fmtlong')
     annual_balance_sheet_longfmt = load_yahoo_annual_balance_sheet(json_data_balance_sheet, 'longFmt')
     print('fmt')
-    annual_balance_sheet_fmt = load_yahoo_annual_cash_flow(json_data_balance_sheet, 'fmt')
+    annual_balance_sheet_fmt = load_yahoo_annual_balance_sheet(json_data_balance_sheet, 'fmt')
     context = {
         'stock': stock,
-        'annual_cash_flow_fmt': annual_balance_sheet_longfmt,
-        'annual_cash_flow_longfmt': annual_balance_sheet_fmt,
+        'annual_balance_sheet_longfmt': annual_balance_sheet_longfmt,
+        'annual_balance_sheet_fmt': annual_balance_sheet_fmt,
         'symbol': symbol.upper(),
 
     }
