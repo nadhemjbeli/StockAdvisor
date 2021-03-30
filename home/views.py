@@ -38,6 +38,8 @@ def home(request):
 
 def search_stock(request):
     message_error = None
+    message_stock_exists = None
+    message_stock_new = None
     if request.method == 'POST':
         symbol = request.POST.get('symbol')
         symbol = symbol.upper()
@@ -47,6 +49,11 @@ def search_stock(request):
     from pandas_datareader._utils import RemoteDataError
     try:
         ts_df = get_data(symbol, dtime=365)
+        try:
+            stock = Stock.objects.get(symbol=symbol)
+            message_stock_exists = 'Exists in the databases'
+        except:
+            message_stock_new = 'Entered to the databases'
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock/stock.html', {'message_error': message_error, 'symbol': symbol, })
@@ -76,6 +83,8 @@ def search_stock(request):
         # 'compare_stock': compare_stock(),
         'price_dict': price_dict,
         'message_error': message_error,
+        'message_stock_new': message_stock_new,
+        'message_stock_exists': message_stock_exists,
     }
 
     return render(request, 'home/stock/stock.html', context, )
