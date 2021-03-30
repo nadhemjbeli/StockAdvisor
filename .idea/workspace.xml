@@ -3,8 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/single_stock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/single_stock.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/stock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/stock.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/stock_analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/stock_analysis.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_data_vis/balance_sheet.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/balance_sheet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_data_vis/cash_flow.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/cash_flow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_data_vis/income_statements.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/income_statements.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/templates/home/topstock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/topstock.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/nav_days.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav_days.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +96,7 @@
       <workItem from="1615849101833" duration="80455000" />
       <workItem from="1616521675026" duration="39985000" />
       <workItem from="1616714369059" duration="48298000" />
-      <workItem from="1617117583274" duration="925000" />
+      <workItem from="1617117583274" duration="6687000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
@@ -230,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617054904509</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Checking if the stock exists in the database or is it new, while creating it by the method &#10;search_stock(symbol)">
+      <created>1617118667367</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1617118667367</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -249,6 +264,7 @@
     <MESSAGE value="historical_data.html" />
     <MESSAGE value="balance_sheet method inside views.py" />
     <MESSAGE value="making the stocks related to the databases and changing the nav_days.html" />
-    <option name="LAST_COMMIT_MESSAGE" value="making the stocks related to the databases and changing the nav_days.html" />
+    <MESSAGE value="Checking if the stock exists in the database or is it new, while creating it by the method &#10;search_stock(symbol)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Checking if the stock exists in the database or is it new, while creating it by the method &#10;search_stock(symbol)" />
   </component>
 </project>

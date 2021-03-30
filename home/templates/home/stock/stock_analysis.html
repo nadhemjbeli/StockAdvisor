@@ -16,27 +16,35 @@
         {% include 'nav_days.html' %}
     </div>
 
-
-    <div class="container">
-
-        <h1>Stock analysis for: {{ stock.symbol }} ({{ stock.name }})</h1>
-{#        {% if graph %}#}
-{#            <img src="data:image/png;base64, {{ graph | safe }}">#}
-{#        {% endif %}#}
-        <br>
-        <br>
-        {{ plot_macd | safe }}
-        <br>
-        <br>
-        {{ p_b_s | safe }}
-        <br>
-        <br>
-        {{ graph_plotly1 | safe }}
-        <br>
-        <br>
-        {{ graph_plotly2 | safe }}
-        <br>
-        <br>
-        {{ graph_plotly3 | safe }}
+    {% if message_error %}
+    <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ symbol }}</strong> {{ message_error }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
+    {% else %}
+        <div class="container">
+
+            <h1>Stock analysis for: {{ stock.symbol }} ({{ stock.name }})</h1>
+    {#        {% if graph %}#}
+    {#            <img src="data:image/png;base64, {{ graph | safe }}">#}
+    {#        {% endif %}#}
+            <br>
+            <br>
+            {{ plot_macd | safe }}
+            <br>
+            <br>
+            {{ p_b_s | safe }}
+            <br>
+            <br>
+            {{ graph_plotly1 | safe }}
+            <br>
+            <br>
+            {{ graph_plotly2 | safe }}
+            <br>
+            <br>
+            {{ graph_plotly3 | safe }}
+        </div>
+    {% endif %}
 {% endblock %}

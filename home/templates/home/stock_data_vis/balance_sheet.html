@@ -14,6 +14,14 @@
     <div class="container-fluid">
         {% include 'home/nav/financials_nav.html'%}
     </div>
+    {% if message_error %}
+    <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ symbol }}</strong> {{ message_error }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% else %}
     <div class="container">
         <h1>{{ symbol }} - {{ stock.name }} - Balance Sheet</h1>
         <br>
@@ -207,4 +215,5 @@
             </tr>
         </table>
     </div>
+    {% endif %}
 {% endblock %}

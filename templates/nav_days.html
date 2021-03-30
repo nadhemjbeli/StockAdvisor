@@ -1,7 +1,7 @@
 {#{% load static %}#}
-{% url 'home:stock_analysis' stock.symbol 30 as days_30 %}
-{% url 'home:stock_analysis' stock.symbol 92 as days_92 %}
-{% url 'home:stock_analysis' stock.symbol 150 as days_150 %}
+{% url 'home:stock_analysis' symbol 30 as days_30 %}
+{% url 'home:stock_analysis' symbol 92 as days_92 %}
+{% url 'home:stock_analysis' symbol 150 as days_150 %}
 <style>
     .periods{
         {#color:#ffffff;#}
@@ -20,13 +20,13 @@
                 {#        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>#}
             </li>
             <li class="nav-item ml-auto">
-                <a class="nav-link periods {% if request.get_full_path == days_30 %}active{% endif %}" href="{% url 'home:stock_analysis' stock.symbol 30 %}" >30 Days</a>
+                <a class="nav-link periods {% if request.get_full_path == days_30 %}active{% endif %}" href="{% url 'home:stock_analysis' symbol 30 %}" >30 Days</a>
             </li>
             <li class="nav-item ml-auto">
-                <a class="nav-link periods {% if request.get_full_path == days_92 %}active{% endif %}" href="{% url 'home:stock_analysis' stock.symbol 92 %}" >3 Months</a>
+                <a class="nav-link periods {% if request.get_full_path == days_92 %}active{% endif %}" href="{% url 'home:stock_analysis' symbol 92 %}" >3 Months</a>
             </li>
             <li class="nav-item ml-auto">
-                <a class="nav-link periods {% if request.get_full_path == days_150 %}active{% endif %}" href="{% url 'home:stock_analysis' stock.symbol 150 %}" >5 Months</a>
+                <a class="nav-link periods {% if request.get_full_path == days_150 %}active{% endif %}" href="{% url 'home:stock_analysis' symbol 150 %}" >5 Months</a>
             </li>
 
 

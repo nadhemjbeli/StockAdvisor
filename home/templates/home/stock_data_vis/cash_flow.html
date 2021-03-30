@@ -15,196 +15,213 @@
         {% include 'home/nav/financials_nav.html'%}
     </div>
     <div class="container">
-        <h1>{{ symbol }} - {{ stock.name }} - Cash Flow</h1>
-        <br>
-        <table class="table table-light table-hover table-borderless table-striped">
-            <tr>
-                <th scope="col">Breakdown</th>
-                {% for cash_flow in annual_cash_flow_fmt %}
-                    <th scope="col">{{ cash_flow.endDate }}</th>
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    <span>Operating Cash Flow</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt%}
-                    <td>
-                        <span>{{ cash_flow.totalCashFromOperatingActivities }}</span>
-                    </td>
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    <span>Net Income from Continuing Ops</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.netIncome %}
-                        <td><span>Nan</span></td>
-                    {% else %}
+        {% if message_error %}
+            <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{ symbol }}</strong> {{ message_error }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% else %}
+            <h1>{{ symbol }} - {{ stock.name }} - Cash Flow</h1>
+            <br>
+            <table class="table table-light table-hover table-borderless table-striped">
+                <tr>
+                    <th scope="col">Breakdown</th>
+                    {% for cash_flow in annual_cash_flow_fmt %}
+                        <th scope="col">{{ cash_flow.endDate }}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <span>Operating Cash Flow</span>
+                    </th>
+                    {% for cash_flow in annual_cash_flow_longfmt%}
                         <td>
-                            <span>{{ cash_flow.netIncome }}</span>
+                            <span>{{ cash_flow.totalCashFromOperatingActivities }}</span>
                         </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    <span>Depreciation Amortization Depletion</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    <td>
-                        <span>{{ cash_flow.depreciation }}</span>
-                    </td>
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    <span>Capital Expenditures</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    <td>
-                        <span>{{ cash_flow.capitalExpenditures  }}</span>
-                    </td>
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    <span>Change To Inventory</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.changeToInventory %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <span>Net Income from Continuing Ops</span>
+                    </th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.netIncome %}
+                            <td><span>Nan</span></td>
+                        {% else %}
+                            <td>
+                                <span>{{ cash_flow.netIncome }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                    <tr>
+                        <th scope="row">
+                            <span>Depreciation Amortization Depletion</span>
+                        </th>
+                        {% for cash_flow in annual_cash_flow_longfmt %}
+                            {% if not cash_flow.depreciation %}
+                            <td><span>Nan</span></td>
+                            {% else %}
+                            <td>
+                                <span>{{ cash_flow.depreciation }}</span>
+                            </td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                <tr>
+                    <th scope="row">
+                        <span>Capital Expenditures</span>
+                    </th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.capitalExpenditures %}
                         <td><span>Nan</span></td>
-                    {% else %}
+                        {% else %}
                         <td>
-                            <span>{{ cash_flow.changeToInventory }}</span>
+                            <span>{{ cash_flow.capitalExpenditures  }}</span>
                         </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    <span>Effect Of Exchange Rate</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.effectOfExchangeRate %}
-                        <td><span>Nan</span></td>
-                    {% else %}
-                        <td>
-                            <span>{{ cash_flow.effectOfExchangeRate }}</span>
-                        </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    <span>Net Borrowings</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.netBorrowings %}
-                        <td><span>Nan</span></td>
-                    {% else %}
-                        <td>
-                            <span>{{ cash_flow.netBorrowings }}</span>
-                        </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    <span>other Cashflows From Financing</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.otherCashflowsFromFinancingActivities %}
-                        <td><span>Nan</span></td>
-                    {% else %}
-                        <td>
-                            <span>{{ cash_flow.otherCashflowsFromFinancingActivities }}</span>
-                        </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-            <tr>
-                <th scope="row">
-                    <span>Total Cashflows From Financing</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.totalCashFromFinancingActivities %}
-                        <td><span>Nan</span></td>
-                    {% else %}
-                        <td>
-                            <span>{{ cash_flow.totalCashFromFinancingActivities }}</span>
-                        </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    <span>other Cashflows From Investing</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.otherCashflowsFromInvestingActivities %}
-                        <td><span>Nan</span></td>
-                    {% else %}
-                        <td>
-                            <span>{{ cash_flow.otherCashflowsFromInvestingActivities }}</span>
-                        </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    <span>total Cashflows From Investing</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.totalCashflowsFromInvestingActivities %}
-                        <td><span>Nan</span></td>
-                    {% else %}
-                        <td>
-                            <span>{{ cash_flow.totalCashflowsFromInvestingActivities }}</span>
-                        </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    <span>change To Account Receivables</span>
-                </th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.changeToAccountReceivables %}
-                        <td><span>Nan</span></td>
-                    {% else %}
-                        <td>
-                            <span>{{ cash_flow.changeToAccountReceivables }}</span>
-                        </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row"><span>investments</span></th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.investments %}
-                        <td><span>Nan</span></td>
-                    {% else %}
-                        <td>
-                            <span>{{ cash_flow.investments }}</span>
-                        </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row"><span>change In Cash</span></th>
-                {% for cash_flow in annual_cash_flow_longfmt %}
-                    {% if not cash_flow.changeInCash %}
-                        <td><span>Nan</span></td>
-                    {% else %}
-                        <td>
-                            <span>{{ cash_flow.changeInCash }}</span>
-                        </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </table>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <span>Change To Inventory</span>
+                    </th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.changeToInventory %}
+                            <td><span>Nan</span></td>
+                        {% else %}
+                            <td>
+                                <span>{{ cash_flow.changeToInventory }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <span>Effect Of Exchange Rate</span>
+                    </th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.effectOfExchangeRate %}
+                            <td><span>Nan</span></td>
+                        {% else %}
+                            <td>
+                                <span>{{ cash_flow.effectOfExchangeRate }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <span>Net Borrowings</span>
+                    </th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.netBorrowings %}
+                            <td><span>Nan</span></td>
+                        {% else %}
+                            <td>
+                                <span>{{ cash_flow.netBorrowings }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <span>other Cashflows From Financing</span>
+                    </th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.otherCashflowsFromFinancingActivities %}
+                            <td><span>Nan</span></td>
+                        {% else %}
+                            <td>
+                                <span>{{ cash_flow.otherCashflowsFromFinancingActivities }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                <tr>
+                    <th scope="row">
+                        <span>Total Cashflows From Financing</span>
+                    </th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.totalCashFromFinancingActivities %}
+                            <td><span>Nan</span></td>
+                        {% else %}
+                            <td>
+                                <span>{{ cash_flow.totalCashFromFinancingActivities }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <span>other Cashflows From Investing</span>
+                    </th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.otherCashflowsFromInvestingActivities %}
+                            <td><span>Nan</span></td>
+                        {% else %}
+                            <td>
+                                <span>{{ cash_flow.otherCashflowsFromInvestingActivities }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <span>total Cashflows From Investing</span>
+                    </th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.totalCashflowsFromInvestingActivities %}
+                            <td><span>Nan</span></td>
+                        {% else %}
+                            <td>
+                                <span>{{ cash_flow.totalCashflowsFromInvestingActivities }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <span>change To Account Receivables</span>
+                    </th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.changeToAccountReceivables %}
+                            <td><span>Nan</span></td>
+                        {% else %}
+                            <td>
+                                <span>{{ cash_flow.changeToAccountReceivables }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row"><span>investments</span></th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.investments %}
+                            <td><span>Nan</span></td>
+                        {% else %}
+                            <td>
+                                <span>{{ cash_flow.investments }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row"><span>change In Cash</span></th>
+                    {% for cash_flow in annual_cash_flow_longfmt %}
+                        {% if not cash_flow.changeInCash %}
+                            <td><span>Nan</span></td>
+                        {% else %}
+                            <td>
+                                <span>{{ cash_flow.changeInCash }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </table>
     </div>
+    {% endif %}
 {% endblock %}

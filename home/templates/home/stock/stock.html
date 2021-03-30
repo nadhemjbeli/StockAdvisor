@@ -7,9 +7,12 @@
 
 
 {% block content %}
+    {% if not message_error %}
     <div class="container-fluid">
         {% include 'home/nav/stock_nav.html'%}
     </div>
+
+    {% endif %}
     {% include 'home/topstock.html'%}
     <style>
         .light_blue{
@@ -42,9 +45,7 @@
                             <div class="alert  text-center light_blue" role="alert">
                                 <span>{{quote.symbol}} @ {{quote.shortName}} </span>
                             </div>
-                        {% else %}
-                            <br>
-                        {% endif %}
+
                         <hr>
 
                         <ul class="list-group">
@@ -53,6 +54,7 @@
                             <li class="list-group-item light_blue">Low: {{price_dict.regularMarketDayLow.raw}}</li>
                             <li class="list-group-item light_blue">Volume: {{price_dict.regularMarketVolume.longFmt}} </li>
                         </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -50,7 +50,7 @@ def search_stock(request):
     try:
         ts_df = get_data(symbol, dtime=365)
         try:
-            stock = Stock.objects.get(symbol=symbol)
+            Stock.objects.get(symbol=symbol)
             message_stock_exists = 'Exists in the databases'
         except:
             message_stock_new = 'Entered to the databases'
@@ -107,16 +107,16 @@ def single_stock(request, symbol='AAPL'):
     symbol = symbol.upper()
     get_live_update(symbol)
     message_error = None
-    try:
-        stock = Stock.objects.get(symbol=symbol)
-    except:
-        message_error = 'Doesn\'t Exist'
-        return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
+
     # print(stock)
     from pandas_datareader._utils import RemoteDataError
     try:
-
         ts_df = get_data(symbol, 365)
+        try:
+            stock = Stock.objects.get(symbol=symbol)
+        except:
+            message_error = 'Doesn\'t Exist'
+            return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
@@ -154,13 +154,13 @@ def single_stock(request, symbol='AAPL'):
 
 
 def get_income_statements(request, symbol):
+    symbol = symbol.upper()
     message_error = None
     try:
         stock = Stock.objects.get(symbol=symbol)
     except:
         message_error = 'Doesn\'t Exist'
-        return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
-    stock = Stock.objects.get(symbol=symbol)
+        return render(request, 'home/stock_data_vis/income_statements.html', {'message_error': message_error, 'symbol': symbol, })
     json_data = load_url_financials(symbol)
     print('fmtlong')
     annual_income_statement_longfmt = load_yahoo_annual_income_statement(json_data, 'longFmt')
@@ -182,7 +182,12 @@ def get_income_statements(request, symbol):
 
 def get_cash_flow(request, symbol):
     symbol = symbol.upper()
-    stock = Stock.objects.get(symbol=symbol)
+    message_error = None
+    try:
+        stock = Stock.objects.get(symbol=symbol)
+    except:
+        message_error = 'Doesn\'t Exist'
+        return render(request, 'home/stock_data_vis/cash_flow.html', {'message_error': message_error, 'symbol': symbol, })
     json_data = load_url_financials(symbol)
     print('fmtlong')
     annual_cash_flow_longfmt = load_yahoo_annual_cash_flow(json_data, 'longFmt')
@@ -191,6 +196,7 @@ def get_cash_flow(request, symbol):
     # print(financials_fmt['annual_income_statements'])
     # financials_raw = load_yahoo_financials(symbol, 'raw')
     context = {
+        'message_error': message_error,
         'stock': stock,
         # 'financials_raw': financials_raw,
         'annual_cash_flow_fmt': annual_cash_flow_fmt,
@@ -202,7 +208,13 @@ def get_cash_flow(request, symbol):
 
 
 def get_balance_sheet(request, symbol):
-    stock = Stock.objects.get(symbol=symbol)
+    symbol = symbol.upper()
+    message_error = None
+    try:
+        stock = Stock.objects.get(symbol=symbol)
+    except:
+        message_error = 'Doesn\'t Exist'
+        return render(request, 'home/stock_data_vis/income_statements.html', {'message_error': message_error, 'symbol': symbol, })
     json_data_balance_sheet = load_url_financials(symbol)
     print('fmtlong')
     annual_balance_sheet_longfmt = load_yahoo_annual_balance_sheet(json_data_balance_sheet, 'longFmt')
@@ -212,7 +224,8 @@ def get_balance_sheet(request, symbol):
         'stock': stock,
         'annual_balance_sheet_longfmt': annual_balance_sheet_longfmt,
         'annual_balance_sheet_fmt': annual_balance_sheet_fmt,
-        'symbol': symbol.upper(),
+        'symbol': symbol,
+        'message_error': message_error,
 
     }
 
@@ -233,8 +246,20 @@ def get_balance_sheet(request, symbol):
 
 
 def stockAnalysis(request, symbol, dtime=365):
-    stock = Stock.objects.get(symbol=symbol)
-    df = get_data(symbol, dtime)
+    symbol = symbol.upper()
+    get_live_update(symbol)
+    message_error = None
+    from pandas_datareader._utils import RemoteDataError
+    try:
+        df = get_data(symbol, dtime)
+        try:
+            stock = Stock.objects.get(symbol=symbol)
+        except:
+            message_error = 'Doesn\'t Exist'
+            return render(request, 'home/stock/stock_analysis.html', {'message_error': message_error, 'symbol': symbol, })
+    except (RemoteDataError, KeyError):
+        message_error = 'isn\'t a stock symbol'
+        return render(request, 'home/stock/stock_analysis.html', {'message_error': message_error, 'symbol': symbol, })
     graph_plotly1, graph_plotly2, graph_plotly3 = compute_bollinger_bands(df, symbol, dtime)
     MACD, signal = get_macd_signal(df, dtime)
     plot_macd = plot_macd_signal(df, symbol, MACD, signal)
@@ -250,6 +275,7 @@ def stockAnalysis(request, symbol, dtime=365):
     context = {
         'symbol': symbol.upper(),
         'stock': stock,
+        'message_error': message_error,
         'graph_plotly1': graph_plotly1,
         'graph_plotly2': graph_plotly2,
         'graph_plotly3': graph_plotly3,
@@ -273,14 +299,14 @@ def get_stock_summary(request, symbol):
 def get_historical_data(request, symbol):
     symbol = symbol.upper()
     df = get_data(symbol, dtime=365)
-    print(df)
+    # print(df)
     # data = dict(zip(df['Date'], df['Open']))
     data = []
     df = round(df, 3)
     for i in range(df.shape[0]):
         temp = df.iloc[i]
         data.append(dict(temp))
-    print(data)
+    # print(data)
     context = {
         'data': data,
         'symbol': symbol,

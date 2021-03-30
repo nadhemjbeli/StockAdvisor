@@ -19,8 +19,16 @@
     </style>
 
     <div class="container-fluid">
+        {% if message_error %}
+            <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{ symbol }}</strong> {{ message_error }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+        {% if not message_error %}
         <div class="row mt-5 mb-5 justify-content-center">
-
             <div class="col-sm-3 col-md-3 col-xs-12 py-5">
                 <div class="card">
                     <div class="card-header"> Stock Spot Quote</div>
@@ -28,13 +36,10 @@
 
 
                         <hr>
-                        {% if not message_error %}
+
                             <div class="alert  text-center light_blue" role="alert">
                                 <span>{{quote.symbol}} @ {{quote.shortName}} </span>
                             </div>
-                        {% else %}
-                            <br>
-                        {% endif %}
                         <hr>
 
                         <ul class="list-group">
@@ -51,22 +56,16 @@
                 {% if not message_error %}
                     {%load plotly_dash %}
                     {% plotly_app name='price' %}
-                {% else %}
-                    <div class="container alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>{{ symbol }}</strong> {{ message_error }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
                 {% endif %}
+                {% if not message_error %}
                 <div class="card text-center">
-                    {% if not message_error %}
+
                         {#                        {%load plotly_dash %}#}
 
                         <div class="alert light_blue" role="alert">
                             <span>{{quote.symbol}} </span>
                         </div>
-                    {% endif %}
+
 
 
 
@@ -81,10 +80,12 @@
                     <br>
                     <div>  {{compare_stock | safe}} </div>
                 </div>
+                {% endif %}
             </div>
 
 
         </div>
+        {% endif %}
     </div>
 
 {%endblock%}
