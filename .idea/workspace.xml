@@ -2,17 +2,107 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/djangoProject/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/css/login_styling.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/css/etline-font.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/css/flexslider.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/css/ie.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/css/jquery.fancybox.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/css/normalize.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/css/print.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/css/queries.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/css/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/FontAwesome.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line-font/Read Me.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line-font/et-line.dev.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line-font/fonts/et-line.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line-font/fonts/et-line.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line-font/fonts/et-line.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line-font/fonts/et-line.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line-font/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line-font/lte-ie7.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line-font/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/et-line.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/flexslider-icon.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/flexslider-icon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/flexslider-icon.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/flexslider-icon.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/fontawesome-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/130.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/amazon_logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/apple_logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/avatar.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/avatar@2x.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/bg_play_pause.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/blank.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/blog-img-01.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/blog-img-02.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/blog-img-03.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/devices.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/devices@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/fancybox_loading.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/fancybox_loading@2x.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/fancybox_overlay.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/fancybox_sprite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/fancybox_sprite@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/hero-min.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/hero.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/ipad-device.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/iphone-device.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/iphone6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/macbook-pro.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/macbook-pro@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/mani.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/money.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/polygonal-bg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/sedna-logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/sedna-logo@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/sketch-logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/sketch-logo@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/stock_advisor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/tesla2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/img/testimonials-bg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/js/jquery.fancybox.pack.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/js/jquery.flexslider-min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/js/min/scripts-min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/js/scripts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/js/vendor/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/js/vendor/jquery-1.11.2.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/js/vendor/npm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/sass/ie.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/sass/partials/_buttons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/sass/partials/_colors.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/sass/partials/_layout.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/sass/partials/_typography.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/sass/print.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/static/stock/sass/styles.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/pre_user/header.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/pre_user/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/user/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/historical_data.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/historical_data.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/templates/home/stock/single_stock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/single_stock.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/stock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/stock.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/stock_analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/stock_analysis.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_data_vis/balance_sheet.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/balance_sheet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_data_vis/cash_flow.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/cash_flow.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_data_vis/income_statements.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/income_statements.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/topstock.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/topstock.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/nav_days.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav_days.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base_no_jquery.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base_no_jquery.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/_sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/_topbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_topbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +112,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
         <option value="HTML File" />
       </list>
     </option>
@@ -43,15 +133,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/vendor/datatables" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/pre_user" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\templates\pre_user" />
+      <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\djangoProject\static" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\static\vendor\datatables" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\templates" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\home\dash_apps" />
-      <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\home\templates\home" />
-      <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\djangoProject\static" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\home\templates\home\stock" />
@@ -96,7 +186,7 @@
       <workItem from="1615849101833" duration="80455000" />
       <workItem from="1616521675026" duration="39985000" />
       <workItem from="1616714369059" duration="48298000" />
-      <workItem from="1617117583274" duration="6687000" />
+      <workItem from="1617117583274" duration="23910000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
@@ -245,7 +335,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617118667367</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Checking if the stock exists in the database or is it new, while creating it by the method &#10;search_stock(symbol)">
+      <created>1617145103660</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1617145103660</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

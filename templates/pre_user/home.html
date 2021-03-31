@@ -1,0 +1,180 @@
+{% extends "pre_user/header.html" %}
+{% load static %}
+
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <title> STOCK ADVISOR</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="{% static 'stock/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'stock/favicon-32x32.png'%}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{% static 'stock/favicon-16x16.png'%}"sizes="16x16" />
+    <link rel="stylesheet" href="{% static 'stock/css/normalize.min.css'%}">
+    <link rel="stylesheet" href="{% static 'stock/css/bootstrap.min.css '%}">
+    <link rel="stylesheet" href="{% static 'stock/css/jquery.fancybox.css '%}">
+    <link rel="stylesheet" href="{% static 'stock/css/flexslider.css '%}">
+    <link rel="stylesheet" href="{% static 'stock/css/styles.css '%}">
+    <link rel="stylesheet" href="{% static 'stock/css/queries.css '%}">
+    <link rel="stylesheet" href="{% static 'stock/css/etline-font.css'%}">
+    <link rel="stylesheet" href="{% static 'stock/bower_components/animate.css/animate.min.css'%}">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<body id="top">
+
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+        {%  block content %}
+              <section class="hero">
+    <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="hero-content text-center">
+                        <h1>Save Time and Earn Money</h1>
+                        <p class="intro">We offer our customers a powerful solution for stock analysis and predictions.</p>
+                        <a href="#" class="btn btn-fill btn-large btn-margin-right">Learn more</a>
+                    </div>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="down-arrow floating-arrow"><a href="#"><i class="fa fa-angle-down"></i></a></div>
+
+    <section class="intro section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 intro-feature">
+                    <div class="intro-icon">
+                        <span data-icon="&#xe033;" class="icon"></span>
+                    </div>
+                    <div class="intro-content">
+                        <h5>Analyze The Opportunities</h5>
+                        <p>Technical analysis focuses on the study of past and present price action to predict the probability of future price movement</p>
+                    </div>
+                </div>
+                <div class="col-md-4 intro-feature">
+                    <div class="intro-icon">
+                        <span data-icon="&#xe030;" class="icon"></span>
+                    </div>
+                    <div class="intro-content">
+                        <h5>Stock advice that beats the market</h5>
+                        <p>We are helping thousands of individual investors just like you save time and make money with Deep Stock Advisor.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 intro-feature">
+                    <div class="intro-icon">
+                        <span data-icon="&#xe046;" class="icon"></span>
+                    </div>
+                    <div class="intro-content last">
+                        <h5>Advantages of trading with deep learning</h5>
+                        <p>An algorithm can make predictions with high accurate. <br>It takes a milli-seconds to decide whether the stock is worth buying or not.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="hero-strip section-padding">
+        <div class="container">
+            <div class="col-md-12 text-center">
+                <h2>
+                POPULAR STOCKS <span class="sketch"> </span>
+                </h2>
+
+                <div class="logo-placeholder floating-logo"><img src="{% static 'stock/img/sketch-logo.png' %}" alt="Sketch Logo"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="testimonial-slider section-padding text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li>
+                                <div class="avatar"><img src="{% static 'stock/img/apple_logo.png' %}" alt="Sedna Testimonial Avatar"></div>
+                                <h2>Apple Inc. designs, manufactures and markets mobile communication and media devices,
+                                    personal computers and portable digital music players. The Company sells a range of related software,
+                                    services, accessories, networking solutions, and third-party digital content and applications.
+                                  </h2>
+
+                            </li>
+                            <li>
+                                <div class="avatar"><img src="{% static 'stock/img/tesla2.jpg' %}" alt="Sedna Testimonial Avatar"></div>
+
+                                <h2>Tesla, Inc (formerly Tesla Motors, Inc) designs, develops, manufactures and sells fully electric vehicles, and energy storage systems, as well as installs,
+                                    operates and maintains solar and energy storage products</h2>
+                            </li>
+                            <li>
+                                <div class="avatar"><img src="{% static 'stock/img/amazon_logo.png' %}" alt="Sedna Testimonial Avatar"></div>
+                                <h2>Amazon.com, Inc. offers a range of products and services through its Websites.
+                                    The Company operates through three segments: North America, International and Amazon Web Services (AWS).</h2>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="to-top">
+        <div class="container">
+            <div class="row">
+                <div class="to-top-wrap">
+                    <a href="#top" class="top"><i class="fa fa-angle-up"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="footer-links">
+
+                        <p>Copyright © 2021 <a href="#">ROMMENE Mouhamed Ali</a><br>
+
+                    </div>
+                </div>
+                <div class="social-share">
+                    <p>Share Stock Advisor  with your friends</p>
+                    <a href="https://twitter.com/peterfinlan" class="twitter-share"><i class="fa fa-twitter"></i></a> <a href="#" class="facebook-share"><i class="fa fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    </footer>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{% static 'stock/js/vendor/jquery-1.11.2.min.js' %}"><\/script>')</script>
+    <script src="{% static 'stock/bower_components/retina.js/dist/retina.js' %}"></script>
+    <script src="{% static 'stock/js/jquery.fancybox.pack.js' %}"></script>
+    <script src="{% static 'stock/js/vendor/bootstrap.min.js' %}"></script>
+    <script src="{% static 'stock/js/scripts.js' %}"></script>
+    <script src="{% static 'stock/js/jquery.flexslider-min.js' %}"></script>
+    <script src="{% static 'stock/bower_components/classie/classie.js' %}"></script>
+    <script src="{% static 'stock/bower_components/jquery-waypoints/lib/jquery.waypoints.min.js' %}"></script>
+
+
+</body>
+</html>

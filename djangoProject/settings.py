@@ -183,10 +183,11 @@ PLOTLY_COMPONENTS = [
 
 STATICFILES_LOCATION = 'static'
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+STATIC_ROOT = os.path.join(os.path.dirname(
+    BASE_DIR), 'static', 'static_root')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'djangoProject/static')
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(
-    BASE_DIR), 'static_cdn', 'media_root')
+    BASE_DIR), 'static', 'media_root')

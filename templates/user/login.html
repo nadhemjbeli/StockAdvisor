@@ -1,0 +1,54 @@
+{% load static %}
+{#{% include 'base.html' %}#}
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<link href="{% static 'css/login_styling.css' %}" rel="stylesheet" type="text/css">
+<style>
+
+
+</style>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div id="formTop" class="container-fluid">
+    <br>
+    <a class="underlineHover" href="{% url 'absolute_home' %}">return to the main page</a>
+</div>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+
+        </div>
+        <br>
+
+        <br>
+        <!-- Login Form -->
+        <form action="" method="post">
+            {% if message_error %}
+                <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ message_error }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+{#            <input type="text" id="login" class="fadeIn second" name="login" autocomplete="off" placeholder="login">#}
+{#            <input type="text" id="password" class="fadeIn third" name="login" autocomplete="off" placeholder="password">#}
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+        </div>
+
+    </div>
+</div>

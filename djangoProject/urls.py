@@ -17,9 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import login_view, absolute_home, logout_view
 
 urlpatterns = [
+    path('', absolute_home, name='absolute_home'),
     path('admin/', admin.site.urls),
+    path('login/', login_view, name="login"),
+    path('logout/', logout_view, name="logout"),
     path('home/', include('home.urls', namespace='home')),
     path('django_plotly_dash/', include('django_plotly_dash.urls')),
 ]

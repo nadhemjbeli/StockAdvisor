@@ -115,7 +115,7 @@ def single_stock(request, symbol='AAPL'):
         try:
             stock = Stock.objects.get(symbol=symbol)
         except:
-            message_error = 'Doesn\'t Exist'
+            message_error = 'is a valid stock but Doesn\'t Exist in our databases'
             return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
@@ -156,10 +156,16 @@ def single_stock(request, symbol='AAPL'):
 def get_income_statements(request, symbol):
     symbol = symbol.upper()
     message_error = None
+    from pandas_datareader._utils import RemoteDataError
     try:
-        stock = Stock.objects.get(symbol=symbol)
-    except:
-        message_error = 'Doesn\'t Exist'
+        get_data(symbol, dtime=1)
+        try:
+            stock = Stock.objects.get(symbol=symbol)
+        except:
+            message_error = 'is a valid stock but Doesn\'t Exist in our databases yet'
+            return render(request, 'home/stock_data_vis/income_statements.html', {'message_error': message_error, 'symbol': symbol, })
+    except (RemoteDataError, KeyError):
+        message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock_data_vis/income_statements.html', {'message_error': message_error, 'symbol': symbol, })
     json_data = load_url_financials(symbol)
     print('fmtlong')
@@ -183,10 +189,16 @@ def get_income_statements(request, symbol):
 def get_cash_flow(request, symbol):
     symbol = symbol.upper()
     message_error = None
+    from pandas_datareader._utils import RemoteDataError
     try:
-        stock = Stock.objects.get(symbol=symbol)
-    except:
-        message_error = 'Doesn\'t Exist'
+        get_data(symbol, dtime=1)
+        try:
+            stock = Stock.objects.get(symbol=symbol)
+        except:
+            message_error = 'is a valid stock but Doesn\'t Exist in our databases'
+            return render(request, 'home/stock_data_vis/cash_flow.html', {'message_error': message_error, 'symbol': symbol, })
+    except (RemoteDataError, KeyError):
+        message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock_data_vis/cash_flow.html', {'message_error': message_error, 'symbol': symbol, })
     json_data = load_url_financials(symbol)
     print('fmtlong')
@@ -210,11 +222,17 @@ def get_cash_flow(request, symbol):
 def get_balance_sheet(request, symbol):
     symbol = symbol.upper()
     message_error = None
+    from pandas_datareader._utils import RemoteDataError
     try:
-        stock = Stock.objects.get(symbol=symbol)
-    except:
-        message_error = 'Doesn\'t Exist'
-        return render(request, 'home/stock_data_vis/income_statements.html', {'message_error': message_error, 'symbol': symbol, })
+        get_data(symbol, dtime=1)
+        try:
+            stock = Stock.objects.get(symbol=symbol)
+        except:
+            message_error = 'is a valid stock but Doesn\'t Exist in our databases'
+            return render(request, 'home/stock_data_vis/balance_sheet.html', {'message_error': message_error, 'symbol': symbol, })
+    except (RemoteDataError, KeyError):
+        message_error = 'isn\'t a stock symbol'
+        return render(request, 'home/stock_data_vis/balance_sheet.html', {'message_error': message_error, 'symbol': symbol, })
     json_data_balance_sheet = load_url_financials(symbol)
     print('fmtlong')
     annual_balance_sheet_longfmt = load_yahoo_annual_balance_sheet(json_data_balance_sheet, 'longFmt')
@@ -255,7 +273,7 @@ def stockAnalysis(request, symbol, dtime=365):
         try:
             stock = Stock.objects.get(symbol=symbol)
         except:
-            message_error = 'Doesn\'t Exist'
+            message_error = 'is a valid stock but doesn\'t Exist in our databases'
             return render(request, 'home/stock/stock_analysis.html', {'message_error': message_error, 'symbol': symbol, })
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
@@ -286,11 +304,21 @@ def stockAnalysis(request, symbol, dtime=365):
 
 
 def get_stock_summary(request, symbol):
-
-    get_live_update(symbol)
-    area_1_day = area_plot_1_day(symbol)
+    from pandas_datareader._utils import RemoteDataError
+    try:
+        get_live_update(symbol)
+        area_1_day = area_plot_1_day(symbol)
+        try:
+            stock = Stock.objects.get(symbol=symbol)
+        except:
+            message_error = 'is a valid stock but Doesn\'t Exist in our databases'
+            return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
+    except (RemoteDataError, KeyError):
+        message_error = 'isn\'t a stock symbol'
+        return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
     context = {
         'area_1_day': area_1_day,
+        'stock': stock,
         'symbol': symbol.upper(),
     }
     return render(request, 'home/stock/summary.html', context)
@@ -298,7 +326,18 @@ def get_stock_summary(request, symbol):
 
 def get_historical_data(request, symbol):
     symbol = symbol.upper()
-    df = get_data(symbol, dtime=365)
+    message_error = None
+    from pandas_datareader._utils import RemoteDataError
+    try:
+        df = get_data(symbol, dtime=365)
+        try:
+            stock = Stock.objects.get(symbol=symbol)
+        except:
+            message_error = 'is a valid stock but doesn\'t Exist in our databases'
+            return render(request, 'home/stock/historical_data.html', {'message_error': message_error, 'symbol': symbol, })
+    except (RemoteDataError, KeyError):
+        message_error = 'isn\'t a stock symbol'
+        return render(request, 'home/stock/historical_data.html', {'message_error': message_error, 'symbol': symbol, })
     # print(df)
     # data = dict(zip(df['Date'], df['Open']))
     data = []
@@ -310,6 +349,8 @@ def get_historical_data(request, symbol):
     context = {
         'data': data,
         'symbol': symbol,
+        'stock': stock,
+        'message_error': message_error,
     }
     return render(request, 'home/stock/historical_data.html', context)
 

@@ -26,65 +26,60 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-        {% endif %}
-        {% if not message_error %}
-        <div class="row mt-5 mb-5 justify-content-center">
-            <div class="col-sm-3 col-md-3 col-xs-12 py-5">
-                <div class="card">
-                    <div class="card-header"> Stock Spot Quote</div>
-                    <div class="card-body">
+        {% else %}
+            <div class="row mt-5 mb-5 justify-content-center">
+                <div class="col-sm-3 col-md-3 col-xs-12 py-5">
+                    <div class="card">
+                        <div class="card-header"> Stock Spot Quote</div>
+                        <div class="card-body">
 
 
-                        <hr>
+                            <hr>
 
-                            <div class="alert  text-center light_blue" role="alert">
-                                <span>{{quote.symbol}} @ {{quote.shortName}} </span>
-                            </div>
-                        <hr>
+                                <div class="alert  text-center light_blue" role="alert">
+                                    <span>{{quote.symbol}} @ {{quote.shortName}} </span>
+                                </div>
+                            <hr>
 
-                        <ul class="list-group">
-                            <li class="list-group-item light_blue"><bold>Quick Info</bold></li>
-                            <li class="list-group-item light_blue">High: {{price_dict.regularMarketDayHigh.raw}} </li>
-                            <li class="list-group-item light_blue">Low: {{price_dict.regularMarketDayLow.raw}}</li>
-                            <li class="list-group-item light_blue">Volume: {{price_dict.regularMarketVolume.longFmt}} </li>
-                        </ul>
+                            <ul class="list-group">
+                                <li class="list-group-item light_blue"><bold>Quick Info</bold></li>
+                                <li class="list-group-item light_blue">High: {{price_dict.regularMarketDayHigh.raw}} </li>
+                                <li class="list-group-item light_blue">Low: {{price_dict.regularMarketDayLow.raw}}</li>
+                                <li class="list-group-item light_blue">Volume: {{price_dict.regularMarketVolume.longFmt}} </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-sm-9 col-md-9 col-xs-12 py-5">
-                {% if not message_error %}
-                    {%load plotly_dash %}
-                    {% plotly_app name='price' %}
-                {% endif %}
-                {% if not message_error %}
-                <div class="card text-center">
+                <div class="col-sm-9 col-md-9 col-xs-12 py-5">
+                        {%load plotly_dash %}
+                        {% plotly_app name='price' %}
+                    <div class="card text-center">
 
-                        {#                        {%load plotly_dash %}#}
+                            {#                        {%load plotly_dash %}#}
 
-                        <div class="alert light_blue" role="alert">
-                            <span>{{quote.symbol}} </span>
-                        </div>
+                            <div class="alert light_blue" role="alert">
+                                <span>{{quote.symbol}} </span>
+                            </div>
 
 
 
 
-                    <div>  {{candlestick | safe}} </div>
-                    <br>
-                    <br>
-                    <div>  {{plotly_slider | safe}} </div>
-                    <br>
-                    <br>
-                    <div>  {{plotly | safe}} </div>
-                    <br>
-                    <br>
-                    <div>  {{compare_stock | safe}} </div>
+                        <div>  {{candlestick | safe}} </div>
+                        <br>
+                        <br>
+                        <div>  {{plotly_slider | safe}} </div>
+                        <br>
+                        <br>
+                        <div>  {{plotly | safe}} </div>
+                        <br>
+                        <br>
+                        <div>  {{compare_stock | safe}} </div>
+                    </div>
                 </div>
-                {% endif %}
+
+
             </div>
-
-
-        </div>
         {% endif %}
     </div>
 
