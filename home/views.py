@@ -6,6 +6,7 @@ from .plots import candlestick, compute_bollinger_bands, plot_macd_signal, plot_
 from .functions import load_url_financials, load_yahoo_annual_income_statement, load_yahoo_annual_cash_flow, get_data, \
     get_macd_signal, buy_sell, quote_type_yahoo, stock_price_yahoo, load_yahoo_annual_balance_sheet
 from .dash_apps.finished_apps.simpleexample import get_live_update
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 symbol = 'AAPL'
 
@@ -36,6 +37,7 @@ def home(request):
     return render(request, 'home/welcome.html', context)
 
 
+@login_required
 def search_stock(request):
     message_error = None
     message_stock_exists = None
@@ -90,6 +92,7 @@ def search_stock(request):
     return render(request, 'home/stock/stock.html', context, )
 
 
+@login_required
 def get_stock(request, symbol='AAPL'):
     symbol = symbol.upper()
     stocks = Stock.objects.all()
@@ -103,6 +106,7 @@ def get_stock(request, symbol='AAPL'):
     return render(request, "home/table_stock.html", context)
 
 
+@login_required
 def single_stock(request, symbol='AAPL'):
     symbol = symbol.upper()
     get_live_update(symbol)

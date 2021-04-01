@@ -3,7 +3,6 @@
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <link href="{% static 'css/login_styling.css' %}" rel="stylesheet" type="text/css">
 <style>
-
     #formTop{
         background-color: #3e3d3d;
     }
@@ -28,20 +27,29 @@
     <a class="underlineHover" href="{% url 'absolute_home' %}">return to the main page</a>
 </div>
 <div class="wrapper fadeInDown">
-
     <div id="formContent" class="formContent">
-
 
         <!-- Tabs Titles -->
 
         <!-- Icon -->
         <div class="fadeIn first">
             <img src="{% static 'stock/img/stock_advisor.png' %}" id="icon" alt="User Icon" />
-{#            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />#}
 
         </div>
         <!-- Login Form -->
         <form action="" method="post">
+{#            {% if form.error_messages %}#}
+{#                <div class="container alert alert-danger alert-dismissible fade show" role="alert">#}
+{#                    <ul>#}
+{#                    {% for error in form.error_messages %}#}
+{#                        <li>{{ error }}</li>#}
+{#                    {% endfor %}#}
+{#                    </ul>#}
+{#                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
+{#                        <span aria-hidden="true">&times;</span>#}
+{#                    </button>#}
+{#                </div>#}
+{#            {% endif %}#}
             {% if message_error %}
                 <div class="container alert alert-danger alert-dismissible fade show" role="alert">
                     {{ message_error }}
@@ -53,25 +61,28 @@
 {#            <input type="text" id="login" class="fadeIn second" name="login" autocomplete="off" placeholder="login">#}
 {#            <input type="text" id="password" class="fadeIn third" name="login" autocomplete="off" placeholder="password">#}
             {% csrf_token %}
-            {{form.username}}
+            {{ form.username }}
             <br>
-            {{form.password}}
+            {{ form.email }}
             <br>
-            <input type="submit" class="fadeIn fourth" value="Log In"><br>
-{#            <a class="underlineHover" href="#">Forgot Password?</a>#}
+            {{ form.password1 }}
+            <br>
+            {{ form.password2 }}
+            <br>
+            <input type="submit" class="fadeIn fourth" value="Sign Up">
         </form>
 
         <!-- Remind Passowrd -->
-        <div id="formFooter" class="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
+        <div id="formFooter">
+            if you already have an account , <a href="{% url 'login' %}"><strong>Login</strong></a> instead.
         </div>
-
     </div>
 </div>
-
 <script>
     //Query All input fields
     var form_fields = document.getElementsByTagName('input')
     form_fields[1].placeholder='Username..';
-    form_fields[2].placeholder='Enter password...';
+    form_fields[2].placeholder='Email..';
+    form_fields[3].placeholder='Enter password...';
+    form_fields[4].placeholder='Re-enter Password...';
 </script>
