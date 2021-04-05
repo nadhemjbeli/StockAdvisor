@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/user/signup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/accounts/password_reset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/accounts/password_reset_done.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/accounts/password_reset_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/accounts/password_reset_sent.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/djangoProject/static/css/login_styling.css" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/static/css/login_styling.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/djangoProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pre_user/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pre_user/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/historical_data.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/historical_data.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/user/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/signup.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,15 +42,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/user" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/accounts" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\templates\accounts" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\templates\user" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\templates\pre_user" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\djangoProject\static" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\static\vendor\datatables" />
-      <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\home\templates\home\stock" />
@@ -95,7 +95,10 @@
       <workItem from="1615849101833" duration="80455000" />
       <workItem from="1616521675026" duration="39985000" />
       <workItem from="1616714369059" duration="48298000" />
-      <workItem from="1617117583274" duration="34566000" />
+      <workItem from="1617117583274" duration="35293000" />
+      <workItem from="1617285838073" duration="3451000" />
+      <workItem from="1617542614216" duration="936000" />
+      <workItem from="1617661002241" duration="338000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
@@ -258,7 +261,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617219465204</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="creating a signup page in signup.html and creating its method, also making the web app more secure">
+      <created>1617243679730</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1617243679730</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,6 +289,7 @@
     <MESSAGE value="making the stocks related to the databases and changing the nav_days.html" />
     <MESSAGE value="Checking if the stock exists in the database or is it new, while creating it by the method &#10;search_stock(symbol)" />
     <MESSAGE value="including login.html page to authenticate and logout method" />
-    <option name="LAST_COMMIT_MESSAGE" value="including login.html page to authenticate and logout method" />
+    <MESSAGE value="creating a signup page in signup.html and creating its method, also making the web app more secure" />
+    <option name="LAST_COMMIT_MESSAGE" value="creating a signup page in signup.html and creating its method, also making the web app more secure" />
   </component>
 </project>

@@ -4,9 +4,10 @@
 <link href="{% static 'css/login_styling.css' %}" rel="stylesheet" type="text/css">
 <style>
     #formTop{
+        padding-left: 5%;
         background-color: #3e3d3d;
     }
-    form{
+    body{
         background-color: #3e3d3d;
     }
     .fadeIn{
@@ -21,10 +22,10 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<body>
 <div id="formTop" class="container-fluid">
     <br>
-    <a class="underlineHover" href="{% url 'absolute_home' %}">return to the main page</a>
+    <a href="{% url 'absolute_home' %}"><strong>return to the main page</strong></a>
 </div>
 <div class="wrapper fadeInDown">
     <div id="formContent" class="formContent">
@@ -38,18 +39,18 @@
         </div>
         <!-- Login Form -->
         <form action="" method="post">
-{#            {% if form.error_messages %}#}
-{#                <div class="container alert alert-danger alert-dismissible fade show" role="alert">#}
-{#                    <ul>#}
-{#                    {% for error in form.error_messages %}#}
-{#                        <li>{{ error }}</li>#}
-{#                    {% endfor %}#}
-{#                    </ul>#}
-{#                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
-{#                        <span aria-hidden="true">&times;</span>#}
-{#                    </button>#}
-{#                </div>#}
-{#            {% endif %}#}
+            {#            {% if form.error_messages %}#}
+            {#                <div class="container alert alert-danger alert-dismissible fade show" role="alert">#}
+            {#                    <ul>#}
+            {#                    {% for error in form.error_messages %}#}
+            {#                        <li>{{ error }}</li>#}
+            {#                    {% endfor %}#}
+            {#                    </ul>#}
+            {#                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
+            {#                        <span aria-hidden="true">&times;</span>#}
+            {#                    </button>#}
+            {#                </div>#}
+            {#            {% endif %}#}
             {% if message_error %}
                 <div class="container alert alert-danger alert-dismissible fade show" role="alert">
                     {{ message_error }}
@@ -58,8 +59,8 @@
                     </button>
                 </div>
             {% endif %}
-{#            <input type="text" id="login" class="fadeIn second" name="login" autocomplete="off" placeholder="login">#}
-{#            <input type="text" id="password" class="fadeIn third" name="login" autocomplete="off" placeholder="password">#}
+            {#            <input type="text" id="login" class="fadeIn second" name="login" autocomplete="off" placeholder="login">#}
+            {#            <input type="text" id="password" class="fadeIn third" name="login" autocomplete="off" placeholder="password">#}
             {% csrf_token %}
             {{ form.username }}
             <br>
@@ -78,6 +79,8 @@
         </div>
     </div>
 </div>
+</body>
+
 <script>
     //Query All input fields
     var form_fields = document.getElementsByTagName('input')

@@ -16,7 +16,10 @@
     .fadeInDown{
         background-color: #3e3d3d;
     }
-
+    ::placeholder {
+        color: red;
+        opacity: 1; /* Firefox */
+    }
 </style>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -63,7 +66,7 @@
 
         <!-- Remind Passowrd -->
         <div id="formFooter" class="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
+            <a class="underlineHover" href="{% url 'reset_password' %}">Forgot Password?</a>
         </div>
 
     </div>
@@ -72,6 +75,7 @@
 <script>
     //Query All input fields
     var form_fields = document.getElementsByTagName('input')
+    form_fields[1].placeholder='Username..';
     form_fields[1].placeholder='Username..';
     form_fields[2].placeholder='Enter password...';
 </script>

@@ -57,7 +57,7 @@ h2 {
 /* TABS */
 
 h2.inactive {
-    color: #cccccc;
+    color: #9d9d9d;
 }
 
 h2.active {
@@ -80,8 +80,8 @@ input[type=button], input[type=submit], input[type=reset]  {
     display: inline-block;
     text-transform: uppercase;
     font-size: 13px;
-    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-    box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    -webkit-box-shadow: 0 10px 30px 0 rgba(87,115,223,0.4);
+    box-shadow: 0 10px 30px 0 rgba(87,115,223,0.4);
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
     margin: 5px 20px 40px 20px;
@@ -113,10 +113,9 @@ input[type=text],input[type=password],input[type=email] {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 25px;
     margin: 5px;
     width: 85%;
-    border: 2px solid #f6f6f6;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
     -ms-transition: all 0.5s ease-in-out;
@@ -132,7 +131,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
 }
 
 input[type=text]::placeholder, input[type=password]::placeholder, input[type=email]::placeholder {
-    color: #cccccc;
+    color: #000000;
 }
 
 
