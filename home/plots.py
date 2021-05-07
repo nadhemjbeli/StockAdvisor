@@ -89,7 +89,7 @@ def area_plot_1_day(symbol):
     if dt.datetime.now().hour == 9:
         if dt.datetime.now().minute >30:
             start = dt.datetime.now()
-        else :
+        else:
             start = dt.datetime.now() - dt.timedelta(1)
     elif dt.datetime.now().hour > 9:
         start = dt.datetime.now()

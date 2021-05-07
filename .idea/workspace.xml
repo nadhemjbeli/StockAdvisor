@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/accounts/password_reset.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/accounts/password_reset_done.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/accounts/password_reset_form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/accounts/password_reset_sent.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject/static/css/login_styling.css" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/static/css/login_styling.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/historical_data.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/historical_data.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/plots.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/stock_data_vis/balance_sheet.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock_data_vis/balance_sheet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/_sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_sidebar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +92,8 @@
       <workItem from="1617117583274" duration="35293000" />
       <workItem from="1617285838073" duration="3451000" />
       <workItem from="1617542614216" duration="936000" />
-      <workItem from="1617661002241" duration="338000" />
+      <workItem from="1617661002241" duration="4385000" />
+      <workItem from="1619798777003" duration="3526000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
@@ -268,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617243679730</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="designing the login and sign up pages">
+      <created>1617661373506</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1617661373506</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -290,6 +292,7 @@
     <MESSAGE value="Checking if the stock exists in the database or is it new, while creating it by the method &#10;search_stock(symbol)" />
     <MESSAGE value="including login.html page to authenticate and logout method" />
     <MESSAGE value="creating a signup page in signup.html and creating its method, also making the web app more secure" />
-    <option name="LAST_COMMIT_MESSAGE" value="creating a signup page in signup.html and creating its method, also making the web app more secure" />
+    <MESSAGE value="designing the login and sign up pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="designing the login and sign up pages" />
   </component>
 </project>
