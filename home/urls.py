@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import search_stock, get_stock, single_stock, get_cash_flow, get_income_statements, get_stock_summary \
-    , stockAnalysis, home, get_historical_data, get_balance_sheet
+    , stockAnalysis, home, get_historical_data, get_balance_sheet, get_profiles
 
 app_name = 'home'
 urlpatterns = [
@@ -12,6 +12,7 @@ urlpatterns = [
     path('stock/<str:symbol>/financials', get_income_statements, name='show_financials'),
     path('stock/<str:symbol>/cash_flow', get_cash_flow, name='show_cash_flow'),
     path('stock/<str:symbol>/balance_sheet', get_balance_sheet, name='show_balance_sheet'),
+    path('stock/<str:symbol>/profile', get_profiles, name='show_profile'),
     path('stock/<str:symbol>/Summary', get_stock_summary, name='show_summary'),
     path('stock/<str:symbol>/Historical', get_historical_data, name='show_historical_data'),
     path('stock_analysis/<str:symbol>/<int:dtime>', stockAnalysis, name='stock_analysis'),

@@ -188,6 +188,17 @@ def load_url_financials(stock):
     return json_data
 
 
+def load_url_profiles(stock):
+    url_profile = 'https://finance.yahoo.com/quote/{}/profile?p={}'
+    response = requests.get(url_profile.format(stock, stock))
+    soup = BeautifulSoup(response.text, 'html.parser')
+    pattern = re.compile(r'\s--\sData\s--\s')
+    script_data = soup.find('script', text=pattern).contents[0]
+    start = script_data.find('context') - 2
+    json_data = json.loads(script_data[start: -12])
+    return json_data
+
+
 # def load_yahoo_financials(json_data_financials, dtype='raw'):
 #     annual_is = json_data_financials['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistory'][
 #         'incomeStatementHistory']

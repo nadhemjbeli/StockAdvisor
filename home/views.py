@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 from .models import Stock
 from .plots import candlestick, compute_bollinger_bands, plot_macd_signal, plot_buy_sell, area_plot_1_day
 from .functions import load_url_financials, load_yahoo_annual_income_statement, load_yahoo_annual_cash_flow, get_data, \
-    get_macd_signal, buy_sell, quote_type_yahoo, stock_price_yahoo, load_yahoo_annual_balance_sheet
+    get_macd_signal, buy_sell, quote_type_yahoo, stock_price_yahoo, load_yahoo_annual_balance_sheet, load_url_profiles
 from .dash_apps.finished_apps.simpleexample import get_live_update
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -162,7 +162,9 @@ def get_income_statements(request, symbol):
     message_error = None
     from pandas_datareader._utils import RemoteDataError
     try:
-        get_data(symbol, dtime=1)
+        print('hi')
+        get_data(symbol, dtime=2)
+        print('hi2')
         try:
             stock = Stock.objects.get(symbol=symbol)
         except:
@@ -171,6 +173,7 @@ def get_income_statements(request, symbol):
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock_data_vis/income_statements.html', {'message_error': message_error, 'symbol': symbol, })
+    print('hi3')
     json_data = load_url_financials(symbol)
     print('fmtlong')
     annual_income_statement_longfmt = load_yahoo_annual_income_statement(json_data, 'longFmt')
@@ -195,7 +198,7 @@ def get_cash_flow(request, symbol):
     message_error = None
     from pandas_datareader._utils import RemoteDataError
     try:
-        get_data(symbol, dtime=1)
+        get_data(symbol, dtime=2)
         try:
             stock = Stock.objects.get(symbol=symbol)
         except:
@@ -228,7 +231,7 @@ def get_balance_sheet(request, symbol):
     message_error = None
     from pandas_datareader._utils import RemoteDataError
     try:
-        get_data(symbol, dtime=1)
+        get_data(symbol, dtime=2)
         try:
             stock = Stock.objects.get(symbol=symbol)
         except:
@@ -252,6 +255,43 @@ def get_balance_sheet(request, symbol):
     }
 
     return render(request, 'home/stock_data_vis/balance_sheet.html', context)
+
+
+def get_profiles(request, symbol):
+    symbol = symbol.upper()
+    message_error = None
+    from pandas_datareader._utils import RemoteDataError
+    try:
+        get_data(symbol, dtime=2)
+        try:
+            stock = Stock.objects.get(symbol=symbol)
+        except:
+            message_error = 'is a valid stock but Doesn\'t Exist in our databases'
+            return render(request, 'home/stock_data_vis/balance_sheet.html', {'message_error': message_error, 'symbol': symbol, })
+    except (RemoteDataError, KeyError):
+        message_error = 'isn\'t a stock symbol'
+        return render(request, 'home/stock_data_vis/balance_sheet.html', {'message_error': message_error, 'symbol': symbol, })
+    json_data_profiles = load_url_profiles(symbol)
+    print('profiles')
+    profiles = json_data_profiles['context']['dispatcher']['stores']['QuoteSummaryStore']['assetProfile']['companyOfficers']
+    for i, p in enumerate(profiles):
+        print(i)
+        print(p)
+    # print('fmtlong')
+    # annual_profiles_longfmt = load_yahoo_annual_balance_sheet(json_data_profiles, 'longFmt')
+    # print('fmt')
+    # annual_profiles_fmt = load_yahoo_annual_balance_sheet(json_data_profiles, 'fmt')
+    context = {
+        'stock': stock,
+        # 'annual_profiles_longfmt': annual_profiles_longfmt,
+        # 'annual_profiles_fmt': annual_profiles_fmt,
+        'profiles': profiles,
+        'symbol': symbol,
+        'message_error': message_error,
+
+    }
+
+    return render(request, 'home/stock_data_vis/profiles.html', context)
 
 
 # def show_data(request):

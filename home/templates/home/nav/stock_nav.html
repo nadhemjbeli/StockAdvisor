@@ -2,6 +2,7 @@
 {% url 'home:show_financials' symbol=symbol as financials %}
 {% url 'home:show_cash_flow' symbol=symbol as cash_flow %}
 {% url 'home:show_balance_sheet' symbol=symbol as balance_sheet %}
+{% url 'home:show_profile' symbol=symbol as profile %}
 {% url 'home:stock_analysis' symbol=symbol dtime=150 as analysis %}
 {% url 'home:show_single_stock' symbol=symbol as single_stock %}
 {% url 'home:show_historical_data' symbol=symbol as historical %}
@@ -25,6 +26,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.get_full_path == single_stock %}active{% endif %} " href="{% url 'home:show_single_stock' symbol %}">Visualize {{ symbol }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.get_full_path == profile %}active{% endif %} " href="{% url 'home:show_profile' symbol %}">Profile</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.get_full_path == historical %}active{% endif %} " href="{% url 'home:show_historical_data' symbol %}">Historical data</a>

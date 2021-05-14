@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{symbol}} - Balance Sheet{% endblock %}
+
+
+
+
+{% block content %}
+    <div class="container-fluid">
+        {% include 'home/nav/stock_nav.html'%}
+    </div>
+    <div class="container">
+        {% if message_error %}
+        <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ symbol }}</strong> {{ message_error }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% else %}
+
+        <h1>{{ symbol }} - {{ stock.name }} - Profile</h1>
+        <br>
+        <table class="table table-light table-hover table-borderless table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Pay</th>
+                <th>Exercised</th>
+                <th>Year Born</th>
+            </tr>
+        {% for line in profiles %}
+            <tr>
+                <td>{{ line.name }}</td>
+                <td>{{ line.title }}</td>
+                {% if line.totalPay.longFmt %}
+                    <td>{{ line.totalPay.fmt }}</td>
+                {% else %}
+                    <td>N/A</td>
+                {% endif %}
+                {% if line.exercisedValue.fmt %}
+                    <td>{{ line.exercisedValue.longFmt }}</td>
+                {% else %}
+                    <td>N/A</td>
+                {% endif %}
+                {% if line.yearBorn %}
+                    <td>{{ line.yearBorn }}</td>
+                {% else %}
+                    <td>N/A</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </table>
+
+        {% endif %}
+    </div>
+{% endblock %}
