@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+
+from home.decorators import unauthenticated_user
 from .forms import NewUserForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 
-
+@unauthenticated_user
 def signup_view(request):
     message_error = None
     if request.method == "POST":
@@ -37,7 +39,7 @@ def signup_view(request):
                   template_name="user/signup.html",
                   context={"form": form})
 
-
+@unauthenticated_user
 def login_view(request):
     message_error = None
     form = LoginForm()

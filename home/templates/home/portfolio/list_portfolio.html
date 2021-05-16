@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} My portfolios {% endblock %}
+
+
+{% block content %}
+    <div class="container-fluid">
+    <table>
+        <tr>
+            <th>name</th>
+        </tr>
+        {% for portfolio in list_portfolio %}
+            <tr>
+                <td>
+                    <a href="">{{ portfolio }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+{% endblock %}

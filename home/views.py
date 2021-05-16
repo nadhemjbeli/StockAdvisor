@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from plotly.offline import plot
 import plotly.graph_objects as go
-from .models import Stock
+from .models import Stock, Portfolio
 from .plots import candlestick, compute_bollinger_bands, plot_macd_signal, plot_buy_sell, area_plot_1_day
 from .functions import load_url_financials, load_yahoo_annual_income_statement, load_yahoo_annual_cash_flow, get_data, \
     get_macd_signal, buy_sell, quote_type_yahoo, stock_price_yahoo, load_yahoo_annual_balance_sheet, load_url_profiles
@@ -97,13 +97,72 @@ def get_stock(request, symbol='AAPL'):
     symbol = symbol.upper()
     stocks = Stock.objects.all()
     print('stocks')
+    print('length: ', len(stocks))
     for stock in stocks:
-        print(stock)
+        print(stock.pk, ' ', stock)
+
     context = {
         'stocks': stocks,
         'symbol': symbol,
     }
     return render(request, "home/table_stock.html", context)
+
+
+@login_required
+def set_portfolio(request):
+    stocks = Stock.objects.all()
+    name = None
+    list_portfolios = request.user.portfolio_set.all()
+    username = request.user
+    # l=username.portfolio
+    print(username)
+    portfolio_num = len(list_portfolios)+1
+    if request.method == 'POST':
+        if request.POST:
+            name = request.POST.get('name')
+            pk = request.POST.get('symbol')
+            stock_rel = Stock.objects.get(id=pk)
+            print(stock_rel)
+            try:
+                print('getting portfolio name')
+                Portfolio.objects.get(name=name)
+                error_message = 'Exists already!!!'
+                context = {
+                    'error_message': error_message,
+                    'portfolio_num': portfolio_num,
+                    'name': name,
+                }
+                return render(request, "home/portfolio/create_portfolio.html", context)
+            except:
+                pass
+            Portfolio.objects.get_or_create(
+                name=name,
+                stock=stock_rel,
+                user=username
+            )
+
+    context = {
+        'portfolio_num': portfolio_num,
+        'name': name,
+        'stocks': stocks,
+    }
+    return render(request, "home/portfolio/create_portfolio.html", context)
+
+
+@login_required
+def get_list_portfolio(request):
+    error_message = None
+    list_portfolio = None
+    try:
+        username = request.user
+        list_portfolio = username.portfolio_set.all()
+    except:
+        error_message = 'you have no portfolio yet'
+    context = {
+        'error_message': error_message,
+        'list_portfolio': list_portfolio,
+    }
+    return render(request, "home/portfolio/list_portfolio.html", context)
 
 
 @login_required
