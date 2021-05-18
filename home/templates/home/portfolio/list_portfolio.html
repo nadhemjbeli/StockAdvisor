@@ -6,15 +6,29 @@
 
 {% block content %}
     <div class="container-fluid">
-    <table>
+    <table class="table table-bordered">
         <tr>
             <th>name</th>
+            <th>stock's symbol</th>
+            <th>stock's name</th>
+            <th>Actions</th>
         </tr>
         {% for portfolio in list_portfolio %}
             <tr>
                 <td>
-                    <a href="">{{ portfolio }}</a>
+                    <a href="{% url 'home:show_summary' symbol=portfolio.stock %}">{{ portfolio }}</a>
                 </td>
+                <td>
+                    {{portfolio.stock}}
+                </td>
+                <td>
+                    {{portfolio.stock.name}}
+                </td>
+                <td>
+                    <a href="{% url 'home:edit_portfolio' portfolio.pk %}" class="btn btn-info">Update</a>
+                    <a href="{% url 'home:delete_portfolio' portfolio.pk %}" class="btn btn-danger" style="margin-left:5%;">Delete</a>
+                </td>
+
             </tr>
         {% endfor %}
     </table>

@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import search_stock, get_stock, single_stock, get_cash_flow, get_income_statements, get_stock_summary \
-    , stockAnalysis, home, get_historical_data, get_balance_sheet, get_profiles, set_portfolio, get_list_portfolio
+    , stockAnalysis, home, get_historical_data, get_balance_sheet, get_profiles, set_portfolio, get_list_portfolio, \
+    delete_portfolio, edit_portfolio
 
 app_name = 'home'
 urlpatterns = [
@@ -15,6 +16,8 @@ urlpatterns = [
     #portfolio
     path('create_portfolio/', set_portfolio, name="create_portfolio"),
     path('list_portfolio/', get_list_portfolio, name="show_list_portfolio"),
+    path('edit_portfolio/<int:pk>', edit_portfolio, name="edit_portfolio"),
+    path('delete_portfolio/<int:pk>', delete_portfolio, name="delete_portfolio"),
 
     #stock financials
     path('stock/<str:symbol>/financials', get_income_statements, name='show_financials'),

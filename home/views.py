@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from plotly.offline import plot
 import plotly.graph_objects as go
 from .models import Stock, Portfolio
@@ -112,11 +112,18 @@ def get_stock(request, symbol='AAPL'):
 def set_portfolio(request):
     stocks = Stock.objects.all()
     name = None
-    list_portfolios = request.user.portfolio_set.all()
+    list_portfolio = request.user.portfolio_set.all()
     username = request.user
-    # l=username.portfolio
     print(username)
-    portfolio_num = len(list_portfolios)+1
+    portfolio_num = len(list_portfolio)+1
+    portfolio_len = len(list_portfolio)
+    if portfolio_len >= 5:
+        full_length_message = f'sorry, you can\'t create more than {portfolio_len} portfolios '
+        context = {
+            'full_length_message': full_length_message,
+            'name': name,
+        }
+        return render(request, "home/portfolio/create_portfolio.html", context)
     if request.method == 'POST':
         if request.POST:
             name = request.POST.get('name')
@@ -140,9 +147,11 @@ def set_portfolio(request):
                 stock=stock_rel,
                 user=username
             )
+            return redirect('home:show_list_portfolio')
 
     context = {
         'portfolio_num': portfolio_num,
+        'list_portfolio': list_portfolio,
         'name': name,
         'stocks': stocks,
     }
@@ -155,7 +164,7 @@ def get_list_portfolio(request):
     list_portfolio = None
     try:
         username = request.user
-        list_portfolio = username.portfolio_set.all()
+        list_portfolio = username.portfolio_set.all().order_by('id')
     except:
         error_message = 'you have no portfolio yet'
     context = {
@@ -163,6 +172,37 @@ def get_list_portfolio(request):
         'list_portfolio': list_portfolio,
     }
     return render(request, "home/portfolio/list_portfolio.html", context)
+
+
+def delete_portfolio(request, pk):
+    portfolio = Portfolio.objects.get(id=pk)
+    portfolio.delete()
+    return redirect('home:show_list_portfolio')
+
+
+def edit_portfolio(request, pk):
+    list_portfolio = request.user.portfolio_set.all().order_by('name')
+    stocks = Stock.objects.all()
+    username = request.user
+    portfolio = username.portfolio_set.get(id=pk)
+    if request.method == 'POST':
+        if request.POST:
+            name = request.POST.get('name')
+            pk_stock = request.POST.get('symbol')
+            stock_rel = Stock.objects.get(id=pk_stock)
+            print(stock_rel)
+
+            portfolio.name = name
+            portfolio.stock = stock_rel
+            portfolio.save()
+            return redirect('home:show_list_portfolio')
+
+    context = {
+        'portfolio': portfolio,
+        'list_portfolio': list_portfolio,
+        'stocks': stocks,
+    }
+    return render(request, "home/portfolio/edit_portfolio.html", context)
 
 
 @login_required

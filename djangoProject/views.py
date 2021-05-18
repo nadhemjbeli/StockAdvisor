@@ -86,7 +86,7 @@ def login_view(request):
 #                   template_name="user/login.html",
 #                   context={"form": form, 'message_error': message_error})
 
-
+@unauthenticated_user
 def absolute_home(request):
     return render(request, "pre_user/home.html")
 
