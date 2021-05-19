@@ -189,7 +189,6 @@ def compute_bollinger_bands(df, symbol, dtime, *args, **kwargs):
     ax.set_xlabel('Date')
     ax.set_ylabel('Adj')
     ax.legend(loc='upper left')
-    # df_temp['upper band'] = df_temp['High']
     figure1 = go.Figure(
         [
             go.Scatter(
@@ -215,34 +214,40 @@ def compute_bollinger_bands(df, symbol, dtime, *args, **kwargs):
         ]
     )
 
-    compare_div1 = plot(figure1, output_type='div')
+    figure1.update_layout(
+        title=f"{symbol} bollinger Bands",
+        xaxis_title="Days",
+        yaxis_title="bollinger Bands",
+    )
+    div_bollinger = plot(figure1, output_type='div')
 
     daily_returns = compute_daily_returns(df)
-    figure2 = go.Figure(
-        [
-            go.Scatter(
-                x=daily_returns.index,
-                y=daily_returns['High'],
-                text='Daily Returns',
-            )
-        ]
-    )
+    # figure2 = go.Figure(
+    #     [
+    #         go.Scatter(
+    #             x=daily_returns.index,
+    #             y=daily_returns['High'],
+    #             text='Daily Returns',
+    #         )
+    #     ]
+    # )
 
-    figure2.update_layout(
-        title=f"Daily return of {symbol}",
-        xaxis_title="Days",
-        yaxis_title="daily return",
-    )
-    figure2.update_xaxes(rangeslider_visible=True)
-    compare_div2 = plot(figure2, output_type='div')
+    # figure2.update_layout(
+    #     title=f"Daily return of {symbol}",
+    #     xaxis_title="Days",
+    #     yaxis_title="daily return",
+    # )
+    # figure2.update_xaxes(rangeslider_visible=True)
+    # compare_div2 = plot(figure2, output_type='div')
     df2 = pd.DataFrame()
     df2['Date'] = daily_returns.index.values
     df2['High'] = daily_returns['High'].values
     df2 = df2[1:]
-    figure3 = px.area(df2, x='Date', y='High', title='Daily Returns', )
+    figure3 = px.area(df2, x='Date', y='High', title=f'Daily Returns of {symbol}', )
     figure3.update_xaxes(rangeslider_visible=True)
-    compare_div3 = plot(figure3, output_type='div')
-    return compare_div1, compare_div2, compare_div3
+    div_daily_returns = plot(figure3, output_type='div')
+    # return compare_div1, compare_div2, compare_div3
+    return div_bollinger, div_daily_returns
 
 
 def plot_buy_sell(data, symbol):

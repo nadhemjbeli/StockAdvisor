@@ -71,13 +71,8 @@ def get_data(symbol, dtime=365):
     now = dt.datetime.now()
     data = pdr.DataReader(symbol, 'yahoo', start, now)
     df = pd.DataFrame(data)
-    # df['ts'] = pd.to_datetime(df.Datetime, format='%Y-%m-%d')
     df_final = pd.DataFrame()
-    # df['t'] = df.index.values
     df['Date'] = df.index.values
-    # df['ts'] = df['t'].to_timestamp
-    # df['Timestamp'] = pd.to_datetime(df['t'], format='%Y-%m-%d')
-    # df_final['t'] = df['t'].astype(np.int64)
     df_final['Date'] = df['Date'].dt.strftime('%Y-%m-%d')
 
     df_final['Open'] = df['Open']

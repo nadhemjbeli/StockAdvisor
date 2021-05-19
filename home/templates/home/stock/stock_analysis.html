@@ -38,13 +38,10 @@
             {{ p_b_s | safe }}
             <br>
             <br>
-            {{ graph_plotly1 | safe }}
+            {{ graph_plotly_bollinger | safe }}
             <br>
             <br>
-            {{ graph_plotly2 | safe }}
-            <br>
-            <br>
-            {{ graph_plotly3 | safe }}
+            {{ graph_plotly_daily_returns | safe }}
         </div>
     {% endif %}
 {% endblock %}

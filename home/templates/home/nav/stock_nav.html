@@ -19,13 +19,13 @@
                 <a class="nav-link {% if request.get_full_path == summary %}active{% endif %} " href="{% url 'home:show_summary' symbol %}">Summary</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {% if request.get_full_path == single_stock %}active{% endif %} " href="{% url 'home:show_single_stock' symbol %}">Visualize {{ symbol }}</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {% if request.get_full_path == financials %}active{% elif request.get_full_path == balance_sheet %}active{% elif request.get_full_path == cash_flow %}active{% endif %} " href="{% url 'home:show_financials' symbol %}">Financials</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.get_full_path == analysis %}active{% elif request.get_full_path == days_30 %}active{% elif request.get_full_path == days_92 %}active{% endif %} " href="{% url 'home:stock_analysis' symbol 150 %}">Analysis</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {% if request.get_full_path == single_stock %}active{% endif %} " href="{% url 'home:show_single_stock' symbol %}">Visualize {{ symbol }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.get_full_path == profile %}active{% endif %} " href="{% url 'home:show_profile' symbol %}">Profile</a>

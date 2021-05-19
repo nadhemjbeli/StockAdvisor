@@ -76,13 +76,8 @@ def search_stock(request):
     )
     context = {
         'symbol': symbol,
-        # 'stock_data': stock_data,
-        # 'data': data,
         'quote': quote,
         'candlestick': candlestick(ts_df),
-        # 'plotly': plotly(ts_df),
-        # 'plotly_slider': plotly_slider(ts_df),
-        # 'compare_stock': compare_stock(),
         'price_dict': price_dict,
         'message_error': message_error,
         'message_stock_new': message_stock_new,
@@ -224,11 +219,8 @@ def single_stock(request, symbol='AAPL'):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
 
-    # PlotlyGraph
     json_data_financials = load_url_financials(symbol)
-
     quote = quote_type_yahoo(json_data_financials)
-    # print(quote)
     price_dict = stock_price_yahoo(json_data_financials)
     # price_dict_long_fmt = stock_price_yahoo(json_data_financials, 'longFmt')
     # token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
@@ -248,7 +240,6 @@ def single_stock(request, symbol='AAPL'):
         'candlestick': candlestick(ts_df),
         # 'plotly': plotly(ts_df),
         # 'plotly_slider': plotly_slider(ts_df),
-        # 'compare_stock': compare_stock(),
         'price_dict': price_dict,
         'message_error': message_error,
     }
@@ -278,11 +269,8 @@ def get_income_statements(request, symbol):
     annual_income_statement_longfmt = load_yahoo_annual_income_statement(json_data, 'longFmt')
     print('fmt')
     annual_income_statement_fmt = load_yahoo_annual_income_statement(json_data, 'fmt')
-    # print(financials_fmt['annual_income_statements'])
-    # financials_raw = load_yahoo_financials(symbol, 'raw')
     context = {
         'stock': stock,
-        # 'financials_raw': financials_raw,
         'annual_income_statement_fmt': annual_income_statement_fmt,
         'annual_income_statement_longfmt': annual_income_statement_longfmt,
         'symbol': symbol.upper(),
@@ -311,12 +299,9 @@ def get_cash_flow(request, symbol):
     annual_cash_flow_longfmt = load_yahoo_annual_cash_flow(json_data, 'longFmt')
     print('fmt')
     annual_cash_flow_fmt = load_yahoo_annual_cash_flow(json_data, 'fmt')
-    # print(financials_fmt['annual_income_statements'])
-    # financials_raw = load_yahoo_financials(symbol, 'raw')
     context = {
         'message_error': message_error,
         'stock': stock,
-        # 'financials_raw': financials_raw,
         'annual_cash_flow_fmt': annual_cash_flow_fmt,
         'annual_cash_flow_longfmt': annual_cash_flow_longfmt,
         'symbol': symbol,
@@ -376,14 +361,8 @@ def get_profiles(request, symbol):
     for i, p in enumerate(profiles):
         print(i)
         print(p)
-    # print('fmtlong')
-    # annual_profiles_longfmt = load_yahoo_annual_balance_sheet(json_data_profiles, 'longFmt')
-    # print('fmt')
-    # annual_profiles_fmt = load_yahoo_annual_balance_sheet(json_data_profiles, 'fmt')
     context = {
         'stock': stock,
-        # 'annual_profiles_longfmt': annual_profiles_longfmt,
-        # 'annual_profiles_fmt': annual_profiles_fmt,
         'profiles': profiles,
         'symbol': symbol,
         'message_error': message_error,
@@ -391,19 +370,6 @@ def get_profiles(request, symbol):
     }
 
     return render(request, 'home/stock_data_vis/profiles.html', context)
-
-
-# def show_data(request):
-#     df = get_data(symbol)
-#     # graph = get_simple_plot(x=df['dates'], y=df['Adj'], data=df)
-#     graph, plotly = compute_bollinger_bands(df, symbol)
-#     context = {
-#         'plotly': plotly,
-#         'symbol': symbol,
-#         'df': df,
-#         'graph': graph,
-#     }
-#     return render(request, "home/visualize.html", context)
 
 
 def stockAnalysis(request, symbol, dtime=365):
@@ -421,7 +387,7 @@ def stockAnalysis(request, symbol, dtime=365):
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock/stock_analysis.html', {'message_error': message_error, 'symbol': symbol, })
-    graph_plotly1, graph_plotly2, graph_plotly3 = compute_bollinger_bands(df, symbol, dtime)
+    graph_plotly_bollinger, graph_plotly_daily_returns = compute_bollinger_bands(df, symbol, dtime)
     MACD, signal = get_macd_signal(df, dtime)
     plot_macd = plot_macd_signal(df, symbol, MACD, signal)
     # Create new columns for the data
@@ -437,9 +403,8 @@ def stockAnalysis(request, symbol, dtime=365):
         'symbol': symbol.upper(),
         'stock': stock,
         'message_error': message_error,
-        'graph_plotly1': graph_plotly1,
-        'graph_plotly2': graph_plotly2,
-        'graph_plotly3': graph_plotly3,
+        'graph_plotly_bollinger': graph_plotly_bollinger,
+        'graph_plotly_daily_returns': graph_plotly_daily_returns,
         "plot_macd": plot_macd,
         'p_b_s': p_b_s,
     }
@@ -481,14 +446,11 @@ def get_historical_data(request, symbol):
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock/historical_data.html', {'message_error': message_error, 'symbol': symbol, })
-    # print(df)
-    # data = dict(zip(df['Date'], df['Open']))
     data = []
     df = round(df, 3)
     for i in range(df.shape[0]):
         temp = df.iloc[i]
         data.append(dict(temp))
-    # print(data)
     context = {
         'data': data,
         'symbol': symbol,
