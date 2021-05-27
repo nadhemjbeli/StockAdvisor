@@ -1,7 +1,9 @@
 from django.urls import path
 from .views import search_stock, get_stock, single_stock, get_cash_flow, get_income_statements, get_stock_summary \
-    , stockAnalysis, home, get_historical_data, get_balance_sheet, get_profiles, set_portfolio, get_list_portfolio, \
-    delete_portfolio, edit_portfolio, get_news, analysis_news, get_tesla_pred, get_apple_pred
+    , stockAnalysis, home, get_historical_data, get_balance_sheet, get_profiles, set_portfolio, get_news,\
+    analysis_news, get_tesla_pred, get_apple_pred
+from .views_portfolio import get_list_portfolio, delete_portfolio, edit_portfolio
+from .views_activity import get_list_activity
 
 app_name = 'home'
 urlpatterns = [
@@ -18,6 +20,9 @@ urlpatterns = [
     path('list_portfolio/', get_list_portfolio, name="show_list_portfolio"),
     path('edit_portfolio/<int:pk>', edit_portfolio, name="edit_portfolio"),
     path('delete_portfolio/<int:pk>', delete_portfolio, name="delete_portfolio"),
+
+    #portfolio_activity
+    path('activities/portfolio/<int:pk>', get_list_activity, name="show_list_activity"),
 
     #stock financials
     path('stock/<str:symbol>/financials', get_income_statements, name='show_financials'),

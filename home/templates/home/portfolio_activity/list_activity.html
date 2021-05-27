@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} My Activities {% endblock %}
+
+
+{% block content %}
+        {% if error_activity_message %}
+            {{ error_activity_message }}
+        {% endif %}
+        {% if not error_activity_message %}
+            <div class="container-fluid">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <th>activity type</th>
+                        <th>number of stocks</th>
+                        <th>Price</th>
+                        <th>Date of activity</th>
+                    </tr>
+                    {% for activity in list_activity %}
+                        <tr>
+                            <td>
+                                {{activity.pk}}
+                            </td>
+                            <td>
+                                {{activity.bought_or_sold}}
+                            </td>
+                            <td>
+                                {{activity.number_stocks}}
+                            </td>
+                            <td>
+                                {{activity.price_entered}}
+                            </td>
+                            <td>
+                                {{activity.date_activity}}
+                            </td>
+                            {#                    <td>#}
+                            {#                        <a href="{% url 'home:edit_portfolio' portfolio.pk %}" class="btn btn-info">Update</a>#}
+                            {#                        <a href="{% url 'home:delete_portfolio' portfolio.pk %}" class="btn btn-danger" style="margin-left:5%;">Delete</a>#}
+                            {#                    </td>#}
+
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+
+{% endblock %}

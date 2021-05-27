@@ -38,9 +38,9 @@ class Activity(models.Model):
     bought_or_sold = models.CharField(max_length=50)
     number_stocks = models.IntegerField(null=True)
     price_entered = models.FloatField(null=True)
-    date_purchase = models.DateTimeField(null=True)
+    date_activity = models.DateTimeField(null=True)
     timestamp = models.DateTimeField(auto_now_add=True, null=True)
 
 
     def __str__(self):
-        return f'{self.portfolio.user} - {self.portfolio} - Activity {self.pk}'
+        return f'{self.portfolio} - Activity {self.pk}'
