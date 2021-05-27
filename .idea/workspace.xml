@@ -2,25 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/home/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/djangoProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/plots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/stock_analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/stock_analysis.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/_sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_sidebar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -97,7 +102,9 @@
       <workItem from="1617542614216" duration="936000" />
       <workItem from="1617661002241" duration="4385000" />
       <workItem from="1619798777003" duration="57315000" />
-      <workItem from="1621451313403" duration="4098000" />
+      <workItem from="1621451313403" duration="4732000" />
+      <workItem from="1621688492163" duration="5373000" />
+      <workItem from="1621816393493" duration="9168000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
@@ -302,7 +309,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621299259066</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="methods to update or delete the portfolio">
+      <created>1621456296012</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1621456296012</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import search_stock, get_stock, single_stock, get_cash_flow, get_income_statements, get_stock_summary \
     , stockAnalysis, home, get_historical_data, get_balance_sheet, get_profiles, set_portfolio, get_list_portfolio, \
-    delete_portfolio, edit_portfolio
+    delete_portfolio, edit_portfolio, get_news, analysis_news, get_tesla_pred, get_apple_pred
 
 app_name = 'home'
 urlpatterns = [
@@ -29,4 +29,13 @@ urlpatterns = [
 
     #stock analysis
     path('stock_analysis/<str:symbol>/<int:dtime>', stockAnalysis, name='stock_analysis'),
+
+
+    #stock news
+    path('show_news/', get_news, name='show_news'),
+    path('analysis_news/', analysis_news, name='analysis_news'),
+
+    #stock predictions
+    path('tesla_pred/', get_tesla_pred, name='tesla_pred'),
+    path('apple_pred/', get_apple_pred, name='apple_pred'),
 ]

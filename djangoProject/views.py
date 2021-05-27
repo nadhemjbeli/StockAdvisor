@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 
+
 from home.decorators import unauthenticated_user
 from .forms import NewUserForm, LoginForm
 from django.contrib.auth import authenticate, login, logout

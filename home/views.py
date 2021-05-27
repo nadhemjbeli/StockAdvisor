@@ -1,4 +1,8 @@
 from django.shortcuts import render, redirect
+
+from newsapi.newsapi_client import NewsApiClient
+from textblob import TextBlob
+from newspaper import Article
 from plotly.offline import plot
 import plotly.graph_objects as go
 from .models import Stock, Portfolio
@@ -460,3 +464,83 @@ def get_historical_data(request, symbol):
     return render(request, 'home/stock/historical_data.html', context)
 
 
+""" prediction"""
+import pandas_datareader as pdr
+
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+
+
+def get_tesla_pred(request):
+    df = pdr.DataReader('TSLA', data_source="yahoo", start="2018-05-01", end="2021-05-20")
+    df.to_csv('TSLA.csv')
+    df1 = df.reset_index()['Close']
+    scaler = MinMaxScaler(feature_range=(0, 1))
+    df1 = scaler.fit_transform(np.array(df1).reshape(-1, 1))
+    ##splitting dataset into train and test split
+    training_size = int(len(df1) * 0.75)
+    test_size = len(df1) - training_size
+    train_data, test_data = df1[0:training_size, :], df1[training_size:len(df1), :1]
+    return render(request, "home/predictions/tesla_pred.html")
+
+@login_required
+def get_news(request,symbol='AAPL'):
+    # symbol = symbol.upper()
+    # stocks = Stock.objects.all()
+    # print('stocks')
+    # for stock in stocks:
+    #     print(stock)
+    # context = {
+    #     'stocks': stocks,
+    #     'symbol': symbol,
+    # }
+    newsApi = NewsApiClient(api_key='356a4238a7ac405191c6386ac45cd537')
+    headLines = newsApi.get_top_headlines(sources='the-wall-street-journal,'
+                                                  'the-washington-post,fox-news,nbc-news'
+
+                                          )
+    articles = headLines['articles']
+    desc = []
+    news = []
+    img = []
+
+    for i in range(len(articles)):
+        article = articles[i]
+
+        desc.append(article['description'])
+        news.append(article['title'])
+        img.append(article['urlToImage'])
+
+    mylist = zip(news, desc, img)
+
+    return render(request, "home/news/breaking_news.html", context={"mylist": mylist})
+
+def analysis_news(request):
+    # create a newspaper object
+    url = input('copy url here: ')
+
+    my_article = Article(url, language="en")
+    my_article.download()
+    # print(my_article.html)
+    my_article.parse()
+    # extract the title
+    print('Title :', my_article.title)
+    # extract the authors
+    print('authors :', my_article.authors)
+
+    # NLP
+    my_article.nlp()
+    # Extract summary
+    print('Summary', my_article.summary)
+    # Extract keywords
+    print('keywords :', my_article.keywords)
+
+    analysis = TextBlob(my_article.text)
+    print(analysis.polarity)
+    print(f'Sentiment : {"positive" if analysis.polarity > 0 else "negative" if analysis.polarity < 0 else "neutral"}')
+
+    return render(request, "home/news/analysis_news.html")
+
+
+def get_apple_pred(request):
+    return render(request, "home/predictions/apple_pred.html")
