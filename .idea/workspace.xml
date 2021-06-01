@@ -2,26 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/home/templates/home/nav/daily_nav.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/templates/home/portfolio_activity/add_activity.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/templates/home/portfolio_activity/edit_activity.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/templates/home/portfolio_activity/my_all_activity.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/templates/home/stock/summary_candlestick.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/home/templates/home/news/news_page.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/plots.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/nav/stock_nav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/portfolio/create_portfolio.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/portfolio/create_portfolio.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/portfolio/edit_portfolio.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/portfolio/edit_portfolio.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/portfolio/list_portfolio.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/portfolio/list_portfolio.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/portfolio_activity/list_activity.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/portfolio_activity/list_activity.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/stock/summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/stock/summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/templates/home/news/breaking_news.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/news/breaking_news.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/views_activity.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views_activity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/views_portfolio.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views_portfolio.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partials/_sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_sidebar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +105,7 @@
       <workItem from="1619798777003" duration="57315000" />
       <workItem from="1621451313403" duration="4732000" />
       <workItem from="1621688492163" duration="5373000" />
-      <workItem from="1621816393493" duration="63485000" />
+      <workItem from="1621816393493" duration="68366000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
@@ -344,7 +331,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622127292994</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="managing activity, scraping news">
+      <created>1622535198719</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1622535198719</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,6 +365,7 @@
     <MESSAGE value="creating portfolio model which links between the user and a stock" />
     <MESSAGE value="methods to update or delete the portfolio" />
     <MESSAGE value="create a method to show list_portfolio_activity" />
-    <option name="LAST_COMMIT_MESSAGE" value="create a method to show list_portfolio_activity" />
+    <MESSAGE value="managing activity, scraping news" />
+    <option name="LAST_COMMIT_MESSAGE" value="managing activity, scraping news" />
   </component>
 </project>

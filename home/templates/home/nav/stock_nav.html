@@ -7,6 +7,7 @@
 {% url 'home:stock_analysis' symbol=symbol dtime=150 as analysis %}
 {% url 'home:show_single_stock' symbol=symbol as single_stock %}
 {% url 'home:show_historical_data' symbol=symbol as historical %}
+{% url 'home:show_news_page' symbol=symbol as news %}
 {% url 'home:stock_analysis' symbol 30 as days_30 %}
 {% url 'home:stock_analysis' symbol 92 as days_92 %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -33,6 +34,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.get_full_path == historical %}active{% endif %} " href="{% url 'home:show_historical_data' symbol %}">Historical data</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.get_full_path == news %}active{% endif %} " href="{% url 'home:show_news_page' symbol %}">news</a>
             </li>
         </ul>
 

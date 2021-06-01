@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import search_stock, get_stock, single_stock, get_cash_flow, get_income_statements, get_stock_summary \
     , stockAnalysis, home, get_historical_data, get_balance_sheet, get_profiles, get_news, \
-    analysis_news, get_tesla_pred, get_apple_pred, get_stock_summary_candlestick
+    analysis_news, get_tesla_pred, get_apple_pred, get_stock_summary_candlestick, get_news_page
 from .views_portfolio import get_list_portfolio, set_portfolio, delete_portfolio, edit_portfolio
 from .views_activity import get_list_activity, add_activity, delete_activity, edit_activity, get_all_activity
 
@@ -43,6 +43,7 @@ urlpatterns = [
 
     #stock news
     path('show_news/', get_news, name='show_news'),
+    path('news/<str:symbol>', get_news_page, name='show_news_page'),
     path('analysis_news/', analysis_news, name='analysis_news'),
 
     #stock predictions

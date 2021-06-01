@@ -416,9 +416,13 @@ def get_tesla_pred(request):
 
 
 @login_required
-def get_news(request,symbol='AAPL'):
-    stock = request.GET.get('stock')
-    url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={stock}&apiKey={API_KEY}'
+def get_news(request, symbol='AAPL'):
+    url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={symbol}&apiKey={API_KEY}'
+    if request.method == 'POST':
+        symbol = request.GET.get('symbol')
+
+        url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={symbol}&apiKey={API_KEY}'
+
     response = requests.get(url)
     data = response.json()
     results = data['results']
@@ -427,6 +431,21 @@ def get_news(request,symbol='AAPL'):
         'results': results
     }
     return render(request, "home/news/breaking_news.html", context)
+
+
+@login_required
+def get_news_page(request, symbol):
+    symbol.upper()
+    url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={symbol}&apiKey={API_KEY}'
+    response = requests.get(url)
+    data = response.json()
+    results = data['results']
+
+    context = {
+        'symbol': symbol,
+        'results': results
+    }
+    return render(request, "home/news/news_page.html", context)
 
 
 
