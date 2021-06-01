@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+import requests
 
 from newsapi.newsapi_client import NewsApiClient
 from textblob import TextBlob
@@ -6,11 +7,15 @@ from newspaper import Article
 from plotly.offline import plot
 import plotly.graph_objects as go
 from .models import Stock, Portfolio
-from .plots import candlestick, compute_bollinger_bands, plot_macd_signal, plot_buy_sell, area_plot_1_day
+from .plots import candlestick, compute_bollinger_bands, plot_macd_signal, plot_buy_sell, area_plot_1_day, \
+    area_plot_1_day_candlestick
 from .functions import load_url_financials, load_yahoo_annual_income_statement, load_yahoo_annual_cash_flow, get_data, \
     get_macd_signal, buy_sell, quote_type_yahoo, stock_price_yahoo, load_yahoo_annual_balance_sheet, load_url_profiles
 from .dash_apps.finished_apps.simpleexample import get_live_update
 from django.contrib.auth.decorators import login_required
+"""polygon.io api"""
+API_KEY='XJbvhCkUsEt31XBLRM5wv3EYUAf6SUJb'
+
 # Create your views here.
 symbol = 'AAPL'
 
@@ -105,59 +110,6 @@ def get_stock(request, symbol='AAPL'):
         'symbol': symbol,
     }
     return render(request, "home/table_stock.html", context)
-
-
-@login_required
-def set_portfolio(request):
-    stocks = Stock.objects.all()
-    name = None
-    list_portfolio = request.user.portfolio_set.all()
-    username = request.user
-    print(username)
-    portfolio_num = len(list_portfolio)+1
-    portfolio_len = len(list_portfolio)
-    if portfolio_len >= 5:
-        full_length_message = f'sorry, you can\'t create more than {portfolio_len} portfolios '
-        context = {
-            'full_length_message': full_length_message,
-            'name': name,
-        }
-        return render(request, "home/portfolio/create_portfolio.html", context)
-    if request.method == 'POST':
-        if request.POST:
-            name = request.POST.get('name')
-            pk = request.POST.get('symbol')
-            stock_rel = Stock.objects.get(id=pk)
-            print(stock_rel)
-            try:
-                print('getting portfolio name')
-                Portfolio.objects.get(name=name)
-                error_message = 'Exists already!!!'
-                context = {
-                    'error_message': error_message,
-                    'portfolio_num': portfolio_num,
-                    'name': name,
-                }
-                return render(request, "home/portfolio/create_portfolio.html", context)
-            except:
-                pass
-            Portfolio.objects.get_or_create(
-                name=name,
-                stock=stock_rel,
-                user=username
-            )
-            return redirect('home:show_list_portfolio')
-
-    context = {
-        'portfolio_num': portfolio_num,
-        'list_portfolio': list_portfolio,
-        'name': name,
-        'stocks': stocks,
-    }
-    return render(request, "home/portfolio/create_portfolio.html", context)
-
-
-
 
 
 @login_required
@@ -372,6 +324,7 @@ def stockAnalysis(request, symbol, dtime=365):
 
 
 def get_stock_summary(request, symbol):
+    symbol=symbol.upper()
     from pandas_datareader._utils import RemoteDataError
     try:
         get_live_update(symbol)
@@ -380,16 +333,38 @@ def get_stock_summary(request, symbol):
             stock = Stock.objects.get(symbol=symbol)
         except:
             message_error = 'is a valid stock but Doesn\'t Exist in our databases'
-            return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
+            return render(request, 'home/stock/summary.html', {'message_error': message_error, 'symbol': symbol, })
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
-        return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
+        return render(request, 'home/stock/summary.html', {'message_error': message_error, 'symbol': symbol, })
     context = {
         'area_1_day': area_1_day,
         'stock': stock,
         'symbol': symbol.upper(),
     }
     return render(request, 'home/stock/summary.html', context)
+
+
+def get_stock_summary_candlestick(request, symbol):
+    symbol=symbol.upper()
+    from pandas_datareader._utils import RemoteDataError
+    try:
+        get_live_update(symbol)
+        area_1_day_candlestick = area_plot_1_day_candlestick(symbol)
+        try:
+            stock = Stock.objects.get(symbol=symbol)
+        except:
+            message_error = 'is a valid stock but Doesn\'t Exist in our databases'
+            return render(request, 'home/stock/summary_candlestick.html', {'message_error': message_error, 'symbol': symbol, })
+    except (RemoteDataError, KeyError):
+        message_error = 'isn\'t a stock symbol'
+        return render(request, 'home/stock/summary_candlestick.html', {'message_error': message_error, 'symbol': symbol, })
+    context = {
+        'area_1_day_candlestick': area_1_day_candlestick,
+        'stock': stock,
+        'symbol': symbol.upper(),
+    }
+    return render(request, 'home/stock/summary_candlestick.html', context)
 
 
 def get_historical_data(request, symbol):
@@ -439,37 +414,21 @@ def get_tesla_pred(request):
     train_data, test_data = df1[0:training_size, :], df1[training_size:len(df1), :1]
     return render(request, "home/predictions/tesla_pred.html")
 
+
 @login_required
 def get_news(request,symbol='AAPL'):
-    # symbol = symbol.upper()
-    # stocks = Stock.objects.all()
-    # print('stocks')
-    # for stock in stocks:
-    #     print(stock)
-    # context = {
-    #     'stocks': stocks,
-    #     'symbol': symbol,
-    # }
-    newsApi = NewsApiClient(api_key='356a4238a7ac405191c6386ac45cd537')
-    headLines = newsApi.get_top_headlines(sources='the-wall-street-journal,'
-                                                  'the-washington-post,fox-news,nbc-news'
+    stock = request.GET.get('stock')
+    url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={stock}&apiKey={API_KEY}'
+    response = requests.get(url)
+    data = response.json()
+    results = data['results']
 
-                                          )
-    articles = headLines['articles']
-    desc = []
-    news = []
-    img = []
+    context = {
+        'results': results
+    }
+    return render(request, "home/news/breaking_news.html", context)
 
-    for i in range(len(articles)):
-        article = articles[i]
 
-        desc.append(article['description'])
-        news.append(article['title'])
-        img.append(article['urlToImage'])
-
-    mylist = zip(news, desc, img)
-
-    return render(request, "home/news/breaking_news.html", context={"mylist": mylist})
 
 def analysis_news(request):
     # create a newspaper object

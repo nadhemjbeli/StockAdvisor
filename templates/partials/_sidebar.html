@@ -1,3 +1,4 @@
+{% url 'home:create_portfolio' as add_portfolio %}
 <ul class="navbar-nav sticky-top bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -132,12 +133,17 @@
     <li class="nav-item">
         <a class="nav-link" href="{% url 'home:create_portfolio' %}">
             <i class="fas fa-fw fa-wrench"></i>
-            <span>create a portfolio</span></a>
+            <span>add a portfolio</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{% url 'home:show_list_portfolio' %}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>My Portfolios</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'home:show_all_activity' %}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>My all activity stats</span></a>
     </li>
 {##}
 {#    <!-- Nav Item - Tables -->#}
@@ -150,9 +156,9 @@
 {#    <!-- Divider -->#}
 {#    <hr class="sidebar-divider d-none d-md-block">#}
 {##}
-{#    <!-- Sidebar Toggler (Sidebar) -->#}
-{#    <div class="text-center d-none d-md-inline">#}
-{#        <button class="rounded-circle border-0" id="sidebarToggle"></button>#}
-{#    </div>#}
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
 
 </ul>

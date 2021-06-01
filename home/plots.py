@@ -84,25 +84,26 @@ def choose_color_area_1_day(df):
 
 def area_plot_1_day(symbol):
     # from twelvedata import TDClient
+    link = 'https://cloud.iexapis.com/stable/stock/{]/chart/date/20210528?token={}'
     from iexfinance.stocks import get_historical_intraday
-    token = 'pk_2287fdfeab07481297cac422c06f9dc6'
-    if dt.datetime.now().hour == 9:
-        if dt.datetime.now().minute >30:
-            start = dt.datetime.now()
-        else:
-            start = dt.datetime.now() - dt.timedelta(1)
-    elif dt.datetime.now().hour > 9:
-        start = dt.datetime.now()
-    else:
-        start = dt.datetime.now() - dt.timedelta(1)
+    token = 'pk_b4d054d6cd7640a38df80d61172890b3'
+    # if dt.datetime.now().hour == 9:
+    #     if dt.datetime.now().minute >30:
+    #         start = dt.datetime.now()
+    #     else:
+    #         start = dt.datetime.now() - dt.timedelta(1)
+    # elif dt.datetime.now().hour > 9:
+    #     start = dt.datetime.now() - dt.timedelta(4)
+    # else:
+    #     start = dt.datetime.now() - dt.timedelta(1)
+    start = dt.datetime.now()
     start_date = start.replace(hour=9, minute=30, second=0, microsecond=0)
     print(start_date)
     end_date = start.replace(hour=16, minute=0, second=0, microsecond=0)
     # Initialize client - apikey parameter is requiered
-    ticker = 'MSFT'
     # api_key = '701005b908bc42b8800ca2fac03f2736'
-    df = get_historical_intraday(symbol, ouput_format='pandas',token=token, start=start_date, end=end_date)
-    print(df)
+    df = get_historical_intraday(symbol, ouput_format='pandas', token=token, start=start_date, end=end_date)
+    print("df: ", df)
     dt_all = pd.date_range(start=df.index[0], end=df.index[-1])
     dt_obs = [d.strftime("%Y-%m-%d") for d in df.index]
     dt_breaks = [d for d in dt_all.strftime("%Y-%m-%d").tolist() if not d in dt_obs]
@@ -112,23 +113,60 @@ def area_plot_1_day(symbol):
     figure.update_xaxes(
         rangebreaks=[dict(values=dt_breaks)]  # hide dates with no values
     )
-
-    # figure.update_xaxes(
-    #     rangeslider_visible=False,
-    #     rangeselector=dict(
-    #         buttons=list([
-    #             # dict(count=1, label="day", step="day", stepmode="todate"),
-    #             dict(count=1, label="this month", step="month", stepmode="todate"),
-    #             dict(count=31, label="1 month", step="day", stepmode="todate"),
-    #             dict(count=1, label="this year", step="year", stepmode="todate"),
-    #             dict(count=12, label="1 year", step="month", stepmode="todate"),
-    #             dict(step="all")
-    #         ])
-    #     ))
     area_div = plot(figure, output_type='div')
     return area_div
 
 
+def area_plot_1_day_candlestick(symbol):
+    # from twelvedata import TDClient
+    from iexfinance.stocks import get_historical_intraday
+    token = 'pk_b4d054d6cd7640a38df80d61172890b3'
+    if dt.datetime.now().hour == 9:
+        if dt.datetime.now().minute >30:
+            start = dt.datetime.now()
+        else:
+            start = dt.datetime.now() - dt.timedelta(1)
+    elif dt.datetime.now().hour > 9:
+        start = dt.datetime.now()
+    else:
+        start = dt.datetime.now() - dt.timedelta(1)
+    start=dt.datetime(2020, 12, 12)
+    start_date = start.replace(hour=9, minute=30, second=0, microsecond=0)
+    print(start_date)
+    end_date = start.replace(hour=16, minute=0, second=0, microsecond=0)
+    # Initialize client - apikey parameter is requiered
+    # api_key = '701005b908bc42b8800ca2fac03f2736'
+    df = get_historical_intraday(symbol, ouput_format='pandas', token=token, start=start_date, end=end_date)
+    print(df)
+    dt_all = pd.date_range(start=df.index[0], end=df.index[-1])
+    dt_obs = [d.strftime("%Y-%m-%d") for d in df.index]
+    dt_breaks = [d for d in dt_all.strftime("%Y-%m-%d").tolist() if not d in dt_obs]
+    figure = go.Figure(
+        data=[
+            go.Candlestick(
+                x=df.index,
+                high=df['high'],
+                low=df['low'],
+                open=df['open'],
+                close=df['close'],
+            )
+        ]
+    )
+    figure.update_xaxes(
+        rangeslider_visible=False,
+        rangeselector=dict(
+            buttons=list([
+                # dict(count=1, label="day", step="day", stepmode="todate"),
+                dict(count=30, label="last half hour", step="minute", stepmode="todate"),
+                dict(count=1, label="last hour", step="hour", stepmode="todate"),
+                dict(count=4, label="last 4 hours", step="hour", stepmode="todate"),
+                dict(step="all")
+            ])
+        ),
+        rangebreaks=[dict(values=dt_breaks)],  # hide dates with no values
+    )
+    area_div = plot(figure, output_type='div')
+    return area_div
 def plotly(ts_df):
     figure = go.Figure(
         [
@@ -174,10 +212,10 @@ def compute_bollinger_bands(df, symbol, dtime, *args, **kwargs):
 
     else:
         # 1. Compute rolling mean
-        rm_TSEC = get_rolling_mean(df_temp, window=dtime // 36)
+        rm_TSEC = get_rolling_mean(df_temp, window=int(dtime // (dtime*0.1)))
 
         # 2. Compute rolling standard deviation
-        rstd_TSEC = get_rolling_std(df_temp, window=dtime // 36)
+        rstd_TSEC = get_rolling_std(df_temp, window=int(dtime // (dtime*0.1)))
 
     # 3. Compute upper and lower bands
     upper_band, lower_band = get_bollinger_bands(rm_TSEC, rstd_TSEC)

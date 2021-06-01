@@ -1,4 +1,5 @@
 {% url 'home:show_summary' symbol=symbol as summary %}
+{% url 'home:show_summary_candlestick' symbol=symbol as summary_candlestick %}
 {% url 'home:show_financials' symbol=symbol as financials %}
 {% url 'home:show_cash_flow' symbol=symbol as cash_flow %}
 {% url 'home:show_balance_sheet' symbol=symbol as balance_sheet %}
@@ -16,7 +17,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link {% if request.get_full_path == summary %}active{% endif %} " href="{% url 'home:show_summary' symbol %}">Summary</a>
+                <a class="nav-link {% if request.get_full_path == summary or request.get_full_path == summary_candlestick %}active{% endif %} " href="{% url 'home:show_summary' symbol %}">Summary</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.get_full_path == single_stock %}active{% endif %} " href="{% url 'home:show_single_stock' symbol %}">Visualize {{ symbol }}</a>

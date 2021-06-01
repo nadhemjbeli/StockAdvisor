@@ -31,16 +31,14 @@ class Activity(models.Model):
     class Meta:
         verbose_name_plural = 'Activities'
     portfolio = models.ForeignKey(Portfolio, null=True, on_delete=models.SET_NULL)
-    BUY_OR_SELL = (
-        ('buy', 'buy'),
-        ('sell', 'sell')
-    )
-    bought_or_sold = models.CharField(max_length=50)
-    number_stocks = models.IntegerField(null=True)
-    price_entered = models.FloatField(null=True)
-    date_activity = models.DateTimeField(null=True)
-    timestamp = models.DateTimeField(auto_now_add=True, null=True)
 
+    type_activity = models.CharField(max_length=10)
+    number_stocks = models.IntegerField(null=True)
+    buying_price = models.FloatField(null=True)
+    date_to_buy = models.DateTimeField(null=True)
+    selling_price = models.FloatField(null=True)
+    date_to_sell = models.DateTimeField(null=True)
+    timestamp = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return f'{self.portfolio} - Activity {self.pk}'

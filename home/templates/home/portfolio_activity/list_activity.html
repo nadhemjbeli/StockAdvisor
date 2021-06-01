@@ -1,22 +1,79 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} My Activities {% endblock %}
+{% block title %} My Activities for {{ portfolio.name }}{% endblock %}
 
 
 {% block content %}
-        {% if error_activity_message %}
-            {{ error_activity_message }}
+    <div class="container-fluid">
+        {% if not error_activity_message %}
+
+            <h2> My Activities for {{ portfolio.name }}</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        {% if gain %}
+                            <div style="color:green">
+                                <div>
+                                    profit: {{ profits }}
+                                    <i class="fas fa-arrow-alt-circle-up"></i>
+                                </div>
+                                gross profit percentage: {{ gain }}%
+                                <i class="fas fa-arrow-alt-circle-up"></i><Br>
+                                net profit percentage: {{ gain_profit_percentage }}%
+                                <i class="fas fa-arrow-alt-circle-up"></i>
+                            </div>
+                        {% endif %}
+                        {% if loss %}
+                            <div style="color:red">
+                                <div>
+                                    profit: {{ profits }}
+                                    <i class="fas fa-arrow-alt-circle-down"></i>
+                                </div>
+                                gross profit percentage: {{ loss }}%
+                                <i class="fas fa-arrow-alt-circle-down"></i><br>
+                                net profit percentage: {{ loss_profit_percentage }}%
+                                <i class="fas fa-arrow-alt-circle-down"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-sm">
+                        <span>total number of stocks: {{ total_stocks }}</span><br>
+                        <span>total buys: {{ total_buys }}</span><br>
+                        <span>total sales: {{ total_sales }}</span><br>
+                    </div>
+                    <div class="col-sm">
+                        <span>average stock cost: {{ average_stock_cost }}</span><br>
+                        <span>average stock sale: {{ average_stock_sale }}</span><br>
+                    </div>
+                </div>
+            </div>
+
         {% endif %}
+        <a href="{% url 'home:add_activity' portfolio.pk %}" class="float-right btn btn-secondary" style="margin: 10px">add activity</a>
+    </div>
+    {% if error_activity_message %}
+        <br>
+        <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error_activity_message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+    {% endif %}
         {% if not error_activity_message %}
             <div class="container-fluid">
+
                 <table class="table table-bordered">
                     <tr>
                         <th>ID</th>
-                        <th>activity type</th>
                         <th>number of stocks</th>
-                        <th>Price</th>
-                        <th>Date of activity</th>
+                        <th>Buying price</th>
+                        <th>Date of buying</th>
+                        <th>Selling price</th>
+                        <th>Date of selling</th>
+                        <th>Actions</th>
                     </tr>
                     {% for activity in list_activity %}
                         <tr>
@@ -24,21 +81,24 @@
                                 {{activity.pk}}
                             </td>
                             <td>
-                                {{activity.bought_or_sold}}
-                            </td>
-                            <td>
                                 {{activity.number_stocks}}
                             </td>
                             <td>
-                                {{activity.price_entered}}
+                                {{activity.buying_price}}
                             </td>
                             <td>
-                                {{activity.date_activity}}
+                                {{activity.date_to_buy | date:"M d, Y"}}
                             </td>
-                            {#                    <td>#}
-                            {#                        <a href="{% url 'home:edit_portfolio' portfolio.pk %}" class="btn btn-info">Update</a>#}
-                            {#                        <a href="{% url 'home:delete_portfolio' portfolio.pk %}" class="btn btn-danger" style="margin-left:5%;">Delete</a>#}
-                            {#                    </td>#}
+                            <td>
+                                {{activity.selling_price}}
+                            </td>
+                            <td>
+                                {{activity.date_to_sell | date:"M d, Y"}}
+                            </td>
+                            <td>
+                                <a href="{% url 'home:edit_activity' activity.pk portfolio.pk %}" class="btn btn-primary">Update</a>
+                                <a href="{% url 'home:delete_activity' activity.pk portfolio.pk %}" class="btn btn-danger">Delete</a>
+                            </td>
 
                         </tr>
                     {% endfor %}
