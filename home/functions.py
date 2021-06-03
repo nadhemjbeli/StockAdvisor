@@ -86,6 +86,50 @@ def get_data(symbol, dtime=365):
     return df_final
 
 
+def normalize_data(df):
+    return df / df.iloc[0, :]
+
+
+def get_data_user_symbols(symbols, dtime=365, normalize=False):
+    # Create an empty dateframe
+    # df = pd.DataFrame(index=dates)
+    now = dt.datetime.now()
+    start = now - dt.timedelta(dtime)
+    now = now.strftime('%Y-%m-%d')
+    start = start.strftime('%Y-%m-%d')
+    dates = pd.date_range(start, now)
+    # if 'TPE-TSEC' not in symbols:
+    #     symbols.insert(0, 'TPE-TSEC')
+    df = pd.DataFrame(index=dates)
+    # df = df['Date'].dt.strftime('%Y-%m-%d')
+
+    for symbol in symbols:
+        df_temp = get_data(symbol)
+        df_temp = df_temp[['Adj']]
+        # print(df_temp)
+
+
+        # Rename to prevent clash
+        df_temp = df_temp.rename(columns={'Adj': symbol})
+        # Join two dataframes using DataFrame.join()
+        # if the value of the 'how' argument is assigned, then we don't use dropna()
+        # because it does the same thing
+        # Two ways to get the data frame
+        # [1] data intersection
+        df = df.join(df_temp)
+        # if symbol == 'TPE-TSEC':
+        #     df = df.dropna(subset=["TPE-TSEC"])
+        # [2] data intersection
+        # df = df.join(df_temp, how='inner')  # use default how='left', use how='inner' to join by intersection
+    print(np.shape(df))
+    df = df.dropna(how='all')
+    print(np.shape(df))
+    if normalize:
+        df = normalize_data(df)
+
+    return df
+
+
 def get_macd_signal(data, dtime):
     # Calculate the MACD and signal indicators
     # Calculate the sort term exponential moving average (EMA)
@@ -192,6 +236,8 @@ def load_url_profiles(stock):
     start = script_data.find('context') - 2
     json_data = json.loads(script_data[start: -12])
     return json_data
+
+
 
 
 # def load_yahoo_financials(json_data_financials, dtype='raw'):

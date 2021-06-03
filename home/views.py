@@ -440,6 +440,7 @@ def get_news_page(request, symbol):
     response = requests.get(url)
     data = response.json()
     results = data['results']
+    print(results[0])
 
     context = {
         'symbol': symbol,

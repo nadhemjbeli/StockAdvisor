@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Stock, Portfolio
+from.functions import get_data_user_symbols
 from django.contrib.auth.decorators import login_required
+
+from .plots import compare_stock
 
 
 @login_required
@@ -60,12 +63,21 @@ def set_portfolio(request):
 def get_list_portfolio(request):
     error_message = None
     list_portfolio = None
+    list_symbols = []
     try:
         username = request.user
         list_portfolio = username.portfolio_set.all().order_by('name')
+        if len(list_portfolio):
+            for portfolio in list_portfolio:
+                list_symbols.append(portfolio.stock.symbol)
+            df_compare = get_data_user_symbols(list_symbols, normalize=True)
+            # print(df_compare)
+            print(df_compare)
     except:
         error_message = 'you have no portfolio yet'
+    print(list_symbols)
     context = {
+        'compare_stock': compare_stock(df_compare),
         'error_message': error_message,
         'list_portfolio': list_portfolio,
     }

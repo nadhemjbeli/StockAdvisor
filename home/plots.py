@@ -187,11 +187,9 @@ def plotly_slider(ts_df):
     plotly_div = plot(fig, output_type='div')
     return plotly_div
 
-def compare_stock():
-    df = px.data.stocks()
-    fig = px.line(df, x="date", y=df.columns,
-                  hover_data={"date": "|%B %d, %Y"},
-                  title='custom tick labels')
+def compare_stock(df):
+    fig = px.line(df, x=df.index, y=df.columns,
+                  title='Compare your chosen stocks')
     fig.update_xaxes(
         dtick="M1",
         tickformat="%b\n%Y")

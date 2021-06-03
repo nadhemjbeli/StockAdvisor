@@ -209,8 +209,10 @@ def get_all_activity(request):
     gain_profit_percentage = 0
     loss_profit_percentage = 0
     portfolios_with_activities = 0
+    list_symbols = []
     all_portfolio = request.user.portfolio_set.all()
     if len(all_portfolio)>0:
+        list_symbols = []
         for portfolio in all_portfolio:
             all_activity = portfolio.activity_set.all()
             if len(all_activity)>0:
@@ -224,12 +226,14 @@ def get_all_activity(request):
         average_stock_sale = round(total_sales/total_stocks, 4)
         profits = total_sales - total_buys
         print(f'profits = {profits}')
+
         if profits >= 0:
             gain = round(100 - (total_buys / total_sales)*100, 4)
             gain_profit_percentage = round((gain / total_sales)*100, 4)
         else:
             loss = round(100 - (total_buys / total_sales)*100, 4)
             loss_profit_percentage = round((loss / total_sales)*100, 4)
+    print(list_symbols)
     context = {
 
         'profits': profits,
