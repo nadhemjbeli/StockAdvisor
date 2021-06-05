@@ -220,6 +220,7 @@ def get_all_activity(request):
     loss_profit_percentage = 0
     portfolios_with_activities = 0
     data = []
+    error_activity_message = ''
     all_portfolio = request.user.portfolio_set.all()
     if len(all_portfolio) > 0:
         df_stats = pd.DataFrame(columns=['portfolio', 'portfolio_stock', 'total_stocks', 'total_buys', 'total_sales'])
@@ -240,48 +241,56 @@ def get_all_activity(request):
                 portfolio_buys = 0
                 portfolio_sales = 0
                 portfolios_with_activities += 1
+        if portfolios_with_activities>0:
+            for i in range(df_stats.shape[0]):
+                temp = df_stats.iloc[i]
+                data.append(dict(temp))
+            print('data\n', data)
+            # print(df_stats)
+            # print(sum(df_stats['total_buys']))
 
-        for i in range(df_stats.shape[0]):
-            temp = df_stats.iloc[i]
-            data.append(dict(temp))
-        print('data\n', data)
-        # print(df_stats)
-        # print(sum(df_stats['total_buys']))
+            total_buys += sum(df_stats['total_buys'])
+            total_sales += sum(df_stats['total_sales'])
+            total_stocks += sum(df_stats['total_stocks'])
+            average_stock_cost = round(total_buys / total_stocks, 4)
+            average_stock_sale = round(total_sales / total_stocks, 4)
+            profits = total_sales - total_buys
+            print(f'profits = {profits}')
+            fig1_div = plot_stats(df_stats)
 
-        total_buys += sum(df_stats['total_buys'])
-        total_sales += sum(df_stats['total_sales'])
-        total_stocks += sum(df_stats['total_stocks'])
-        average_stock_cost = round(total_buys / total_stocks, 4)
-        average_stock_sale = round(total_sales / total_stocks, 4)
-        profits = total_sales - total_buys
-        print(f'profits = {profits}')
-        fig1_div = plot_stats(df_stats)
+            if profits >= 0:
+                gain = round(100 - (total_buys / total_sales) * 100, 4)
+                gain_profit_percentage = round((gain / total_sales) * 100, 4)
+            else:
+                loss = round(100 - (total_buys / total_sales) * 100, 4)
+                loss_profit_percentage = round((loss / total_sales) * 100, 4)
 
-        if profits >= 0:
-            gain = round(100 - (total_buys / total_sales) * 100, 4)
-            gain_profit_percentage = round((gain / total_sales) * 100, 4)
+            context = {
+
+                'profits': profits,
+                'total_stocks': total_stocks,
+                'total_sales': total_sales,
+                'total_buys': total_buys,
+                'portfolios_with_activities': portfolios_with_activities,
+                'fig1_div': fig1_div,
+                'portfolios_len': len(all_portfolio),
+                'average_stock_cost': average_stock_cost,
+                'average_stock_sale': average_stock_sale,
+                'gain_profit_percentage': gain_profit_percentage,
+                'loss_profit_percentage': loss_profit_percentage,
+                'gain': gain,
+                'loss': loss,
+                'error_portfolio_message': error_portfolio_message,
+                'error_activity_message': error_activity_message,
+                'portfolio': portfolio,
+                'data': data,
+            }
+            return render(request, "home/portfolio_activity/my_all_activity.html", context)
         else:
-            loss = round(100 - (total_buys / total_sales) * 100, 4)
-            loss_profit_percentage = round((loss / total_sales) * 100, 4)
-
-        context = {
-
-            'profits': profits,
-            'total_stocks': total_stocks,
-            'total_sales': total_sales,
-            'total_buys': total_buys,
-            'portfolios_with_activities': portfolios_with_activities,
-            'fig1_div': fig1_div,
-            'portfolios_len': len(all_portfolio),
-            'average_stock_cost': average_stock_cost,
-            'average_stock_sale': average_stock_sale,
-            'gain_profit_percentage': gain_profit_percentage,
-            'loss_profit_percentage': loss_profit_percentage,
-            'gain': gain,
-            'loss': loss,
-            'error_portfolio_message': error_portfolio_message,
-            'error_activity_message': error_activity_message,
-            'portfolio': portfolio,
-            'data': data,
-        }
-        return render(request, "home/portfolio_activity/my_all_activity.html", context)
+            error_activity_message = 'you have no transaction in any portfolio of yours'
+    else:
+        error_activity_message = 'you have no portfolio yet'
+    context = {
+        'error_activity_message': error_activity_message,
+    }
+    return render(request, "home/portfolio_activity/my_all_activity.html", context)

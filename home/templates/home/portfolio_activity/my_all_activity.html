@@ -7,110 +7,120 @@
 {% block content %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
-<div class="container-fluid">
-{#    {% if not error_activity_message %}#}
+    <div class="container-fluid">
         <h2>My all transaction statistics</h2>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    {% if gain %}
-                        <div style="color:green">
-                            <div>
-                                profit: {{ profits }}
-                                <i class="fas fa-arrow-alt-circle-up"></i>
-                            </div>
-                            gross profit percentage: {{ gain }}%
-                            <i class="fas fa-arrow-alt-circle-up"></i><Br>
-                            net profit percentage: {{ gain_profit_percentage }}%
-                            <i class="fas fa-arrow-alt-circle-up"></i>
-                        </div>
-                    {% endif %}
-                    {% if loss %}
-                        <div style="color:red">
-                            <div>
-                                profit: {{ profits }}
-                                <i class="fas fa-arrow-alt-circle-down"></i>
-                            </div>
-                            gross profit percentage: {{ loss }}%
-                            <i class="fas fa-arrow-alt-circle-down"></i><br>
-                            net profit percentage: {{ loss_profit_percentage }}%
-                            <i class="fas fa-arrow-alt-circle-down"></i>
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="col-sm">
-                    <span>total number of stocks: {{ total_stocks }}</span><br>
-                    <span>total buys: {{ total_buys }}</span><br>
-                    <span>total sales: {{ total_sales }}</span><br>
-                </div>
-                <div class="col-sm">
-                    <span>average stock cost: {{ average_stock_cost }}</span><br>
-                    <span>average stock sale: {{ average_stock_sale }}</span><br>
-                    <span>portfolios with activities: {{ portfolios_with_activities }} out of {{ portfolios_len }}</span><br>
-                </div>
+        {% if error_activity_message %}
+            <br>
+            <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error_activity_message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
 
+            {% else %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            {% if gain %}
+                                <div style="color:green">
+                                    <div>
+                                        profit: {{ profits }}
+                                        <i class="fas fa-arrow-alt-circle-up"></i>
+                                    </div>
+                                    gross profit percentage: {{ gain }}%
+                                    <i class="fas fa-arrow-alt-circle-up"></i><Br>
+                                    net profit percentage: {{ gain_profit_percentage }}%
+                                    <i class="fas fa-arrow-alt-circle-up"></i>
+                                </div>
+                            {% endif %}
+                            {% if loss %}
+                                <div style="color:red">
+                                    <div>
+                                        profit: {{ profits }}
+                                        <i class="fas fa-arrow-alt-circle-down"></i>
+                                    </div>
+                                    gross profit percentage: {{ loss }}%
+                                    <i class="fas fa-arrow-alt-circle-down"></i><br>
+                                    net profit percentage: {{ loss_profit_percentage }}%
+                                    <i class="fas fa-arrow-alt-circle-down"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm">
+                            <span>total number of stocks: {{ total_stocks }}</span><br>
+                            <span>total buys: {{ total_buys }}</span><br>
+                            <span>total sales: {{ total_sales }}</span><br>
+                        </div>
+                        <div class="col-sm">
+                            <span>average stock cost: {{ average_stock_cost }}</span><br>
+                            <span>average stock sale: {{ average_stock_sale }}</span><br>
+                            <span>portfolios with activities: {{ portfolios_with_activities }} out of {{ portfolios_len }}</span><br>
+                        </div>
+                    </div>
+
+                </div>
+
+                {{ fig1_div | safe }}
+
+            <table id="table_activity_stats" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>portfolio</th>
+                    <th>portfolio stock</th>
+                    <th>total stocks</th>
+                    <th>buys per portfolio</th>
+                    <th>sales per portfolio</th>
+                </tr>
+                </thead>
+        {#        <tfoot>#}
+        {#        <tr>#}
+        {#            <th>portfolio</th>#}
+        {#            <th>portfolio stock</th>#}
+        {#            <th>total stocks</th>#}
+        {#            <th>buys per portfolio</th>#}
+        {#            <th>sales per portfolio</th>#}
+        {#        </tr>#}
+        {#        </tfoot>#}
+                <tbody>
+                {% for row in data %}
+                    <tr>
+                        <td>
+                            {{row.portfolio}}
+                        </td>
+                        <td>
+                            {{row.portfolio_stock}}
+                        </td>
+                        <td>
+                            {{row.total_stocks}}
+                        </td>
+                        <td>
+                            {{row.total_buys}}
+                        </td>
+                        <td>
+                            {{row.total_sales}}
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        {#    {% endif %}#}
         </div>
+        {% endif %}
+        <!--Import jQuery before export.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <!--Data Table-->
+        <script type="text/javascript"  src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript"  src=" https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
 
-        {{ fig1_div | safe }}
-
-    <table id="table_activity_stats" class="table table-bordered">
-        <thead>
-        <tr>
-            <th>portfolio</th>
-            <th>portfolio stock</th>
-            <th>total stocks</th>
-            <th>buys per portfolio</th>
-            <th>sales per portfolio</th>
-        </tr>
-        </thead>
-{#        <tfoot>#}
-{#        <tr>#}
-{#            <th>portfolio</th>#}
-{#            <th>portfolio stock</th>#}
-{#            <th>total stocks</th>#}
-{#            <th>buys per portfolio</th>#}
-{#            <th>sales per portfolio</th>#}
-{#        </tr>#}
-{#        </tfoot>#}
-        <tbody>
-        {% for row in data %}
-            <tr>
-                <td>
-                    {{row.portfolio}}
-                </td>
-                <td>
-                    {{row.portfolio_stock}}
-                </td>
-                <td>
-                    {{row.total_stocks}}
-                </td>
-                <td>
-                    {{row.total_buys}}
-                </td>
-                <td>
-                    {{row.total_sales}}
-                </td>
-
-            </tr>
-        {% endfor %}
-        </tbody>
-
-    </table>
-{#    {% endif %}#}
-</div>
-    <!--Import jQuery before export.js-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <!--Data Table-->
-    <script type="text/javascript"  src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript"  src=" https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
-
-    <!--Export table buttons-->
-    <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js" ></script>
-    <script type="text/javascript"  src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+        <!--Export table buttons-->
+        <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+        <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js" ></script>
+        <script type="text/javascript"  src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
 
     <script>
         $(document).ready(function() {

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-
+import django_heroku
 # # some_file.py
 # import sys
 # # insert at 1, 0 is the script path (or '' in REPL)

@@ -63,66 +63,65 @@
             </button>
         </div>
 
+    {% else %}
+        <div class="container-fluid">
+
+            <table id="table_activity" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>number of stocks</th>
+                    <th>Buying price</th>
+                    <th>Date of buying</th>
+                    <th>Selling price</th>
+                    <th>Date of selling</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>number of stocks</th>
+                    <th>Buying price</th>
+                    <th>Date of buying</th>
+                    <th>Selling price</th>
+                    <th>Date of selling</th>
+                    <th>Actions</th>
+                </tr>
+            </tfoot>
+            <tbody>
+            {% for activity in list_activity %}
+                <tr>
+                    <td>
+                        {{activity.pk}}
+                    </td>
+                    <td>
+                        {{activity.number_stocks}}
+                    </td>
+                    <td>
+                        {{activity.buying_price}}
+                    </td>
+                    <td>
+                        {{activity.date_to_buy | date:"M d, Y"}}
+                    </td>
+                    <td>
+                        {{activity.selling_price}}
+                    </td>
+                    <td>
+                        {{activity.date_to_sell | date:"M d, Y"}}
+                    </td>
+                    <td>
+                        <a href="{% url 'home:edit_activity' activity.pk portfolio.pk %}" class="btn btn-primary">Update</a>
+                        <a href="{% url 'home:delete_activity' activity.pk portfolio.pk %}" class="btn btn-danger">Delete</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+
+            </table>
+        </div>
     {% endif %}
-        {% if not error_activity_message %}
-            <div class="container-fluid">
-
-                <table id="table_activity" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>number of stocks</th>
-                        <th>Buying price</th>
-                        <th>Date of buying</th>
-                        <th>Selling price</th>
-                        <th>Date of selling</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>number of stocks</th>
-                        <th>Buying price</th>
-                        <th>Date of buying</th>
-                        <th>Selling price</th>
-                        <th>Date of selling</th>
-                        <th>Actions</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                {% for activity in list_activity %}
-                    <tr>
-                        <td>
-                            {{activity.pk}}
-                        </td>
-                        <td>
-                            {{activity.number_stocks}}
-                        </td>
-                        <td>
-                            {{activity.buying_price}}
-                        </td>
-                        <td>
-                            {{activity.date_to_buy | date:"M d, Y"}}
-                        </td>
-                        <td>
-                            {{activity.selling_price}}
-                        </td>
-                        <td>
-                            {{activity.date_to_sell | date:"M d, Y"}}
-                        </td>
-                        <td>
-                            <a href="{% url 'home:edit_activity' activity.pk portfolio.pk %}" class="btn btn-primary">Update</a>
-                            <a href="{% url 'home:delete_activity' activity.pk portfolio.pk %}" class="btn btn-danger">Delete</a>
-                        </td>
-
-                    </tr>
-                {% endfor %}
-                </tbody>
-
-                </table>
-            </div>
-        {% endif %}
     <!--Import jQuery before export.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!--Data Table-->

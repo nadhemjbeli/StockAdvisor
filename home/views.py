@@ -441,6 +441,10 @@ def get_news_page(request, symbol):
     response = requests.get(url)
     data = response.json()
     results = data['results']
+    for i in range(len(results)):
+        description = results[i]['description']
+        if len(description)>150:
+            results[i]['description'] = description[:150]+'...'
     # print(results[0])
 
     context = {

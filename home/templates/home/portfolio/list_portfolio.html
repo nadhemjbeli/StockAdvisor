@@ -98,40 +98,50 @@
     }
 </style>
 {% block content %}
-    <h2> My Portfolios</h2>
-        <div class="container-fluid">
-        {{ compare_stock | safe }}
-            <table class="table table-bordered">
+    <div class="container-fluid">
+        <h2> My Portfolios</h2>
+        {% if error_message %}
+        <br>
+        <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error_message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        {% else %}
+    {{ compare_stock | safe }}
+        <table class="table table-bordered">
+            <tr>
+                <th>name</th>
+                <th>stock's symbol</th>
+                <th>stock's name</th>
+                <th>Prediction</th>
+                <th>Transactions</th>
+                <th>Actions</th>
+            </tr>
+            {% for portfolio in list_portfolio %}
                 <tr>
-                    <th>name</th>
-                    <th>stock's symbol</th>
-                    <th>stock's name</th>
-                    <th>Prediction</th>
-                    <th>Transactions</th>
-                    <th>Actions</th>
-                </tr>
-                {% for portfolio in list_portfolio %}
-                    <tr>
-                        <td>
-                            <a href="{% url 'home:show_summary' symbol=portfolio.stock %}">{{ portfolio.name }}</a>
-                        </td>
-                        <td>
-                            {{portfolio.stock}}
-                        </td>
-                        <td>
-                            {{portfolio.stock.name}}
-                        </td>
-                        <td>
-                            <a href="{% url 'home:get_prediction' symbol=portfolio.stock %}">view prediction</a>
-                        </td>
-                        <td>
-                            <a href="{% url 'home:show_list_activity' portfolio.pk %}" class="btn btn-primary">view activities</a>
-                            <a href="{% url 'home:add_activity' portfolio.pk %}" class="btn btn-info">add activity</a>
-                        </td>
-                        <td>
-                            <a href="{% url 'home:edit_portfolio' portfolio.pk %}" class="btn btn-primary">Update</a>
-                            <a href="{% url 'home:delete_portfolio' portfolio.pk %}" class="btn btn-danger"
-                               style="margin-left:5%;">Delete</a>
+                    <td>
+                        <a href="{% url 'home:show_summary' symbol=portfolio.stock %}">{{ portfolio.name }}</a>
+                    </td>
+                    <td>
+                        {{portfolio.stock}}
+                    </td>
+                    <td>
+                        {{portfolio.stock.name}}
+                    </td>
+                    <td>
+                        <a href="{% url 'home:get_prediction' symbol=portfolio.stock %}">view prediction</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'home:show_list_activity' portfolio.pk %}" class="btn btn-primary">view activities</a>
+                        <a href="{% url 'home:add_activity' portfolio.pk %}" class="btn btn-info">add activity</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'home:edit_portfolio' portfolio.pk %}" class="btn btn-primary">Update</a>
+                        <a href="{% url 'home:delete_portfolio' portfolio.pk %}" class="btn btn-danger"
+                           style="margin-left:5%;">Delete</a>
 {#                            <a href="{% url 'home:delete_portfolio' portfolio.pk %}" class="btn btn-danger" style="margin-left:5%;"#}
 {#                               data-toggle="modal" data-target="#DeleteModal">Delete</a>#}
 {#                            <div id="DeleteModal" class="modal fade">#}
@@ -155,10 +165,11 @@
 {#                                </div>#}
 {#                            </div>#}
 
-                        </td>
+                    </td>
 
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    </div>
 {% endblock %}

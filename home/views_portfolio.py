@@ -67,19 +67,21 @@ def get_list_portfolio(request):
     list_portfolio = None
     list_symbols = []
     df_compare = pd.DataFrame()
-    try:
-        username = request.user
-        list_portfolio = username.portfolio_set.all().order_by('name')
-        if len(list_portfolio):
-            for portfolio in list_portfolio:
-                list_symbols.append(portfolio.stock.symbol)
-            df_compare = get_data_user_symbols(list_symbols, normalize=True)
-            print(df_compare)
-    except:
+    username = request.user
+    list_portfolio = username.portfolio_set.all().order_by('name')
+    if len(list_portfolio):
+        for portfolio in list_portfolio:
+            list_symbols.append(portfolio.stock.symbol)
+        df_compare = get_data_user_symbols(list_symbols, normalize=True)
+        context = {
+            'compare_stock': compare_stock(df_compare),
+            'list_portfolio': list_portfolio,
+        }
+        return render(request, "home/portfolio/list_portfolio.html", context)
+    else:
         error_message = 'you have no portfolio yet'
     print(list_symbols)
     context = {
-        'compare_stock': compare_stock(df_compare),
         'error_message': error_message,
         'list_portfolio': list_portfolio,
     }
