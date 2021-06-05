@@ -106,7 +106,8 @@
                     <th>name</th>
                     <th>stock's symbol</th>
                     <th>stock's name</th>
-                    <th>Activities</th>
+                    <th>Prediction</th>
+                    <th>Transactions</th>
                     <th>Actions</th>
                 </tr>
                 {% for portfolio in list_portfolio %}
@@ -119,6 +120,9 @@
                         </td>
                         <td>
                             {{portfolio.stock.name}}
+                        </td>
+                        <td>
+                            <a href="{% url 'home:get_prediction' symbol=portfolio.stock %}">view prediction</a>
                         </td>
                         <td>
                             <a href="{% url 'home:show_list_activity' portfolio.pk %}" class="btn btn-primary">view activities</a>

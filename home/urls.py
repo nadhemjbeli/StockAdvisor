@@ -2,7 +2,7 @@ from django.urls import path
 from .views import search_stock, get_stock, single_stock, get_cash_flow, get_income_statements, get_stock_summary \
     , stockAnalysis, home, get_historical_data, get_balance_sheet, get_profiles, get_news, \
     analysis_news, get_tesla_pred, get_apple_pred, get_stock_summary_candlestick, get_news_page
-from .views_portfolio import get_list_portfolio, set_portfolio, delete_portfolio, edit_portfolio
+from .views_portfolio import get_list_portfolio, set_portfolio, delete_portfolio, edit_portfolio, predict_stock
 from .views_activity import get_list_activity, add_activity, delete_activity, edit_activity, get_all_activity
 
 app_name = 'home'
@@ -47,6 +47,7 @@ urlpatterns = [
     path('analysis_news/', analysis_news, name='analysis_news'),
 
     #stock predictions
+    path('predict/<str:symbol>', predict_stock, name='get_prediction'),
     path('tesla_pred/', get_tesla_pred, name='tesla_pred'),
     path('apple_pred/', get_apple_pred, name='apple_pred'),
 ]

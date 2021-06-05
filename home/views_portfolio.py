@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import Stock, Portfolio
-from.functions import get_data_user_symbols
+from .analysis import get_data_user_symbols, get_data
+from .scraping import load_data_yfinance
 from django.contrib.auth.decorators import login_required
-
-from .plots import compare_stock
+import pandas as pd
+from fbprophet import Prophet
+from .plots import compare_stock, plot_prediction
 
 
 @login_required
@@ -13,7 +15,7 @@ def set_portfolio(request):
     list_portfolio = request.user.portfolio_set.all()
     username = request.user
     print(username)
-    portfolio_num = len(list_portfolio)+1
+    portfolio_num = len(list_portfolio) + 1
     portfolio_len = len(list_portfolio)
     if portfolio_len >= 5:
         full_length_message = f'sorry, you can\'t create more than {portfolio_len} portfolios '
@@ -64,6 +66,7 @@ def get_list_portfolio(request):
     error_message = None
     list_portfolio = None
     list_symbols = []
+    df_compare = pd.DataFrame()
     try:
         username = request.user
         list_portfolio = username.portfolio_set.all().order_by('name')
@@ -71,7 +74,6 @@ def get_list_portfolio(request):
             for portfolio in list_portfolio:
                 list_symbols.append(portfolio.stock.symbol)
             df_compare = get_data_user_symbols(list_symbols, normalize=True)
-            # print(df_compare)
             print(df_compare)
     except:
         error_message = 'you have no portfolio yet'
@@ -118,3 +120,38 @@ def edit_portfolio(request, pk):
         'stocks': stocks,
     }
     return render(request, "home/portfolio/edit_portfolio.html", context)
+
+
+def predict_stock(request, symbol):
+    symbol = symbol.upper()
+    data = load_data_yfinance(symbol)
+    df_train = data[['Date', 'Close']]
+    df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
+    period = 200
+    m = Prophet()
+    m.fit(df_train)
+    future = m.make_future_dataframe(periods=period)
+    forecast = m.predict(future)
+
+    num = 0
+    for i in range(len(forecast) - period, len(forecast)):
+        if forecast['ds'][i].weekday() == 5 or forecast['ds'][i].weekday() == 6:
+            forecast = forecast.drop(i)
+            num += 1
+        else:
+            if forecast['yhat'][i] < 0:
+                forecast['yhat'][i] = 0
+            if forecast['yhat_upper'][i] < 0:
+                forecast['yhat_upper'][i] = 0
+            if forecast['yhat_lower'][i] < 0:
+                forecast['yhat_lower'][i] = 0
+    period -= num
+    df_pred = forecast[-period:]
+    predicted_div = plot_prediction(forecast, df_train, period)
+
+    context = {
+        'predicted_div': predicted_div,
+        'symbol': symbol,
+        'df_pred': df_pred,
+    }
+    return render(request, "home/predictions/predict_stock_portfolio.html", context)

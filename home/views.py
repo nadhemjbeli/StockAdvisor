@@ -9,8 +9,9 @@ import plotly.graph_objects as go
 from .models import Stock, Portfolio
 from .plots import candlestick, compute_bollinger_bands, plot_macd_signal, plot_buy_sell, area_plot_1_day, \
     area_plot_1_day_candlestick
-from .functions import load_url_financials, load_yahoo_annual_income_statement, load_yahoo_annual_cash_flow, get_data, \
-    get_macd_signal, buy_sell, quote_type_yahoo, stock_price_yahoo, load_yahoo_annual_balance_sheet, load_url_profiles
+from .analysis import get_data, get_macd_signal, buy_sell
+from .scraping import load_url_financials, load_yahoo_annual_income_statement, load_yahoo_annual_cash_flow,quote_type_yahoo, \
+    stock_price_yahoo, load_yahoo_annual_balance_sheet, load_url_profiles
 from .dash_apps.finished_apps.simpleexample import get_live_update
 from django.contrib.auth.decorators import login_required
 """polygon.io api"""
@@ -440,7 +441,7 @@ def get_news_page(request, symbol):
     response = requests.get(url)
     data = response.json()
     results = data['results']
-    print(results[0])
+    # print(results[0])
 
     context = {
         'symbol': symbol,

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from . import models
 # from home.dash_apps import models
-from .functions import get_rolling_mean, get_rolling_std, get_bollinger_bands, compute_daily_returns
+from .analysis import get_rolling_mean, get_rolling_std, get_bollinger_bands, compute_daily_returns
 import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
@@ -47,6 +47,7 @@ def candlestick(ts_df):
     candlestick_div = plot(figure, output_type='div')
     return candlestick_div
 
+
 def choose_color_area_1_day(df):
     start = df['close'][0]
     print('start ', start)
@@ -81,6 +82,7 @@ def choose_color_area_1_day(df):
                 ]
             )
     return figure
+
 
 def area_plot_1_day(symbol):
     # from twelvedata import TDClient
@@ -130,7 +132,7 @@ def area_plot_1_day_candlestick(symbol):
         start = dt.datetime.now()
     else:
         start = dt.datetime.now() - dt.timedelta(1)
-    start=dt.datetime(2020, 12, 12)
+    # start=dt.datetime(2020, 12, 12)
     start_date = start.replace(hour=9, minute=30, second=0, microsecond=0)
     print(start_date)
     end_date = start.replace(hour=16, minute=0, second=0, microsecond=0)
@@ -139,6 +141,7 @@ def area_plot_1_day_candlestick(symbol):
     df = get_historical_intraday(symbol, ouput_format='pandas', token=token, start=start_date, end=end_date)
     print(df)
     dt_all = pd.date_range(start=df.index[0], end=df.index[-1])
+    # print(dt_all)
     dt_obs = [d.strftime("%Y-%m-%d") for d in df.index]
     dt_breaks = [d for d in dt_all.strftime("%Y-%m-%d").tolist() if not d in dt_obs]
     figure = go.Figure(
@@ -187,6 +190,7 @@ def plotly_slider(ts_df):
     plotly_div = plot(fig, output_type='div')
     return plotly_div
 
+
 def compare_stock(df):
     fig = px.line(df, x=df.index, y=df.columns,
                   title='Compare your chosen stocks')
@@ -195,6 +199,7 @@ def compare_stock(df):
         tickformat="%b\n%Y")
     compare_div = plot(fig, output_type='div')
     return compare_div
+
 
 def compute_bollinger_bands(df, symbol, dtime, *args, **kwargs):
     plt.switch_backend("AGG")
@@ -378,3 +383,56 @@ def plot_macd_signal(data, symbol, MACD, signal):
 #     }
 #     # print(stock_data)
 #     return render(request, "home/table_stock.html", context)
+
+def plot_prediction(forecast, df_train , period):
+    forecast = forecast.set_index('ds')
+    df = df_train.set_index('ds')
+    df_pred = forecast[-period:]
+    dt_all = pd.date_range(start=forecast.index[0], end=forecast.index[-1])
+    dt_obs = [d for d in forecast.index.strftime("%Y-%m-%d")]
+    dt_breaks = [d for d in dt_all.strftime("%Y-%m-%d").tolist() if not d in dt_obs]
+    # Create traces
+    fig = go.Figure([go.Scatter(x=forecast.index, y=forecast['yhat_upper'],
+                                mode='lines',
+                                line=dict(width=0.01, color='gray'),
+                                showlegend=False,
+                                name='prediction'),
+                     go.Scatter(x=forecast.index, y=forecast['yhat_lower'],
+                                mode='lines',
+                                line=dict(width=0.01, color='gray'),
+                                fill='tonexty',
+                                showlegend=False,
+                                name='prediction')])
+    fig.add_trace(go.Scatter(x=df_pred.index, y=df_pred['yhat'],
+                             mode='lines',
+                             line=dict(width=2, color='tomato'),
+                             name='future predicted'))
+    fig.add_trace(go.Scatter(x=df.index, y=df['y'],
+                             mode='lines',
+                             line=dict(width=3, color='blue'),
+                             name='actual'))
+    fig.update_xaxes(
+        rangeslider_visible=True,
+        rangeselector=dict(
+            buttons=list([
+                # dict(count=1, label="day", step="day", stepmode="todate"),
+                dict(count=6, label="6m", step="month", stepmode="todate"),
+                dict(count=1, label="1y", step="year", stepmode="todate"),
+                dict(count=2, label="2y", step="year", stepmode="todate"),
+                dict(step="all")
+            ])
+        ),
+        rangebreaks=[dict(values=dt_breaks)],  # hide dates with no values
+    )
+    pred_div = plot(fig, output_type='div')
+    return pred_div
+
+def plot_stats(df):
+    fig1 = go.Figure(data=[
+        go.Bar(name='total buys', x=df['portfolio'], y=df['total_buys']),
+        go.Bar(name='total sales', x=df['portfolio'], y=df['total_sales'])
+    ])
+    # Change the bar mode
+    fig1.update_layout(barmode='group')
+    fig1_div = plot(fig1, output_type='div')
+    return fig1_div

@@ -1,13 +1,15 @@
-{% extends 'base.html' %}
+{% extends 'base_no_jquery.html' %}
 {% load static %}
 
 {% block title %} My Activities for {{ portfolio.name }}{% endblock %}
 
 
 {% block content %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
 <div class="container-fluid">
 {#    {% if not error_activity_message %}#}
-        <h2>My all activity statistics</h2>
+        <h2>My all transaction statistics</h2>
         <div class="container">
             <div class="row">
                 <div class="col-sm">
@@ -47,7 +49,77 @@
                     <span>portfolios with activities: {{ portfolios_with_activities }} out of {{ portfolios_len }}</span><br>
                 </div>
             </div>
+
         </div>
+
+        {{ fig1_div | safe }}
+
+    <table id="table_activity_stats" class="table table-bordered">
+        <thead>
+        <tr>
+            <th>portfolio</th>
+            <th>portfolio stock</th>
+            <th>total stocks</th>
+            <th>buys per portfolio</th>
+            <th>sales per portfolio</th>
+        </tr>
+        </thead>
+{#        <tfoot>#}
+{#        <tr>#}
+{#            <th>portfolio</th>#}
+{#            <th>portfolio stock</th>#}
+{#            <th>total stocks</th>#}
+{#            <th>buys per portfolio</th>#}
+{#            <th>sales per portfolio</th>#}
+{#        </tr>#}
+{#        </tfoot>#}
+        <tbody>
+        {% for row in data %}
+            <tr>
+                <td>
+                    {{row.portfolio}}
+                </td>
+                <td>
+                    {{row.portfolio_stock}}
+                </td>
+                <td>
+                    {{row.total_stocks}}
+                </td>
+                <td>
+                    {{row.total_buys}}
+                </td>
+                <td>
+                    {{row.total_sales}}
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
 {#    {% endif %}#}
 </div>
+    <!--Import jQuery before export.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!--Data Table-->
+    <script type="text/javascript"  src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"  src=" https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+
+    <!--Export table buttons-->
+    <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js" ></script>
+    <script type="text/javascript"  src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#table_activity_stats').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+        } );
+    </script>
 {% endblock %}
