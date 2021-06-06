@@ -4,7 +4,7 @@ from .analysis import get_data_user_symbols, get_data
 from .scraping import load_data_yfinance
 from django.contrib.auth.decorators import login_required
 import pandas as pd
-# from fbprophet import Prophet
+from fbprophet import Prophet
 from .plots import compare_stock, plot_prediction
 
 
