@@ -20,6 +20,12 @@
     <link rel="apple-touch-icon" href="{% static 'stock/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" href="{% static 'stock/favicon-32x32.png'%}" sizes="32x32" />
     <link rel="icon" type="image/png" href="{% static 'stock/favicon-16x16.png'%}"sizes="16x16" />
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+
     <link rel="stylesheet" href="{% static 'stock/css/normalize.min.css'%}">
     <link rel="stylesheet" href="{% static 'stock/css/bootstrap.min.css '%}">
     <link rel="stylesheet" href="{% static 'stock/css/jquery.fancybox.css '%}">
@@ -29,6 +35,7 @@
     <link rel="stylesheet" href="{% static 'stock/css/etline-font.css'%}">
     <link rel="stylesheet" href="{% static 'stock/bower_components/animate.css/animate.min.css'%}">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
     <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 
@@ -46,9 +53,16 @@
                         <nav>
                             <ul>
                                 <li>
-                                    <div class="logo-placeholder floating-logo">
-                                        <img src="{% static 'stock/img/stock_advisor.png' %}" alt="stock_advisor" width="680" height="100">
-                                    </div>
+{#                                    <div class="logo-placeholder floating-logo">#}
+{#                                        <img src="{% static 'stock/img/stock_advisor.png' %}" alt="stock_advisor" width="680" height="100">#}
+{#                                        #}
+{#                                    </div>#}
+                                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'absolute_home' %}" >
+                                        <div class="sidebar-brand-icon">
+                                            <i class="fas fa-chart-line" ></i>
+                                        </div>
+                                        <div class="sidebar-brand-text mx-3" style="font-weight: bolder">Stock Advisor</div>
+                                    </a>
                                 </li>
                             </ul>
 {#                            <ul class="primary-nav">#}
@@ -88,11 +102,14 @@
     <script>window.jQuery || document.write('<script src="{% static 'stock/js/vendor/jquery-1.11.2.min.js' %}"><\/script>')</script>
     <script src="{% static 'stock/bower_components/retina.js/dist/retina.js' %}"></script>
     <script src="{% static 'stock/js/jquery.fancybox.pack.js' %}"></script>
-    <script src="{% static 'stock/js/vendor/bootstrap.min.js' %}"></script>
+{#    <script src="{% static 'stock/js/vendor/bootstrap.min.js' %}"></script>#}
     <script src="{% static 'stock/js/scripts.js' %}"></script>
     <script src="{% static 'stock/js/jquery.flexslider-min.js' %}"></script>
     <script src="{% static 'stock/bower_components/classie/classie.js' %}"></script>
     <script src="{% static 'stock/bower_components/jquery-waypoints/lib/jquery.waypoints.min.js' %}"></script>
+{#<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>#}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
 

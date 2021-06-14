@@ -3,7 +3,7 @@ from .views import search_stock, get_stock, single_stock, get_cash_flow, get_inc
     , stockAnalysis, home, get_historical_data, get_balance_sheet, get_profiles, get_news, \
     analysis_news, get_tesla_pred, get_apple_pred, get_stock_summary_candlestick, get_news_page
 from .views_portfolio import get_list_portfolio, set_portfolio, delete_portfolio, edit_portfolio, predict_stock
-from .views_activity import get_list_activity, add_activity, delete_activity, edit_activity, get_all_activity
+from .views_activity import get_list_transaction, add_transaction, delete_transaction, edit_transaction, get_all_transaction
 
 app_name = 'home'
 urlpatterns = [
@@ -22,11 +22,11 @@ urlpatterns = [
     path('delete_portfolio/<int:pk>', delete_portfolio, name="delete_portfolio"),
 
     #portfolio_activity
-    path('my_all_activities/', get_all_activity, name="show_all_activity"),
-    path('activities/portfolio_<int:pk>', get_list_activity, name="show_list_activity"),
-    path('add_activity/portfolio_<int:pk_portfolio>', add_activity, name="add_activity"),
-    path('edit_activity_<int:pk_activity>/portfolio_<int:pk_portfolio>', edit_activity, name="edit_activity"),
-    path('delete_activity_<int:pk_activity>/portfolio_<int:pk_portfolio>', delete_activity, name="delete_activity"),
+    path('my_all_activities/', get_all_transaction, name="show_all_activity"),
+    path('activities/portfolio_<int:pk>', get_list_transaction, name="show_list_activity"),
+    path('add_activity/portfolio_<int:pk_portfolio>', add_transaction, name="add_activity"),
+    path('edit_activity_<int:pk_transaction>/portfolio_<int:pk_portfolio>_<int:id_transaction>', edit_transaction, name="edit_activity"),
+    path('delete_activity_<int:pk_transaction>/portfolio_<int:pk_portfolio>', delete_transaction, name="delete_activity"),
 
     #stock financials
     path('stock/<str:symbol>/financials', get_income_statements, name='show_financials'),

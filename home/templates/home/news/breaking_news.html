@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Stock group {% endblock %}
+{% block title %} search stock {{ symbol }} {% endblock %}
 
 
 
@@ -22,34 +22,47 @@
     </div>
 
 
-    <div class="container">
-        <h2> search stock</h2>
+    <div class="container-fluid">
+        <h2> search stock {{ symbol }}</h2>
         <form action="" method="get">
-            <input type="text" name="symbol">
-            <button type="submit" value="search">Search</button>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+            <input type="text" name="symbol" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+        </div>
         </form>
+{#        <form action="" method="get">#}
+{#            <input type="text"  class="form-control">#}
+{#            <button type="submit" value="search" class="btn btn-primary">Search</button>#}
+{#        </form>#}
         <br>
         <br>
 
         <div class="row">
-            <div class="col-md-6">
-                {% for i in results %}
-                    <div class="card rounded shadow-lg m-2" style="width: 25rem;">
-                        <img src="{{ i.image_url }}" class="card-img-top"  alt="Card image cap">
+
+            {% for i in results %}
+                <div class="col s12 m6 l4">
+                    {#                    <div class="card rounded shadow-lg m-2" style="width: 25rem; height: 560px; overflow: hidden;">#}
+                    <div class="card rounded shadow-lg m-2" style="height: 560px; width: 21rem">
+                        <a href="{{ i.article_url }}" target="_blank">
+                            <img src="{{ i.image_url }}" class="card-img-top"  alt="Card image cap">
+                        </a>
+
                         <div class="card-body">
                             <p class="card-title"> {{ i.author }}</p>
                             <h5 class="card-title"> {{ i.title }}</h5>
                             <p class="card-title"> {{ i.name}}</p>
-                            <p class="card-text">{{ i.description }}</p>
+                            <p class="card-text">{{ i.description2 }}</p>
                             <hr>
-                            <small>date:{{ i.published_utc }}</small>
-                            <a href="{{ i.article_url }}" class="btn btn-success m-1">See News</a>
+                            <small>date:{{ i.published_utc }}</small><br>
+                            <a href="{{ i.article_url }}" target="_blank" class="btn btn-success m-1">See News</a>
+                            <a href="" class="btn btn-warning" style="margin-left: 10px">Analyse</a>
 
                         </div>
                     </div>
-                {% endfor %}
-
-            </div>
+                </div>
+            {% endfor %}
 
 
 

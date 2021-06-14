@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 
-
+from home.models import Profile
 from home.decorators import unauthenticated_user
-from .forms import NewUserForm, LoginForm
+from .forms import NewUserForm, LoginForm, UserUpdateForm, ProfileUpdateForm
+from home.models import Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+
 
 @unauthenticated_user
 def signup_view(request):
@@ -14,6 +17,7 @@ def signup_view(request):
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            Profile.objects.get_or_create(user=user)
             username = form.cleaned_data.get('username')
             messages.success(request, f"New account created: {username}")
             login(request, user)
@@ -90,6 +94,33 @@ def login_view(request):
 @unauthenticated_user
 def absolute_home(request):
     return render(request, "pre_user/home.html")
+
+
+@login_required
+def profile(request):
+    user = request.user
+    print(user.first_name)
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'user/profile.html', context)
 
 
 def logout_view(request):

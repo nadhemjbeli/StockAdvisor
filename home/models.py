@@ -27,9 +27,9 @@ class Portfolio(models.Model):
         return f'{self.user} - {self.name}'
 
 
-class Activity(models.Model):
-    class Meta:
-        verbose_name_plural = 'Activities'
+class Transaction(models.Model):
+    # class Meta:
+    #     verbose_name_plural = 'Activities'
     portfolio = models.ForeignKey(Portfolio, null=True, on_delete=models.SET_NULL)
 
     type_activity = models.CharField(max_length=10)
@@ -42,3 +42,11 @@ class Activity(models.Model):
 
     def __str__(self):
         return f'{self.portfolio} - Activity {self.pk}'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.png', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.username} Profile'

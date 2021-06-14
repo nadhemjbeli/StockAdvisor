@@ -1,7 +1,7 @@
 {% extends 'base_no_jquery.html' %}
 {% load static %}
 
-{% block title %}Stock group {% endblock %}
+{% block title %} Copy Url {% endblock %}
 
 
 
@@ -9,36 +9,86 @@
 
 {% block content %}
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <div class="container-fluid" center>
+        <h1 class ="text-center"> Analysis News</h1>
+        <h2> Copy Url</h2>
+{#        <form action="" method="get">#}
+{#            <input type="text" name="url">#}
+{#            <button type="submit" value="search">Analyze</button>#}
+{#        </form>#}
+        <form action="" method="get">
+            <div class="input-group mb-3">
+{#                <div class="input-group-prepend">#}
+                    <input type="button" class="btn btn-outline-secondary" value="Search">
+{#                </div>#}
+                <input type="text" name="url" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+            </div>
+        </form>
+        <br>
+        <br>
+        </form>
+        <br>
+        <br>
+
+        {% if rep %}
+            <div class="container">
+{#            <div class="row">#}
+{#            <div class="col-md-6">#}
+{#                <div class="card rounded shadow-lg m-2" style="width: 25rem;">#}
+                    {#                    <img src="{{ i.image}}" class="card-img-top"  alt="Card image cap">#}
+{#                    <div class="card-body">#}
+                        <h2>title</h2>
+                        <p class="card-title"> {{ my_article.title }}</p>
+                        <h2>Summary</h2>
+                        <p class="card-title"> {{ my_article.summary }}</p>
+                        <h2>authors</h2>
+                        <h5 class="card-title">{{ my_article.authors }}</h5>
+                        <h2>Polarity</h2>
+                        <h5 class="card-title">{{ rep }}</h5>
 
 
-    <!--Data Table-->
-    <script type="text/javascript"  src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript"  src=" https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
 
-    <!--Export table buttons-->
-    <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js" ></script>
-    <script type="text/javascript"  src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+                        <hr>
+                        <a href="{{ my_article.url }}" class="btn btn-success" target="_blank">See News</a>
 
-{#    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jszip-2.5.0/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.3/fc-3.3.2/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sl-1.3.3/datatables.min.css"/>#}
-{##}
-{#    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>#}
-{#    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>#}
-{#    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jszip-2.5.0/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.3/fc-3.3.2/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sl-1.3.3/datatables.min.js"></script>#}
-     <script>
-            $(document).ready(function() {
-                $('#tbl').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print'
-                    ]
-                });
-            } );
-        </script>
-{#    {% endblock js %}#}
+{#                    </div>#}
+{#                </div>#}
+
+
+            </div>
+        {% endif %}
+
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+            <!--Data Table-->
+            <script type="text/javascript"  src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+            <script type="text/javascript"  src=" https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+
+            <!--Export table buttons-->
+            <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+            <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js" ></script>
+            <script type="text/javascript"  src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
+            <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+            <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+
+            {#    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jszip-2.5.0/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.3/fc-3.3.2/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sl-1.3.3/datatables.min.css"/>#}
+            {##}
+            {#    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>#}
+            {#    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>#}
+            {#    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jszip-2.5.0/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.3/fc-3.3.2/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sl-1.3.3/datatables.min.js"></script>#}
+            <script>
+                $(document).ready(function() {
+                    $('#tbl').DataTable({
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'copy', 'csv', 'excel', 'pdf', 'print'
+                        ]
+                    });
+                } );
+            </script>
+            {#    {% endblock js %}#}
 
 
 

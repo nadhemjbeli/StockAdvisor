@@ -104,27 +104,14 @@ def get_data_user_symbols(symbols, dtime=365, normalize=False):
     for symbol in symbols:
         df_temp = get_data(symbol)
         df_temp = df_temp[['Adj']]
-        # print(df_temp)
-
+        print(symbol, len(df_temp))
 
         # Rename to prevent clash
         df_temp = df_temp.rename(columns={'Adj': symbol})
-        # Join two dataframes using DataFrame.join()
-        # if the value of the 'how' argument is assigned, then we don't use dropna()
-        # because it does the same thing
-        # Two ways to get the data frame
-        # [1] data intersection
         df = df.join(df_temp)
-        # if symbol == 'TPE-TSEC':
-        #     df = df.dropna(subset=["TPE-TSEC"])
-        # [2] data intersection
-        # df = df.join(df_temp, how='inner')  # use default how='left', use how='inner' to join by intersection
-    print(np.shape(df))
     df = df.dropna(how='all')
-    print(np.shape(df))
     if normalize:
         df = normalize_data(df)
-
     return df
 
 

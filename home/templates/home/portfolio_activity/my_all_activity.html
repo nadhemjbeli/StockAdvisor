@@ -1,7 +1,7 @@
 {% extends 'base_no_jquery.html' %}
 {% load static %}
 
-{% block title %} My Activities for {{ portfolio.name }}{% endblock %}
+{% block title %} My all transaction statistics {% endblock %}
 
 
 {% block content %}
@@ -19,93 +19,133 @@
             </div>
 
             {% else %}
-                <div class="container">
+                <div class="container" style="overflow: auto">
                     <div class="row">
-                        <div class="col-sm">
-                            {% if gain %}
-                                <div style="color:green">
-                                    <div>
-                                        profit: {{ profits }}
+                        <div class="col s12 m6 l4">
+                            {#                    <div class="card rounded shadow-lg m-2" style="width: 25rem; height: 560px; overflow: hidden;">#}
+                            <div class="card rounded shadow-lg m-2" style="height: 150px; width: 20rem; padding: 10px">
+                                {% if gain %}
+                                    <div style="color:green">
+                                        <div>
+                                            profit: {{ profits }}
+                                            <i class="fas fa-arrow-alt-circle-up"></i>
+                                        </div><br>
+                                        gross profit percentage: {{ gain }}%
+                                        <i class="fas fa-arrow-alt-circle-up"></i><Br><br>
+                                        net profit percentage: {{ gain_profit_percentage }}%
                                         <i class="fas fa-arrow-alt-circle-up"></i>
                                     </div>
-                                    gross profit percentage: {{ gain }}%
-                                    <i class="fas fa-arrow-alt-circle-up"></i><Br>
-                                    net profit percentage: {{ gain_profit_percentage }}%
-                                    <i class="fas fa-arrow-alt-circle-up"></i>
-                                </div>
-                            {% endif %}
-                            {% if loss %}
-                                <div style="color:red">
-                                    <div>
-                                        profit: {{ profits }}
+                                {% endif %}
+                                {% if loss %}
+                                    <div style="color:red">
+                                        <div>
+                                            profit: {{ profits }}
+                                            <i class="fas fa-arrow-alt-circle-down"></i>
+                                        </div><br>
+                                        gross profit percentage: {{ loss }}%
+                                        <i class="fas fa-arrow-alt-circle-down"></i><br><br>
+                                        net profit percentage: {{ loss_profit_percentage }}%
                                         <i class="fas fa-arrow-alt-circle-down"></i>
                                     </div>
-                                    gross profit percentage: {{ loss }}%
-                                    <i class="fas fa-arrow-alt-circle-down"></i><br>
-                                    net profit percentage: {{ loss_profit_percentage }}%
-                                    <i class="fas fa-arrow-alt-circle-down"></i>
-                                </div>
-                            {% endif %}
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="col-sm">
-                            <span>total number of stocks: {{ total_stocks }}</span><br>
-                            <span>total buys: {{ total_buys }}</span><br>
-                            <span>total sales: {{ total_sales }}</span><br>
+                        <div class="col s12 m6 l4">
+                            <div class="card rounded shadow-lg m-2" style="height: 150px; width: 20rem; padding: 10px">
+                                <span>total number of stocks: {{ total_stocks }}</span><br>
+                                <span>total buys: {{ total_buys }}</span><br>
+                                <span>total sales: {{ total_sales }}</span><br>
+                            </div>
                         </div>
-                        <div class="col-sm">
-                            <span>average stock cost: {{ average_stock_cost }}</span><br>
-                            <span>average stock sale: {{ average_stock_sale }}</span><br>
-                            <span>portfolios with activities: {{ portfolios_with_activities }} out of {{ portfolios_len }}</span><br>
+                        <div class="col s12 m6 l4">
+                            <div class="card rounded shadow-lg m-2" style="height: 150px; width: 20rem; padding: 10px">
+                                <span>average stock cost: {{ average_stock_cost }}</span><br>
+                                <span>average stock sale: {{ average_stock_sale }}</span><br>
+                                <span>portfolios with activities: {{ portfolios_with_activities }} out of {{ portfolios_len }}</span><br>
+                            </div>
                         </div>
                     </div>
 
                 </div>
+            <br>
+                <div center style="overflow: auto">
+                    {{ fig1_div | safe }}
+                </div>
 
-                {{ fig1_div | safe }}
-
-            <table id="table_activity_stats" class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>portfolio</th>
-                    <th>portfolio stock</th>
-                    <th>total stocks</th>
-                    <th>buys per portfolio</th>
-                    <th>sales per portfolio</th>
-                </tr>
-                </thead>
-        {#        <tfoot>#}
-        {#        <tr>#}
-        {#            <th>portfolio</th>#}
-        {#            <th>portfolio stock</th>#}
-        {#            <th>total stocks</th>#}
-        {#            <th>buys per portfolio</th>#}
-        {#            <th>sales per portfolio</th>#}
-        {#        </tr>#}
-        {#        </tfoot>#}
-                <tbody>
-                {% for row in data %}
+{#            <div style="overflow: auto">#}
+                <table id="table_activity_stats" class="table table-bordered table-responsive" >
+                    <thead>
                     <tr>
-                        <td>
-                            {{row.portfolio}}
-                        </td>
-                        <td>
-                            {{row.portfolio_stock}}
-                        </td>
-                        <td>
-                            {{row.total_stocks}}
-                        </td>
-                        <td>
-                            {{row.total_buys}}
-                        </td>
-                        <td>
-                            {{row.total_sales}}
-                        </td>
-
+                        <th>portfolio</th>
+                        <th>portfolio stock</th>
+                        <th>total stocks</th>
+                        <th>buys per portfolio</th>
+                        <th>sales per portfolio</th>
+                        <th>profits per portfolio</th>
+                        <th>profits percentage</th>
                     </tr>
-                {% endfor %}
-                </tbody>
+                    </thead>
+            {#        <tfoot>#}
+            {#        <tr>#}
+            {#            <th>portfolio</th>#}
+            {#            <th>portfolio stock</th>#}
+            {#            <th>total stocks</th>#}
+            {#            <th>buys per portfolio</th>#}
+            {#            <th>sales per portfolio</th>#}
+            {#        </tr>#}
+            {#        </tfoot>#}
+                    <tbody>
+                    {% for row in data %}
+                        <tr>
+                            <td>
+                                {{row.portfolio}}
+                            </td>
+                            <td>
+                                {{row.portfolio_stock}}
+                            </td>
+                            <td>
+                                {{row.total_stocks}}
+                            </td>
+                            <td>
+                                {{row.total_buys}}
+                            </td>
+                            <td>
+                                {{row.total_sales}}
+                            </td>
+                            {% if row.profit >= 0 %}
+                                <td>
+                                    <span style="color:green;">
+                                        {{row.profit}}
+                                        <i class="fas fa-arrow-alt-circle-up"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span style="color:green;">
+                                        {{ row.profit_percentage }}%
+                                        <i class="fas fa-arrow-alt-circle-up"></i>
+                                    </span>
+                                </td>
+                            {% else %}
+                                <td>
+                                    <span style="color:red;">
+                                        {{row.profit}}
+                                        <i class="fas fa-arrow-alt-circle-down"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span style="color:red;">
+                                        {{ row.profit_percentage }}%
+                                        <i class="fas fa-arrow-alt-circle-down"></i>
+                                    </span>
+                                </td>
+                            {% endif %}
 
-            </table>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+{#            </div>#}
         {#    {% endif %}#}
         </div>
         {% endif %}

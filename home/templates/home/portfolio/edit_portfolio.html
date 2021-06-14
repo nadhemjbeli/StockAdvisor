@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} {% endblock %}
+{% block title %} Edit {{ portfolio.name }} {% endblock %}
 
 
 {% block content %}
@@ -16,9 +16,20 @@
                 </div>
 
             {% endif %}
+            {% if error_message_stock %}
+                <br>
+                <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ error_message_stock }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+            {% endif %}
             <form method="POST" action="">
 
                 {% csrf_token %}
+                <h2> Edit {{ portfolio.name }}</h2>
 
                 <div class="form-group row">
                     <label for="example-name-input" class="col-2 col-form-label">Portfolio: </label>
@@ -33,7 +44,7 @@
                         <select class="form-control" name="symbol" id="example-stock-input" required>
                             <option value="">-----------</option>
                             {% for stock in stocks %}
-                                <option value="{{ stock.pk }}">{{ stock.name }}</option>
+                                <option value="{{ stock.pk }}"{% if stock.pk == portfolio.stock.pk %}selected{% endif %}>{{ stock.symbol }} || {{ stock.name }}</option>
                             {% endfor %}
                         </select><br>
                     </div>

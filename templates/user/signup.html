@@ -62,6 +62,8 @@
             {#            <input type="text" id="login" class="fadeIn second" name="login" autocomplete="off" placeholder="login">#}
             {#            <input type="text" id="password" class="fadeIn third" name="login" autocomplete="off" placeholder="password">#}
             {% csrf_token %}
+            {{ form.full_name }}
+            <br>
             {{ form.username }}
             <br>
             {{ form.email }}
@@ -84,8 +86,9 @@
 <script>
     //Query All input fields
     var form_fields = document.getElementsByTagName('input')
-    form_fields[1].placeholder='Username..';
-    form_fields[2].placeholder='Email..';
-    form_fields[3].placeholder='Enter password...';
-    form_fields[4].placeholder='Re-enter Password...';
+    form_fields[1].placeholder='Fullname..';
+    form_fields[2].placeholder='Username..';
+    form_fields[3].placeholder='Email..';
+    form_fields[4].placeholder='Enter password...';
+    form_fields[5].placeholder='Re-enter Password...';
 </script>

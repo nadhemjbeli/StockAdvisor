@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Stock group {% endblock %}
+{% block title %} News FOR {{ symbol }} {% endblock %}
 
 
 
@@ -36,22 +36,22 @@
                 {% for i in results %}
                     <div class="col s12 m6 l4">
 {#                    <div class="card rounded shadow-lg m-2" style="width: 25rem; height: 560px; overflow: hidden;">#}
-                    <div class="card rounded shadow-lg m-2" style="height: 560px; width: 25rem">
-                        <a href="{{ i.article_url }}" target="_blank">
-                            <img src="{{ i.image_url }}" class="card-img-top"  alt="Card image cap">
-                        </a>
+                        <div class="card rounded shadow-lg m-2" style="height: 560px; width: 21rem">
+                            <a href="{{ i.article_url }}" target="_blank">
+                                <img src="{{ i.image_url }}" class="card-img-top"  alt="Card image cap">
+                            </a>
 
-                        <div class="card-body">
-                            <p class="card-title"> {{ i.author }}</p>
-                            <h5 class="card-title"> {{ i.title }}</h5>
-                            <p class="card-title"> {{ i.name}}</p>
-                            <p class="card-text">{{ i.description }}</p>
-                            <hr>
-                            <small>date:{{ i.published_utc }}</small>
-                            <a href="{{ i.article_url }}" target="_blank" class="btn btn-success m-1">See News</a>
+                            <div class="card-body">
+                                <p class="card-title"> {{ i.author }}</p>
+                                <h5 class="card-title"> {{ i.title }}</h5>
+                                <p class="card-title"> {{ i.name}}</p>
+                                <p class="card-text">{{ i.description2 }}</p>
+                                <hr>
+                                <small>date:{{ i.published_utc }}</small>
+                                <a href="{{ i.article_url }}" target="_blank" class="btn btn-success m-1">See News</a>
 
+                            </div>
                         </div>
-                    </div>
                     </div>
                 {% endfor %}
 

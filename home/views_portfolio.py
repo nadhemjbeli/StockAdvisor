@@ -5,20 +5,22 @@ from .scraping import load_data_yfinance
 from django.contrib.auth.decorators import login_required
 import pandas as pd
 from fbprophet import Prophet
-from .plots import compare_stock, plot_prediction
+from .plots import compare_stock, plot_prediction, plot_stock_unindexed
 
 
 @login_required
 def set_portfolio(request):
+    error_message = ''
+    error_message_stock = ''
     stocks = Stock.objects.all().order_by('name')
     name = None
     list_portfolio = request.user.portfolio_set.all()
     username = request.user
     print(username)
-    portfolio_num = len(list_portfolio) + 1
     portfolio_len = len(list_portfolio)
+    portfolio_num = portfolio_len + 1
     if portfolio_len >= 5:
-        full_length_message = f'sorry, you can\'t create more than {portfolio_len} portfolios '
+        full_length_message = f'sorry, you can\'t create more than {portfolio_len} portfolios'
         context = {
             'full_length_message': full_length_message,
             'name': name,
@@ -27,21 +29,38 @@ def set_portfolio(request):
     if request.method == 'POST':
         if request.POST:
             name = request.POST.get('name')
-            pk = request.POST.get('symbol')
-            stock_rel = Stock.objects.get(id=pk)
+            pk_stock = request.POST.get('symbol')
+            stock_rel = Stock.objects.get(id=pk_stock)
             print(stock_rel)
             try:
                 print('getting portfolio name')
-                request.user.portfolio_set.get(name=name)
-                error_message = 'Exists already!!!'
-                print(error_message)
+                portfolio_name = request.user.portfolio_set.get(name=name)
+                if portfolio_name:
+                    error_message = 'Exists already!!!'
+
                 context = {
+                    'error_message_stock': error_message_stock,
                     'error_message': error_message,
                     'portfolio_num': portfolio_num,
                     'name': name,
                     'list_portfolio': list_portfolio,
                     'stocks': stocks,
                 }
+                return render(request, "home/portfolio/create_portfolio.html", context)
+            except:
+                pass
+            try:
+                request.user.portfolio_set.get(stock=stock_rel)
+                error_message_stock = f'{stock_rel.symbol} is already chosen!!!'
+                context = {
+                    'portfolio_num': portfolio_num,
+                    'error_message': error_message,
+                    'error_message_stock': error_message_stock,
+                    'name': name,
+                    'list_portfolio': list_portfolio,
+                    'stocks': stocks,
+                }
+
                 return render(request, "home/portfolio/create_portfolio.html", context)
             except:
                 pass
@@ -66,6 +85,7 @@ def get_list_portfolio(request):
     error_message = None
     list_portfolio = None
     list_symbols = []
+    data = []
     df_compare = pd.DataFrame()
     username = request.user
     list_portfolio = username.portfolio_set.all().order_by('name')
@@ -73,14 +93,19 @@ def get_list_portfolio(request):
         for portfolio in list_portfolio:
             list_symbols.append(portfolio.stock.symbol)
         df_compare = get_data_user_symbols(list_symbols, normalize=True)
+        # for symbol in list_symbols:
+        #     div = plot_stock_unindexed(df_compare[symbol])
+        #     data.append(div)
+        # print(data.keys())
         context = {
-            'compare_stock': compare_stock(df_compare),
+            'compare_stock': compare_stock(df_compare, list_symbols),
             'list_portfolio': list_portfolio,
+            'list_symbols': list_symbols,
+            'data': data,
         }
         return render(request, "home/portfolio/list_portfolio.html", context)
     else:
         error_message = 'you have no portfolio yet'
-    print(list_symbols)
     context = {
         'error_message': error_message,
         'list_portfolio': list_portfolio,
@@ -91,7 +116,7 @@ def get_list_portfolio(request):
 @login_required
 def delete_portfolio(request, pk):
     portfolio = Portfolio.objects.get(id=pk)
-    list_activities = portfolio.activity_set.all()
+    list_activities = portfolio.transaction_set.all()
     for activity in list_activities:
         activity.delete()
     portfolio.delete()
@@ -100,6 +125,8 @@ def delete_portfolio(request, pk):
 
 @login_required
 def edit_portfolio(request, pk):
+    error_message = ''
+    error_message_stock = ''
     list_portfolio = request.user.portfolio_set.all().order_by('name')
     stocks = Stock.objects.all().order_by('name')
     username = request.user
@@ -110,7 +137,41 @@ def edit_portfolio(request, pk):
             pk_stock = request.POST.get('symbol')
             stock_rel = Stock.objects.get(id=pk_stock)
             print(stock_rel)
+            try:
+                print('getting portfolio name')
+                request.user.portfolio_set.get(name=name)
+                error_message = 'Exists already!!!'
 
+                print(error_message)
+                context = {
+                    'portfolio': portfolio,
+                    'error_message': error_message,
+                    'name': name,
+                    'list_portfolio': list_portfolio,
+                    'stocks': stocks,
+                }
+                return render(request, "home/portfolio/edit_portfolio.html", context)
+            except:
+                pass
+            try:
+                portfolio_by_stock = request.user.portfolio_set.get(stock=stock_rel)
+                if portfolio_by_stock == portfolio:
+                    portfolio.name = name
+                    portfolio.stock = stock_rel
+                    portfolio.save()
+                    return redirect('home:show_list_portfolio')
+                error_message_stock = f'{stock_rel.symbol} is already chosen!!!'
+                context = {
+                    'portfolio': portfolio,
+                    'error_message': error_message,
+                    'error_message_stock': error_message_stock,
+                    'name': name,
+                    'list_portfolio': list_portfolio,
+                    'stocks': stocks,
+                }
+                return render(request, "home/portfolio/edit_portfolio.html", context)
+            except:
+                pass
             portfolio.name = name
             portfolio.stock = stock_rel
             portfolio.save()

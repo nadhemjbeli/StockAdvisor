@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} add activity {% endblock %}
+{% block title %} add transaction {% endblock %}
 
 
 {% block content %}
     <div class="container-fluid">
-        <h2> Add an Activity</h2>
+        <h2> Add a transaction</h2>
         {% if error_activity_message %}
             <div class="container alert alert-warning alert-dismissible fade show" role="alert">
                 {{error_activity_message}}

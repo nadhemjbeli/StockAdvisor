@@ -135,6 +135,7 @@ def stock_price_yahoo(json_data_price):
     print(json_price)
     return json_price
 
+
 def load_data_yfinance(ticker):
     today = dt.datetime.now()
     start = today - dt.timedelta(800)

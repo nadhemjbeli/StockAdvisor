@@ -287,6 +287,10 @@ def get_profiles(request, symbol):
 
 def stockAnalysis(request, symbol, dtime=365):
     symbol = symbol.upper()
+    if dtime > 200:
+        dtime = 200
+    elif dtime < 30:
+        dtime = 30
     get_live_update(symbol)
     message_error = None
     from pandas_datareader._utils import RemoteDataError
@@ -417,21 +421,48 @@ def get_tesla_pred(request):
 
 
 @login_required
-def get_news(request, symbol='AAPL'):
+def get_news(request):
+    symbol='AAPL'
+    # url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={symbol}&apiKey={API_KEY}'
     url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={symbol}&apiKey={API_KEY}'
-    if request.method == 'POST':
-        symbol = request.GET.get('symbol')
+    try:
+        if request.method :
+            symbol = request.GET.get('symbol')
+            symbol = symbol.upper()
+            print('result')
+            url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={symbol}&apiKey={API_KEY}'
+    except:
+        symbol='AAPL'
 
-        url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={symbol}&apiKey={API_KEY}'
 
     response = requests.get(url)
     data = response.json()
     results = data['results']
+    for i in range(len(results)):
+        try:
+            description = results[i]['description']
+            results[i]['description2'] = description
+            if len(description)>100:
+                results[i]['description2'] = description[:100]+'...'
+                print()
+                print(results[i].keys())
+        except:
+            pass
 
     context = {
+        'symbol': symbol,
         'results': results
     }
     return render(request, "home/news/breaking_news.html", context)
+    # response = requests.get(url)
+    # data = response.json()
+    # results = data['results']
+    #
+    # else:
+    #     context = {
+    # #     #     'results': results
+    #     }
+    #     return render(request, "home/news/breaking_news.html", context)
 
 
 @login_required
@@ -441,10 +472,18 @@ def get_news_page(request, symbol):
     response = requests.get(url)
     data = response.json()
     results = data['results']
+    print(len(results))
     for i in range(len(results)):
-        description = results[i]['description']
-        if len(description)>150:
-            results[i]['description'] = description[:150]+'...'
+        try:
+            description = results[i]['description']
+            results[i]['description2'] = description
+            if len(description)>100:
+                results[i]['description2'] = description[:100]+'...'
+                print()
+                print(results[i].keys())
+        except:
+            pass
+
     # print(results[0])
 
     context = {
@@ -456,30 +495,39 @@ def get_news_page(request, symbol):
 
 
 def analysis_news(request):
-    # create a newspaper object
-    url = input('copy url here: ')
+    rep=''
+    if request.method == 'GET':
 
-    my_article = Article(url, language="en")
-    my_article.download()
-    # print(my_article.html)
-    my_article.parse()
-    # extract the title
-    print('Title :', my_article.title)
-    # extract the authors
-    print('authors :', my_article.authors)
+        try:
+            url = request.GET.get('url')
+            my_article = Article(url, language="en")
+            my_article.download()
+            # print(my_article.html)
+            my_article.parse()
+            my_article.nlp()
+            analysis = TextBlob(my_article.text)
+            if analysis.polarity > 0.5:
+                rep = "positive"
+            else:
+                rep = "negative"
+            print(rep)
+            print(analysis)
+            context = {
+                'my_article': my_article,
+                'analysis': analysis,
+                'rep': rep,
+            }
 
-    # NLP
-    my_article.nlp()
-    # Extract summary
-    print('Summary', my_article.summary)
-    # Extract keywords
-    print('keywords :', my_article.keywords)
+            return render(request, "home/news/analysis_news.html", context)
+        except:
+            context = {
+                'rep':rep
+            }
+            return render(request, "home/news/analysis_news.html", context)
+    # else:
 
-    analysis = TextBlob(my_article.text)
-    print(analysis.polarity)
-    print(f'Sentiment : {"positive" if analysis.polarity > 0 else "negative" if analysis.polarity < 0 else "neutral"}')
 
-    return render(request, "home/news/analysis_news.html")
+
 
 
 def get_apple_pred(request):

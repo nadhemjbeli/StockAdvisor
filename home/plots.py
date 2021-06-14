@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 from plotly.offline import plot
 import datetime as dt
 import plotly.express as px
-
+import numpy as np
 api_key = '701005b908bc42b8800ca2fac03f2736'
 
 
@@ -191,12 +191,18 @@ def plotly_slider(ts_df):
     return plotly_div
 
 
-def compare_stock(df):
-    fig = px.line(df, x=df.index, y=df.columns,
-                  title='Compare your chosen stocks')
+def compare_stock(df, list_symbols):
+    fig = go.Figure()
+    for symbol in list_symbols:
+        fig.add_trace(go.Scatter(x=df.index, y=df[symbol],
+                                 mode='lines',
+                                 name=symbol))
+    # fig = px.line(df, x=df.index, y=df.columns,
+    #               title='Compare your chosen stocks')
     fig.update_xaxes(
         dtick="M1",
         tickformat="%b\n%Y")
+    fig.update_layout(width=1200)
     compare_div = plot(fig, output_type='div')
     return compare_div
 
@@ -204,7 +210,7 @@ def compare_stock(df):
 def compute_bollinger_bands(df, symbol, dtime, *args, **kwargs):
     plt.switch_backend("AGG")
     df_temp = df['High']
-    ax = df_temp.plot(title=f'{symbol.upper()} rolling mean', label=f'{symbol.upper()}')
+    # ax = df_temp.plot(title=f'{symbol.upper()} rolling mean', label=f'{symbol.upper()}')
 
     if dtime == 30:
         # 1. Compute rolling mean
@@ -222,35 +228,50 @@ def compute_bollinger_bands(df, symbol, dtime, *args, **kwargs):
 
     # 3. Compute upper and lower bands
     upper_band, lower_band = get_bollinger_bands(rm_TSEC, rstd_TSEC)
+    print(upper_band)
+    df['upper_band'] = upper_band
+    df['lower_band'] = lower_band
+    df['rm_TSEC'] = rm_TSEC
+    print(df)
+    print(df.shape)
+    # null_rows = df['upper_band'].isnull().sum()
+    # df_fin = df[null_rows:]
+    # for i in range(len(upper_band)):
+    #     print(df['upper_band'][i])
+    #     if df['upper_band'][i]:
+    #         df = df[i:]
+    #         break
+    df2 = df.dropna()
+    print(df2)
 
-    rm_TSEC.plot(label='Rolling mean', ax=ax)
-    upper_band.plot(label='upper band', ax=ax)
-    lower_band.plot(label='lower band', ax=ax)
+    # rm_TSEC.plot(label='Rolling mean', ax=ax)
+    # upper_band.plot(label='upper band', ax=ax)
+    # lower_band.plot(label='lower band', ax=ax)
 
-    ax.set_xlabel('Date')
-    ax.set_ylabel('Adj')
-    ax.legend(loc='upper left')
+    # ax.set_xlabel('Date')
+    # ax.set_ylabel('Adj')
+    # ax.legend(loc='upper left')
     figure1 = go.Figure(
         [
             go.Scatter(
                 name='High',
-                x=df.index,
-                y=df['High'],
+                x=df2.index,
+                y=df2['High'],
             ),
             go.Scatter(
                 name='Rolling Mean',
-                x=df.index,
-                y=rm_TSEC,
+                x=df2.index,
+                y=df2['rm_TSEC'],
             ),
             go.Scatter(
                 name='upper band',
-                x=df.index,
-                y=upper_band,
+                x=df2.index,
+                y=df2['upper_band'],
             ),
             go.Scatter(
                 name='lower band',
-                x=df.index,
-                y=lower_band,
+                x=df2.index,
+                y=df2['lower_band'],
             ),
         ]
     )
@@ -427,12 +448,67 @@ def plot_prediction(forecast, df_train , period):
     pred_div = plot(fig, output_type='div')
     return pred_div
 
+
 def plot_stats(df):
     fig1 = go.Figure(data=[
-        go.Bar(name='total buys', x=df['portfolio'], y=df['total_buys']),
-        go.Bar(name='total sales', x=df['portfolio'], y=df['total_sales'])
+        go.Bar(name='total buys', x=df['portfolio'], marker_color='red', y=df['total_buys']),
+        go.Bar(name='total sales', x=df['portfolio'], marker_color='green', y=df['total_sales'])
     ])
     # Change the bar mode
-    fig1.update_layout(barmode='group')
+    fig1.update_layout(barmode='group', width=900)
     fig1_div = plot(fig1, output_type='div')
     return fig1_div
+
+
+def plot_stats_transaction(df):
+    fig1 = go.Figure(data=[
+        go.Bar(
+            name='buying price',
+            x=df['pk'],
+            y=df['buying_price'],
+            # bar=dict(
+            #     color='red',
+            #     width=10,
+            # ),
+            marker_color='red',
+            text=df['number_stocks'],
+            textposition='outside'
+        ),
+        go.Bar(
+            name='selling price',
+            x=df['pk'],
+            y=df['selling_price'],
+            # bar=dict(
+            #     color='green',
+            #     width=10,
+            # ),
+            marker_color='green'
+        )
+    ])
+    # Change the bar mode
+    fig1.update_layout(barmode='group', width=900)
+    fig1_div = plot(fig1, output_type='div')
+    return fig1_div
+
+
+def plot_stock_unindexed(df):
+    fig = px.line(df, height=40, width=100)
+
+    # hide and lock down axes
+    fig.update_xaxes(visible=False, fixedrange=True)
+    fig.update_yaxes(visible=False, fixedrange=True)
+
+    # remove facet/subplot labels
+    fig.update_layout(annotations=[], overwrite=True)
+
+    # strip down the rest of the plot
+    fig.update_layout(
+        showlegend=False,
+        plot_bgcolor="white",
+        margin=dict(t=10, l=10, b=10, r=10),
+    )
+
+    # disable the modebar for such a small plot
+    fig.show(config=dict(displayModeBar=False))
+    fig_div = plot(fig, output_type='div')
+    return fig_div

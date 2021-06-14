@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect
-from .models import Activity, Portfolio
+from .models import Transaction, Portfolio
 from django.contrib.auth.decorators import login_required
 from datetime import datetime as dt
 import pandas as pd
 
-from .plots import plot_stats
+from .plots import plot_stats, plot_stock_unindexed, plot_stats_transaction
 
 
 @login_required
-def add_activity(request, pk_portfolio):
-    error_activity_message = None
+def add_transaction(request, pk_portfolio):
+    error_transaction_message = None
     if request.method == 'POST':
         if request.POST:
             number_stocks = int(request.POST.get('number_stocks'))
@@ -23,9 +23,9 @@ def add_activity(request, pk_portfolio):
             print(date_to_sell)
             portfolio = request.user.portfolio_set.get(id=pk_portfolio)
             if buying_price <= 0 or selling_price <= 0 or number_stocks <= 0:
-                error_activity_message = 'All numbers must be positive'
+                error_transaction_message = 'All numbers must be positive'
                 context = {
-                    'error_activity_message': error_activity_message,
+                    'error_activity_message': error_transaction_message,
                 }
                 return render(request, "home/portfolio_activity/add_activity.html", context)
             # if buying_price < 0:
@@ -55,7 +55,7 @@ def add_activity(request, pk_portfolio):
             #     return render(request, "home/portfolio_activity/add_activity.html", context)
             # except:
             #     pass
-            Activity.objects.get_or_create(
+            Transaction.objects.get_or_create(
                 portfolio=portfolio,
                 number_stocks=number_stocks,
                 buying_price=buying_price,
@@ -66,14 +66,14 @@ def add_activity(request, pk_portfolio):
             return redirect('home:show_list_activity', pk_portfolio)
 
     context = {
-        'error_activity_message': error_activity_message,
+        'error_activity_message': error_transaction_message,
     }
     return render(request, "home/portfolio_activity/add_activity.html", context)
 
 
-def get_list_activity(request, pk):
+def get_list_transaction(request, pk):
     error_portfolio_message = None
-    error_activity_message = None
+    error_transaction_message = None
     portfolio = None
     total_stocks = 0
     total_buys = 0
@@ -82,30 +82,44 @@ def get_list_activity(request, pk):
     loss = 0
     gain_profit_percentage = 0
     loss_profit_percentage = 0
+    data = []
     try:
         username = request.user
         portfolio = username.portfolio_set.get(id=pk)
     except:
         error_portfolio_message = 'you have no portfolio yet'
 
-    list_activity = portfolio.activity_set.all()
-    if len(list_activity) == 0:
-        error_activity_message = 'you have no activity in this portfolio'
-        print(error_activity_message)
+    list_transaction = portfolio.transaction_set.all()
+    if len(list_transaction) == 0:
+        error_transaction_message = 'you have no activity in this portfolio'
         context = {
             'error_portfolio_message': error_portfolio_message,
-            'error_activity_message': error_activity_message,
+            'error_activity_message': error_transaction_message,
             'portfolio': portfolio,
-            'list_activity': list_activity,
+            'list_activity': list_transaction,
         }
         return render(request, "home/portfolio_activity/list_activity.html", context)
-    for activity in list_activity:
-        total_buys += activity.buying_price
-        total_sales += activity.selling_price
-        total_stocks += activity.number_stocks
+    df_stats = pd.DataFrame(columns=['pk', 'id', 'number_stocks', 'buying_price', 'date_to_buy', 'selling_price', 'date_to_sell', 'profit', 'profit_percentage'])
+    i = 0
+    j = 0
+    for transaction in list_transaction:
+        j += 1
+        total_buys += transaction.buying_price
+        total_sales += transaction.selling_price
+        total_stocks += transaction.number_stocks
+        profits_transaction = transaction.selling_price - transaction.buying_price
+        profit_percentage = round((profits_transaction / transaction.selling_price) * 100, 4)
+        df_stats.loc[i] = [j, transaction.pk, transaction.number_stocks, transaction.buying_price, transaction.date_to_buy,
+                           transaction.selling_price, transaction.date_to_sell, profits_transaction, profit_percentage]
+        i += 1
+
+    fig_div = plot_stats_transaction(df_stats)
     print(f'total_stocks = {total_stocks}')
     print(f'bought_prices = {total_buys}')
     print(f'total_sales = {total_sales}')
+    for i in range(df_stats.shape[0]):
+        temp = df_stats.iloc[i]
+        data.append(dict(temp))
     average_stock_cost = round(total_buys / total_stocks, 4)
     average_stock_sale = round(total_sales / total_stocks, 4)
     # for activity in list_activity:
@@ -132,17 +146,19 @@ def get_list_activity(request, pk):
         'gain': gain,
         'loss': loss,
         'error_portfolio_message': error_portfolio_message,
-        'error_activity_message': error_activity_message,
+        'error_activity_message': error_transaction_message,
         'portfolio': portfolio,
-        'list_activity': list_activity,
+        'list_activity': list_transaction,
+        'data': data,
+        'fig_div': fig_div,
     }
     return render(request, "home/portfolio_activity/list_activity.html", context)
 
 
 @login_required
-def edit_activity(request, pk_portfolio, pk_activity):
+def edit_transaction(request, pk_portfolio, pk_transaction, id_transaction):
     portfolio = request.user.portfolio_set.get(id=pk_portfolio)
-    activity = portfolio.activity_set.get(id=pk_activity)
+    transaction = portfolio.transaction_set.get(id=pk_transaction)
     if request.method == 'POST':
         if request.POST:
             number_stocks = request.POST.get('number_stocks')
@@ -155,15 +171,15 @@ def edit_activity(request, pk_portfolio, pk_activity):
             date_to_sell = dt.strptime(date_to_sell, '%Y-%m-%d')
             print(date_to_sell)
             if date_to_buy > date_to_sell or date_to_buy > dt.now() or date_to_sell > dt.now():
-                error_activity_message = 'Please check the dates you used'
+                error_transaction_message = 'Please check the dates you used'
                 context = {
-                    'error_activity_message': error_activity_message,
+                    'error_activity_message': error_transaction_message,
                 }
                 return render(request, "home/portfolio_activity/add_activity.html", context)
-            if buying_price <= 0 or selling_price <= 0 or number_stocks <= 0:
-                error_activity_message = 'All numbers must be positive'
+            if float(buying_price) <= 0 or float(selling_price) <= 0 or float(number_stocks) <= 0:
+                error_transaction_message = 'All numbers must be positive'
                 context = {
-                    'error_activity_message': error_activity_message,
+                    'error_activity_message': error_transaction_message,
                 }
                 return render(request, "home/portfolio_activity/add_activity.html", context)
             # try:
@@ -177,35 +193,38 @@ def edit_activity(request, pk_portfolio, pk_activity):
             #     return render(request, "home/portfolio_activity/add_activity.html", context)
             # except:
             #     pass
-            activity.number_stocks = number_stocks
-            activity.buying_price = buying_price
-            activity.date_to_buy = date_to_buy
-            activity.selling_price = selling_price
-            activity.date_to_sell = date_to_sell
-            activity.save()
+            transaction.number_stocks = number_stocks
+            transaction.buying_price = buying_price
+            transaction.date_to_buy = date_to_buy
+            transaction.selling_price = selling_price
+            transaction.date_to_sell = date_to_sell
+            transaction.save()
             return redirect('home:show_list_activity', pk_portfolio)
 
     context = {
-        'activity': activity,
+        'activity': transaction,
+        'id_transaction': id_transaction,
     }
     return render(request, "home/portfolio_activity/edit_activity.html", context)
 
 
 @login_required
-def delete_activity(request, pk_portfolio, pk_activity):
+def delete_transaction(request, pk_portfolio, pk_transaction):
     portfolio = request.user.portfolio_set.get(id=pk_portfolio)
-    activity = portfolio.activity_set.get(id=pk_activity)
-    activity.delete()
+    transaction = portfolio.transaction_set.get(id=pk_transaction)
+    transaction.delete()
 
     return redirect('home:show_list_activity', pk_portfolio)
 
 
 @login_required
-def get_all_activity(request):
+def get_all_transaction(request):
     error_portfolio_message = None
-    error_activity_message = None
+    error_transaction_message = None
     portfolio = None
     profits = 0
+    profits_portfolio = 0
+    profit_percentage = 0
     total_stocks = 0
     total_buys = 0
     total_sales = 0
@@ -220,23 +239,27 @@ def get_all_activity(request):
     loss_profit_percentage = 0
     portfolios_with_activities = 0
     data = []
-    error_activity_message = ''
+    error_transaction_message = ''
     all_portfolio = request.user.portfolio_set.all()
     if len(all_portfolio) > 0:
-        df_stats = pd.DataFrame(columns=['portfolio', 'portfolio_stock', 'total_stocks', 'total_buys', 'total_sales'])
+        df_stats = pd.DataFrame(columns=['portfolio', 'portfolio_stock', 'total_stocks', 'total_buys', 'total_sales', 'profit', 'profit_percentage'])
         for portfolio in all_portfolio:
-            all_activity = portfolio.activity_set.all()
-            if len(all_activity) > 0:
-                for activity in all_activity:
+
+            all_transaction = portfolio.transaction_set.all()
+            if len(all_transaction) > 0:
+                # portfolio_sales = sum(all_transaction)
+                for transaction in all_transaction:
                     # total_buys += activity.buying_price
                     # total_sales += activity.selling_price
                     # total_stocks += activity.number_stocks
-                    portfolio_buys += activity.buying_price
-                    portfolio_sales += activity.selling_price
-                    portfolio_stocks += activity.number_stocks
+                    portfolio_buys += transaction.buying_price
+                    portfolio_sales += transaction.selling_price
+                    portfolio_stocks += transaction.number_stocks
+                    profits_portfolio = portfolio_sales - portfolio_buys
+                    profit_percentage = round((profits_portfolio / portfolio_sales) * 100, 4)
                 # portfolio_elements = []
                 df_stats.loc[portfolios_with_activities] = [portfolio.name, portfolio.stock.symbol, portfolio_stocks, portfolio_buys,
-                                                                             portfolio_sales]
+                                                                             portfolio_sales, profits_portfolio, profit_percentage]
                 portfolio_stocks = 0
                 portfolio_buys = 0
                 portfolio_sales = 0
@@ -245,7 +268,7 @@ def get_all_activity(request):
             for i in range(df_stats.shape[0]):
                 temp = df_stats.iloc[i]
                 data.append(dict(temp))
-            print('data\n', data)
+            # print('data\n', data)
             # print(df_stats)
             # print(sum(df_stats['total_buys']))
 
@@ -255,7 +278,7 @@ def get_all_activity(request):
             average_stock_cost = round(total_buys / total_stocks, 4)
             average_stock_sale = round(total_sales / total_stocks, 4)
             profits = total_sales - total_buys
-            print(f'profits = {profits}')
+            # print(f'profits = {profits}')
             fig1_div = plot_stats(df_stats)
 
             if profits >= 0:
@@ -281,16 +304,16 @@ def get_all_activity(request):
                 'gain': gain,
                 'loss': loss,
                 'error_portfolio_message': error_portfolio_message,
-                'error_activity_message': error_activity_message,
+                'error_activity_message': error_transaction_message,
                 'portfolio': portfolio,
                 'data': data,
             }
             return render(request, "home/portfolio_activity/my_all_activity.html", context)
         else:
-            error_activity_message = 'you have no transaction in any portfolio of yours'
+            error_transaction_message = 'you have no transaction in any portfolio of yours'
     else:
-        error_activity_message = 'you have no portfolio yet'
+        error_transaction_message = 'you have no portfolio yet'
     context = {
-        'error_activity_message': error_activity_message,
+        'error_activity_message': error_transaction_message,
     }
     return render(request, "home/portfolio_activity/my_all_activity.html", context)

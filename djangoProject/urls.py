@@ -18,12 +18,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .views import login_view, absolute_home, logout_view, signup_view
+from .views import login_view, absolute_home, logout_view, signup_view, profile
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', absolute_home, name='absolute_home'),
     path('admin/', admin.site.urls),
+    path('profile/', profile, name='profile'),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name="logout"),
     path('signup/', signup_view, name="signup"),

@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django_plotly_dash.apps.DjangoPlotlyDashConfig',
     'django.contrib.admin',
     'django.contrib.auth',
+    'crispy_forms',
+    'django_extensions',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -47,6 +49,15 @@ INSTALLED_APPS = [
     'channels',
     'channels_redis',
 ]
+
+# GRAPH_MODELS = {
+#     'all_applications': True,
+#     'group_models': True,
+# }
+
+GRAPH_MODELS = {
+    'app_labels': ["home", 'admin'],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -184,6 +195,7 @@ PLOTLY_COMPONENTS = [
     'dpd_components'
 ]
 
+
 LOGIN_URL = 'login'
 
 # Static files (CSS, JavaScript, Images)
@@ -207,3 +219,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'nadhemjbeli4@gmail.com'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
+
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
