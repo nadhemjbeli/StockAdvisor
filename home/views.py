@@ -4,6 +4,7 @@ import requests
 from newsapi.newsapi_client import NewsApiClient
 from textblob import TextBlob
 from newspaper import Article
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from plotly.offline import plot
 import plotly.graph_objects as go
 from .models import Stock, Portfolio
@@ -467,26 +468,80 @@ def get_news(request):
 
 @login_required
 def get_news_page(request, symbol):
-    symbol.upper()
+    positive = 0
+    negative = 0
+    neutral = 0
+    total = 0
+    symbol = symbol.upper()
     url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={symbol}&apiKey={API_KEY}'
     response = requests.get(url)
     data = response.json()
     results = data['results']
-    print(len(results))
+    description = ''
+    # print(len(results))
+    # Create a function to get the scores
+    # def getSIA(text):
+    #     sia = SentimentIntensityAnalyzer()
+    #     sentiment = sia.polarity_scores(text)
+    #     return sentiment
     for i in range(len(results)):
         try:
-            description = results[i]['description']
-            results[i]['description2'] = description
-            if len(description)>100:
-                results[i]['description2'] = description[:100]+'...'
-                print()
-                print(results[i].keys())
+
+            try:
+                description = results[i]['description']
+                results[i]['description2'] = description
+                if len(description)>100:
+                    results[i]['description2'] = description[:100]+'...'
+            except:
+                pass
+            # SIA = getSIA(results[i]['description'])
+            # compound.append(SIA['compound'])
+            # neg.append(SIA['neg'])
+            # neu.append(SIA['neu'])
+            # pos.append(SIA['pos'])
+
+            # description.parse()
+            # description.nlp()
+            text = results[i]['title'] + ' ' + description
+            analysis = TextBlob(text)
+            # url = results[i]['article_url']
+            print(results[i].keys())
+            # my_article = Article(url, language="en")
+            # my_article.download()
+            # # print(my_article.html)
+            # my_article.parse()
+            # my_article.nlp()
+            # analysis = TextBlob(my_article.text)
+            print('i: ', i)
+            print(analysis.sentiment.subjectivity)
+            if analysis.sentiment.subjectivity > 0.6:
+                results[i]['rep'] = "positive"
+                positive += 1
+            elif 0.6 > analysis.sentiment.subjectivity > 0.4:
+                results[i]['rep'] = "neutral"
+                neutral += 1
+
+            else:
+                results[i]['rep'] = "negative"
+                negative += 1
+            print(results[i]['rep'])
+            total += 1
+
+
         except:
             pass
+    print('neutral: ', neutral)
+    print('neg: ', negative)
+    print('pos: ', positive)
+    print('total: ', total)
 
     # print(results[0])
 
     context = {
+        'positive': positive,
+        'negative': negative,
+        'neutral': neutral,
+        'total': total,
         'symbol': symbol,
         'results': results
     }

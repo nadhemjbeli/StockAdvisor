@@ -8,6 +8,17 @@
 
 
 {% block content %}
+    <style>
+    .green{
+        color:green;
+    }
+    .red{
+        color:red;
+    }
+    .blue{
+        color:dodgerblue;
+    }
+    </style>
 {#    <!--Export table button CSS-->#}
 {#    <meta charset="UTF-8" />#}
 {##}
@@ -28,6 +39,45 @@
 {#            <input type="text" name="stock">#}
 {#            <button type="submit" value="search">Search</button>#}
 {#        </form>#}
+        <div class="row">
+            <div class="text-center d-flex justify-content-center" style="margin-left:30%">
+                <div class="col s12 m6 l4 ">
+                    {#                    <div class="card rounded shadow-lg m-2" style="width: 25rem; height: 560px; overflow: hidden;">#}
+                    <div class="card rounded shadow-lg m-2" style="height: 150px; width: 26rem; padding-top: 7px;">
+                        <strong>total analyzed articles: {{ total }}</strong><hr>
+                        {% if negative > positive and negative > neutral %}
+                            <span>positive articles: {{ positive }} out of {{ total }}</span>
+                            <span class="red">
+                                <strong>negative articles: {{ negative }} out of {{ total }}</strong>
+                            </span>
+                            <span>neutral articles: {{ neutral }} out of {{ total }}</span>
+                        {% elif neutral > positive and neutral > negative %}
+                            <span>positive articles: {{ positive }} out of {{ total }}</span>
+                            <span>negative articles: {{ negative }} out of {{ total }}</span>
+                            <span class="blue">
+                                <strong>neutral articles: {{ neutral }} out of {{ total }}</strong>
+                            </span>
+                        {% elif neutral < positive and positive > negative %}
+                            <span class="green">
+                                <strong>positive articles: {{ positive }} out of {{ total }}</strong><br>
+                            </span>
+                            <span>negative articles: {{ negative }} out of {{ total }}</span>
+                            <span>neutral articles: {{ neutral }} out of {{ total }}</span>
+                        {% else %}
+                            <span>
+                                positive articles: {{ positive }} out of {{ total }}
+                            </span>
+                            <span>negative articles: {{ negative }} out of {{ total }}</span>
+                            <span>neutral articles: {{ neutral }} out of {{ total }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
         <br>
         <br>
 
@@ -49,6 +99,7 @@
                                 <hr>
                                 <small>date:{{ i.published_utc }}</small>
                                 <a href="{{ i.article_url }}" target="_blank" class="btn btn-success m-1">See News</a>
+                                <div class="text-center">{{ i.rep }}</div>
 
                             </div>
                         </div>
