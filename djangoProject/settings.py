@@ -208,13 +208,13 @@ LOGIN_URL = 'login'
 STATICFILES_LOCATION = 'static'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(
-    BASE_DIR), 'static', 'static_root')
+    BASE_DIR), 'djangoProject/st/', 'static_root')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'djangoProject/static')
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(
-    BASE_DIR), 'static', 'media_root')
+    BASE_DIR), 'djangoProject/st/', 'media_root')
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
