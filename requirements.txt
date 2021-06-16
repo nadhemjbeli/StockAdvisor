@@ -106,7 +106,6 @@ tldextract==3.1.0
 tqdm==4.60.0
 twelvedata==1.1.8
 Twisted==21.2.0
-twisted-iocpsupport==1.0.1
 txaio==21.2.1
 typing-extensions==3.7.4.3
 ujson==4.0.2
