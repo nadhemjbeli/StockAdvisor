@@ -30,7 +30,11 @@ SECRET_KEY = '9pis9he(7$^f4t^_zq2xt3jy%hg8a^mmqhu0my(hprew5+=j@='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*',
+    'https://stockadvisor1.herokuapp.com/'
+    '127.0.0.1'
+]
 APPEND_SLASH = True
 
 # Application definition
