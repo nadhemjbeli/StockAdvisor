@@ -31,8 +31,8 @@ SECRET_KEY = '9pis9he(7$^f4t^_zq2xt3jy%hg8a^mmqhu0my(hprew5+=j@='
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '0.0.0.0',
-    'https://stockadvisor1.herokuapp.com/',
+    '*',
+    # 'https://stockadvisor1.herokuapp.com/',
     'https://safe-cliffs-81918.herokuapp.com/',
     '127.0.0.1'
 ]

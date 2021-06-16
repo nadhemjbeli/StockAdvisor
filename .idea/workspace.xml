@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="" />
+    <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -144,7 +146,7 @@
       <workItem from="1621816393493" duration="86690000" />
       <workItem from="1622759375098" duration="8984000" />
       <workItem from="1622825636425" duration="33118000" />
-      <workItem from="1623658044029" duration="26104000" />
+      <workItem from="1623658044029" duration="26752000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
