@@ -31,7 +31,7 @@ SECRET_KEY = '9pis9he(7$^f4t^_zq2xt3jy%hg8a^mmqhu0my(hprew5+=j@='
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '*',
+    '0.0.0.0',
     'https://stockadvisor1.herokuapp.com/'
     '127.0.0.1'
 ]
@@ -113,6 +113,9 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -216,7 +219,8 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(
     BASE_DIR), 'djangoProject/static/', 'media_root')
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
