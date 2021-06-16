@@ -32,7 +32,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
-    'https://stockadvisor1.herokuapp.com/'
+    'https://stockadvisor1.herokuapp.com/',
+    'https://safe-cliffs-81918.herokuapp.com/',
     '127.0.0.1'
 ]
 APPEND_SLASH = True
