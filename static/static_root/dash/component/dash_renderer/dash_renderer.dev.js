@@ -71906,7 +71906,7 @@ __webpack_require__.r(__webpack_exports__);
  * //=> [[0], [1, 1], [2], [3, 5], [8], [13, 21]]
  *
  * R.groupWith(R.eqBy(isVowel), 'aestiou')
- * //=> ['ae', 'st', 'iou']
+ * //=> ['ae', 'static', 'iou']
  */
 
 var groupWith =
