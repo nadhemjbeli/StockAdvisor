@@ -55,9 +55,9 @@ INSTALLED_APPS = [
 #     'group_models': True,
 # }
 
-GRAPH_MODELS = {
-    'app_labels': ["home", 'admin'],
-}
+# GRAPH_MODELS = {
+#     'app_labels': ["home", 'admin'],
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
