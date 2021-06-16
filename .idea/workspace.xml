@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/djangoProject/media/default.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +52,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/djangoProject/media" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -58,11 +60,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\djangoProject\media" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\st\media_root" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\djangoProject\static\media_root" />
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\home\templates\home\portfolio_activity" />
-      <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject\home\templates\home\nav" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ASUS\everything\projects\python\django\djangoProject" />
@@ -146,7 +148,7 @@
       <workItem from="1621816393493" duration="86690000" />
       <workItem from="1622759375098" duration="8984000" />
       <workItem from="1622825636425" duration="33118000" />
-      <workItem from="1623658044029" duration="27742000" />
+      <workItem from="1623658044029" duration="29289000" />
     </task>
     <task id="LOCAL-00001" summary="price change live update">
       <created>1616171332840</created>
