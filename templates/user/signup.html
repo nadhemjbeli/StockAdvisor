@@ -18,6 +18,14 @@
     }
 
 </style>
+
+<!-- Custom fonts for this template-->
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -34,7 +42,15 @@
 
         <!-- Icon -->
         <div class="fadeIn first">
-            <img src="{% static 'stock/img/stock_advisor.png' %}" id="icon" alt="User Icon" />
+{#            <img src="{% static 'stock/img/stock_advisor.png' %}" id="icon" alt="User Icon" />#}
+            <div class="sidebar-brand d-flex align-items-center justify-content-center" style="color:pink; font-size: xxx-large; padding-top: 40px; padding-bottom: 50px">
+                <br>
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-chart-line" ></i>
+                </div>
+                <div class="sidebar-brand-text mx-3" style="font-weight: bolder">Stock Advisor</div>
+                <br>
+            </div>
 
         </div>
         <!-- Login Form -->
@@ -88,8 +104,8 @@
 <script>
     //Query All input fields
     var form_fields = document.getElementsByTagName('input')
-    form_fields[1].placeholder='Firstname..';
-    form_fields[2].placeholder='Lastname..';
+    form_fields[1].placeholder='First name..';
+    form_fields[2].placeholder='Last name..';
     form_fields[3].placeholder='Username..';
     form_fields[4].placeholder='Email..';
     form_fields[5].placeholder='Enter password...';

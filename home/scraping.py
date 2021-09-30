@@ -44,6 +44,7 @@ def load_url_financials(stock):
     response = requests.get(url_financials.format(stock, stock))
     soup = BeautifulSoup(response.text, 'html.parser')
     pattern = re.compile(r'\s--\sData\s--\s')
+    # print(pattern)
     script_data = soup.find('script', text=pattern).contents[0]
     start = script_data.find('context') - 2
     json_data = json.loads(script_data[start: -12])
@@ -55,11 +56,26 @@ def load_url_profiles(stock):
     response = requests.get(url_profile.format(stock, stock))
     soup = BeautifulSoup(response.text, 'html.parser')
     pattern = re.compile(r'\s--\sData\s--\s')
+    print(soup.find('script', text=pattern))
+
     script_data = soup.find('script', text=pattern).contents[0]
     start = script_data.find('context') - 2
     json_data = json.loads(script_data[start: -12])
     return json_data
 
+
+def get_stock_quote(ticker_symbol, api):
+    url = f"https://api.twelvedata.com/quote?symbol={ticker_symbol}&apikey={api}"
+    response = requests.get(url).json()
+    for i in response:
+        try:
+            response[i] = float(response[i])
+
+        except Exception:
+            pass
+        if isinstance(response[i], float):
+            response[i] = round(response[i], 3)
+    return response
 
 
 

@@ -7,16 +7,18 @@ from newspaper import Article
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from plotly.offline import plot
 import plotly.graph_objects as go
-from .models import Stock, Portfolio
+from .models import Stock, Portfolio, News
 from .plots import candlestick, compute_bollinger_bands, plot_macd_signal, plot_buy_sell, area_plot_1_day, \
     area_plot_1_day_candlestick
 from .analysis import get_data, get_macd_signal, buy_sell
-from .scraping import load_url_financials, load_yahoo_annual_income_statement, load_yahoo_annual_cash_flow,quote_type_yahoo, \
-    stock_price_yahoo, load_yahoo_annual_balance_sheet, load_url_profiles
+from .scraping import load_url_financials, load_yahoo_annual_income_statement, load_yahoo_annual_cash_flow, \
+    quote_type_yahoo, \
+    stock_price_yahoo, load_yahoo_annual_balance_sheet, load_url_profiles, get_stock_quote
 from .dash_apps.finished_apps.simpleexample import get_live_update
 from django.contrib.auth.decorators import login_required
+
 """polygon.io api"""
-API_KEY='XJbvhCkUsEt31XBLRM5wv3EYUAf6SUJb'
+API_KEY = 'XJbvhCkUsEt31XBLRM5wv3EYUAf6SUJb'
 
 # Create your views here.
 symbol = 'AAPL'
@@ -67,29 +69,35 @@ def search_stock(request):
             message_stock_exists = 'Exists in the databases'
         except:
             message_stock_new = 'Entered to the databases'
-    except (RemoteDataError, KeyError):
+    # except (RemoteDataError, KeyError):
+    except:
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock/stock.html', {'message_error': message_error, 'symbol': symbol, })
     # get_live_update(symbol)
 
-    json_data_financials = load_url_financials(symbol)
-
-    quote = quote_type_yahoo(json_data_financials)
-    print(f'quote: {quote}')
-    price_dict = stock_price_yahoo(json_data_financials)
-
+    # json_data_financials = load_url_financials(symbol)
+    #
+    # quote = quote_type_yahoo(json_data_financials)
+    # print(f'quote: {quote}')
+    # price_dict = stock_price_yahoo(json_data_financials)
+    token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
+    api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
+    data = requests.get(api_url).json()
+    print(f'data:\n{data}')
+    data['changePercent'] = round(data['changePercent'], 3)
     Stock.objects.get_or_create(
-        symbol=quote['symbol'],
-        name=quote['shortName'],
-        currency=price_dict['currency'],
-        exchangeTimezoneName=quote['exchangeTimezoneName'],
-        market=quote['market']
+        symbol=data['symbol'],
+        name=data['companyName'],
+        currency='USD',
+        exchangeTimezoneName='America/New_York',
+        market='us_market'
     )
     context = {
         'symbol': symbol,
-        'quote': quote,
+        # 'quote': quote,
+        'data': data,
         'candlestick': candlestick(ts_df),
-        'price_dict': price_dict,
+        # 'price_dict': price_dict,
         'message_error': message_error,
         'message_stock_new': message_stock_new,
         'message_stock_exists': message_stock_exists,
@@ -123,7 +131,9 @@ def single_stock(request, symbol='AAPL'):
     # print(stock)
     from pandas_datareader._utils import RemoteDataError
     try:
+        print('scraping dataframe')
         ts_df = get_data(symbol, 365)
+        print(ts_df)
         try:
             stock = Stock.objects.get(symbol=symbol)
         except:
@@ -133,28 +143,31 @@ def single_stock(request, symbol='AAPL'):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock/single_stock.html', {'message_error': message_error, 'symbol': symbol, })
 
-    json_data_financials = load_url_financials(symbol)
-    quote = quote_type_yahoo(json_data_financials)
-    price_dict = stock_price_yahoo(json_data_financials)
-    # price_dict_long_fmt = stock_price_yahoo(json_data_financials, 'longFmt')
-    # token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
-    # api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
-    # data = requests.get(api_url).json()
-    # print(f'data:\n{data}')
-    # data['changePercent'] = round(data['changePercent'], 3)
-    # stock_data = get_stock_quote(symbol, api_key)
-    # print(f'stock_data:\n{stock_data}')
+    # json_data_financials = load_url_financials(symbol)
+    # quote = quote_type_yahoo(json_data_financials)
+    # price_dict = stock_price_yahoo(json_data_financials)
+    # # price_dict_long_fmt = stock_price_yahoo(json_data_financials, 'longFmt')
+    api_key = 'pk_b4d054d6cd7640a38df80d61172890b3'
+    token = 'Tpk_b1ce81ac4db5431c97ffe71615ee3689'
+    api_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={token}'
+    data = requests.get(api_url).json()
+    print(f'data:\n{data}')
+    data['changePercent'] = round(data['changePercent'], 3)
+    stock_data = get_stock_quote(symbol, api_key)
+    # stock_data = get_stock_quote(symbol, token)
+    print(f'stock_data:\n{stock_data}')
     # models.Stock.objects.get_or_create(symbol=quote['symbol'], name=quote['shortName'], currency=quote['currency'])
     context = {
         'stock': stock,
         'symbol': symbol,
         # 'stock_data': stock_data,
-        # 'data': data,
-        'quote': quote,
+        'data': data,
+        'stock_data': data,
+        # 'quote': quote,
         'candlestick': candlestick(ts_df),
         # 'plotly': plotly(ts_df),
         # 'plotly_slider': plotly_slider(ts_df),
-        'price_dict': price_dict,
+        # 'price_dict': price_dict,
         'message_error': message_error,
     }
 
@@ -173,10 +186,12 @@ def get_income_statements(request, symbol):
             stock = Stock.objects.get(symbol=symbol)
         except:
             message_error = 'is a valid stock but Doesn\'t Exist in our databases yet'
-            return render(request, 'home/stock_data_vis/income_statements.html', {'message_error': message_error, 'symbol': symbol, })
+            return render(request, 'home/stock_data_vis/income_statements.html',
+                          {'message_error': message_error, 'symbol': symbol, })
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
-        return render(request, 'home/stock_data_vis/income_statements.html', {'message_error': message_error, 'symbol': symbol, })
+        return render(request, 'home/stock_data_vis/income_statements.html',
+                      {'message_error': message_error, 'symbol': symbol, })
     print('hi3')
     json_data = load_url_financials(symbol)
     print('fmtlong')
@@ -204,10 +219,12 @@ def get_cash_flow(request, symbol):
             stock = Stock.objects.get(symbol=symbol)
         except:
             message_error = 'is a valid stock but Doesn\'t Exist in our databases'
-            return render(request, 'home/stock_data_vis/cash_flow.html', {'message_error': message_error, 'symbol': symbol, })
+            return render(request, 'home/stock_data_vis/cash_flow.html',
+                          {'message_error': message_error, 'symbol': symbol, })
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
-        return render(request, 'home/stock_data_vis/cash_flow.html', {'message_error': message_error, 'symbol': symbol, })
+        return render(request, 'home/stock_data_vis/cash_flow.html',
+                      {'message_error': message_error, 'symbol': symbol, })
     json_data = load_url_financials(symbol)
     print('fmtlong')
     annual_cash_flow_longfmt = load_yahoo_annual_cash_flow(json_data, 'longFmt')
@@ -234,10 +251,12 @@ def get_balance_sheet(request, symbol):
             stock = Stock.objects.get(symbol=symbol)
         except:
             message_error = 'is a valid stock but Doesn\'t Exist in our databases'
-            return render(request, 'home/stock_data_vis/balance_sheet.html', {'message_error': message_error, 'symbol': symbol, })
+            return render(request, 'home/stock_data_vis/balance_sheet.html',
+                          {'message_error': message_error, 'symbol': symbol, })
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
-        return render(request, 'home/stock_data_vis/balance_sheet.html', {'message_error': message_error, 'symbol': symbol, })
+        return render(request, 'home/stock_data_vis/balance_sheet.html',
+                      {'message_error': message_error, 'symbol': symbol, })
     json_data_balance_sheet = load_url_financials(symbol)
     print('fmtlong')
     annual_balance_sheet_longfmt = load_yahoo_annual_balance_sheet(json_data_balance_sheet, 'longFmt')
@@ -265,13 +284,16 @@ def get_profiles(request, symbol):
             stock = Stock.objects.get(symbol=symbol)
         except:
             message_error = 'is a valid stock but Doesn\'t Exist in our databases'
-            return render(request, 'home/stock_data_vis/balance_sheet.html', {'message_error': message_error, 'symbol': symbol, })
+            return render(request, 'home/stock_data_vis/balance_sheet.html',
+                          {'message_error': message_error, 'symbol': symbol, })
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
-        return render(request, 'home/stock_data_vis/balance_sheet.html', {'message_error': message_error, 'symbol': symbol, })
+        return render(request, 'home/stock_data_vis/balance_sheet.html',
+                      {'message_error': message_error, 'symbol': symbol, })
     json_data_profiles = load_url_profiles(symbol)
     print('profiles')
-    profiles = json_data_profiles['context']['dispatcher']['stores']['QuoteSummaryStore']['assetProfile']['companyOfficers']
+    profiles = json_data_profiles['context']['dispatcher']['stores']['QuoteSummaryStore']['assetProfile'][
+        'companyOfficers']
     for i, p in enumerate(profiles):
         print(i)
         print(p)
@@ -292,7 +314,7 @@ def stockAnalysis(request, symbol, dtime=365):
         dtime = 200
     elif dtime < 30:
         dtime = 30
-    get_live_update(symbol)
+    # get_live_update(symbol)
     message_error = None
     from pandas_datareader._utils import RemoteDataError
     try:
@@ -301,7 +323,8 @@ def stockAnalysis(request, symbol, dtime=365):
             stock = Stock.objects.get(symbol=symbol)
         except:
             message_error = 'is a valid stock but doesn\'t Exist in our databases'
-            return render(request, 'home/stock/stock_analysis.html', {'message_error': message_error, 'symbol': symbol, })
+            return render(request, 'home/stock/stock_analysis.html',
+                          {'message_error': message_error, 'symbol': symbol, })
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock/stock_analysis.html', {'message_error': message_error, 'symbol': symbol, })
@@ -330,7 +353,7 @@ def stockAnalysis(request, symbol, dtime=365):
 
 
 def get_stock_summary(request, symbol):
-    symbol=symbol.upper()
+    symbol = symbol.upper()
     from pandas_datareader._utils import RemoteDataError
     try:
         get_live_update(symbol)
@@ -352,7 +375,7 @@ def get_stock_summary(request, symbol):
 
 
 def get_stock_summary_candlestick(request, symbol):
-    symbol=symbol.upper()
+    symbol = symbol.upper()
     from pandas_datareader._utils import RemoteDataError
     try:
         get_live_update(symbol)
@@ -361,10 +384,12 @@ def get_stock_summary_candlestick(request, symbol):
             stock = Stock.objects.get(symbol=symbol)
         except:
             message_error = 'is a valid stock but Doesn\'t Exist in our databases'
-            return render(request, 'home/stock/summary_candlestick.html', {'message_error': message_error, 'symbol': symbol, })
+            return render(request, 'home/stock/summary_candlestick.html',
+                          {'message_error': message_error, 'symbol': symbol, })
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
-        return render(request, 'home/stock/summary_candlestick.html', {'message_error': message_error, 'symbol': symbol, })
+        return render(request, 'home/stock/summary_candlestick.html',
+                      {'message_error': message_error, 'symbol': symbol, })
     context = {
         'area_1_day_candlestick': area_1_day_candlestick,
         'stock': stock,
@@ -383,7 +408,8 @@ def get_historical_data(request, symbol):
             stock = Stock.objects.get(symbol=symbol)
         except:
             message_error = 'is a valid stock but doesn\'t Exist in our databases'
-            return render(request, 'home/stock/historical_data.html', {'message_error': message_error, 'symbol': symbol, })
+            return render(request, 'home/stock/historical_data.html',
+                          {'message_error': message_error, 'symbol': symbol, })
     except (RemoteDataError, KeyError):
         message_error = 'isn\'t a stock symbol'
         return render(request, 'home/stock/historical_data.html', {'message_error': message_error, 'symbol': symbol, })
@@ -408,33 +434,22 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 
 
-def get_tesla_pred(request):
-    df = pdr.DataReader('TSLA', data_source="yahoo", start="2018-05-01", end="2021-05-20")
-    df.to_csv('TSLA.csv')
-    df1 = df.reset_index()['Close']
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    df1 = scaler.fit_transform(np.array(df1).reshape(-1, 1))
-    ##splitting dataset into train and test split
-    training_size = int(len(df1) * 0.75)
-    test_size = len(df1) - training_size
-    train_data, test_data = df1[0:training_size, :], df1[training_size:len(df1), :1]
-    return render(request, "home/predictions/tesla_pred.html")
+
 
 
 @login_required
 def get_news(request):
-    symbol='AAPL'
+    symbol = 'AAPL'
     # url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={symbol}&apiKey={API_KEY}'
     url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={symbol}&apiKey={API_KEY}'
     try:
-        if request.method :
+        if request.method:
             symbol = request.GET.get('symbol')
             symbol = symbol.upper()
             print('result')
             url = f'https://api.polygon.io/v2/reference/news?limit=10&ticker={symbol}&apiKey={API_KEY}'
     except:
-        symbol='AAPL'
-
+        symbol = 'AAPL'
 
     response = requests.get(url)
     data = response.json()
@@ -443,8 +458,8 @@ def get_news(request):
         try:
             description = results[i]['description']
             results[i]['description2'] = description
-            if len(description)>100:
-                results[i]['description2'] = description[:100]+'...'
+            if len(description) > 100:
+                results[i]['description2'] = description[:100] + '...'
                 print()
                 print(results[i].keys())
         except:
@@ -489,9 +504,27 @@ def get_news_page(request, symbol):
 
             try:
                 description = results[i]['description']
+                title = results[i]['title']
                 results[i]['description2'] = description
-                if len(description)>100:
-                    results[i]['description2'] = description[:100]+'...'
+                results[i]['title2'] = title
+                if len(description) > 100:
+                    results[i]['description2'] = description[:100] + '...'
+                if len(title) > 70:
+                    results[i]['title2'] = title[:70] + '...'
+                try:
+                    stock_rel = Stock.objects.get(symbol=symbol)
+                    print('saving news')
+                    News.objects.get_or_create(
+                        stock=stock_rel,
+                        title=results[i]['title'],
+                        source=results[i]['author'],
+                        description=results[i]['description'],
+                        link=results[i]['article_url'],
+                        # date_article=results[i]['article_url']
+                    )
+                    print(results[i]['published_utc'])
+                except:
+                    pass
             except:
                 pass
             # SIA = getSIA(results[i]['description'])
@@ -505,7 +538,7 @@ def get_news_page(request, symbol):
             text = results[i]['title'] + ' ' + description
             analysis = TextBlob(text)
             # url = results[i]['article_url']
-            print(results[i].keys())
+            # print(results[i].keys())
             # my_article = Article(url, language="en")
             # my_article.download()
             # # print(my_article.html)
@@ -548,9 +581,8 @@ def get_news_page(request, symbol):
     return render(request, "home/news/news_page.html", context)
 
 
-
 def analysis_news(request):
-    rep=''
+    rep = ''
     if request.method == 'GET':
 
         try:
@@ -561,12 +593,14 @@ def analysis_news(request):
             my_article.parse()
             my_article.nlp()
             analysis = TextBlob(my_article.text)
+            print(analysis.sentiment.subjectivity)
             if analysis.polarity > 0.5:
                 rep = "positive"
             else:
                 rep = "negative"
-            print(rep)
-            print(analysis)
+            # print(rep)
+            # print(analysis)
+            print(my_article.title)
             context = {
                 'my_article': my_article,
                 'analysis': analysis,
@@ -576,16 +610,10 @@ def analysis_news(request):
             return render(request, "home/news/analysis_news.html", context)
         except:
             context = {
-                'rep':rep
+                'rep': rep
             }
             return render(request, "home/news/analysis_news.html", context)
     # else:
 
-
-
-
-
-def get_apple_pred(request):
-    return render(request, "home/predictions/apple_pred.html")
 
 

@@ -1,13 +1,13 @@
 from django.urls import path
 from .views import search_stock, get_stock, single_stock, get_cash_flow, get_income_statements, get_stock_summary \
     , stockAnalysis, home, get_historical_data, get_balance_sheet, get_profiles, get_news, \
-    analysis_news, get_tesla_pred, get_apple_pred, get_stock_summary_candlestick, get_news_page
-from .views_portfolio import get_list_portfolio, set_portfolio, delete_portfolio, edit_portfolio, predict_stock
-from .views_activity import get_list_transaction, add_transaction, delete_transaction, edit_transaction, get_all_transaction
+    analysis_news, get_stock_summary_candlestick, get_news_page
+from .views_portfolio import get_list_portfolio, set_portfolio, delete_portfolio, edit_portfolio, predict_stock, get_tesla_pred, get_apple_pred
+from .views_transaction import get_list_transaction, add_transaction, delete_transaction, edit_transaction, get_all_transaction
 
 app_name = 'home'
 urlpatterns = [
-    path('', home, name='home'),
+    # path('', home, name='home'),
 
     # search and show stock
     path('search_stock/', search_stock, name="show_stock_vis"),

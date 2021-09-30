@@ -15,7 +15,7 @@
     {% endif %}
     {% if message_stock_new %}
         <br>
-        <div class="container alert alert-success alert-dismissible fade show" role="alert">
+        <div class="container alert alert-primary alert-dismissible fade show" role="alert">
             <strong>{{ symbol }}</strong> {{ message_stock_new }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -43,8 +43,8 @@
                         <h6 class="card-subtitle mb-2 text-muted">Powered by Yahoo API</h6>
                         <p class="card-text">Quickly grab pertinent information about a stock trading pair without the hassle
                             of logging into an account on an exchange.</p>
-                        <a href="https://www.binance.us/en/home" class="card-link">Yahoo finance (US)</a>
-                        <a href="https://support.binance.us/hc/en-us/categories/360003671074-Announcements" class="card-link">News</a>
+                        <a href="https://finance.yahoo.com/" target="_blank" class="card-link">Yahoo finance (US)</a>
+{#                        <a href="https://support.binance.us/hc/en-us/categories/360003671074-Announcements" class="card-link">News</a>#}
                     </div>
                 </div>
             </div>
@@ -59,14 +59,14 @@
                                 <tr>
 {#                                    <th class="lead-3">Buyers</th>#}
 {#                                    <th>Sellers</th>#}
-                                    <th>Market Cap</th>
+                                    <th>pe Ratio</th>
                                 </tr>
 
                                 <tr>
 {#                                    <th>{{buyers}}</th>#}
 {#                                    <th>{{sellers}}</th>#}
 {#                                    <th>{{ data.peRatio }}</th>#}
-                                    <th>{{ price_dict.marketCap.fmt }}</th>
+                                    <th>{{ data.peRatio }}</th>
                                 </tr>
                             </table>
                         </div>
@@ -77,9 +77,9 @@
 
             <div class="col-sm-3 col-xs-12 py-3">
                 <div class="card text-center">
-                    <div class="card-header">{% if not message_error %} {{quote.symbol}} Change {% endif %} </div>
+                    <div class="card-header">{% if not message_error %} {{data.symbol}} Change {% endif %} </div>
                     <div class="card-body">
-                        <h1 class="display-4"> {{price_dict.regularMarketChangePercent.fmt}} </h1>
+                        <h1 class="display-4"> {{data.changePercent}}% </h1>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                                 <tbody>
                                 <tr>
                                     <th scope="row">
-                                        {{ price_dict.currencySymbol }}
+                                        $
                                     </th>
                                 </tr>
                                 </tbody>

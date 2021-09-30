@@ -37,15 +37,15 @@
                             <hr>
 
                                 <div class="alert  text-center light_blue" role="alert">
-                                    <span>{{quote.symbol}} @ {{quote.shortName}} </span>
+                                    <span>{{data.symbol}} @ {{data.companyName}} </span>
                                 </div>
                             <hr>
 
                             <ul class="list-group">
                                 <li class="list-group-item light_blue"><bold>Quick Info</bold></li>
-                                <li class="list-group-item light_blue">High: {{price_dict.regularMarketDayHigh.raw}} </li>
-                                <li class="list-group-item light_blue">Low: {{price_dict.regularMarketDayLow.raw}}</li>
-                                <li class="list-group-item light_blue">Volume: {{price_dict.regularMarketVolume.longFmt}} </li>
+                                <li class="list-group-item light_blue">High: {{data.previousClose}} </li>
+                                <li class="list-group-item light_blue">Low: {{data.previousClose}}</li>
+                                <li class="list-group-item light_blue">Volume: {{data.previousVolume}} </li>
                             </ul>
                         </div>
                     </div>
@@ -59,22 +59,22 @@
                             {#                        {%load plotly_dash %}#}
 
                             <div class="alert light_blue" role="alert">
-                                <span>{{quote.symbol}} </span>
+                                <strong>{{data.symbol}} </strong>
                             </div>
 
 
 
 
                         <div>  {{candlestick | safe}} </div>
-                        <br>
-                        <br>
-                        <div>  {{plotly_slider | safe}} </div>
-                        <br>
-                        <br>
-                        <div>  {{plotly | safe}} </div>
-                        <br>
-                        <br>
-                        <div>  {{compare_stock | safe}} </div>
+{#                        <br>#}
+{#                        <br>#}
+{#                        <div>  {{plotly_slider | safe}} </div>#}
+{#                        <br>#}
+{#                        <br>#}
+{#                        <div>  {{plotly | safe}} </div>#}
+{#                        <br>#}
+{#                        <br>#}
+{#                        <div>  {{compare_stock | safe}} </div>#}
                     </div>
                 </div>
 

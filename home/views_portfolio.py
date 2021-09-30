@@ -6,9 +6,13 @@ from django.contrib.auth.decorators import login_required
 import pandas as pd
 from fbprophet import Prophet
 from .plots import compare_stock, plot_prediction, plot_stock_unindexed
+from django.views.decorators.csrf import csrf_exempt
 
 
-@login_required
+
+
+# @login_required
+@csrf_exempt
 def set_portfolio(request):
     error_message = ''
     error_message_stock = ''
@@ -116,9 +120,9 @@ def get_list_portfolio(request):
 @login_required
 def delete_portfolio(request, pk):
     portfolio = Portfolio.objects.get(id=pk)
-    list_activities = portfolio.transaction_set.all()
-    for activity in list_activities:
-        activity.delete()
+    list_transactions = portfolio.transaction_set.all()
+    for transaction in list_transactions:
+        transaction.delete()
     portfolio.delete()
     return redirect('home:show_list_portfolio')
 
@@ -137,39 +141,47 @@ def edit_portfolio(request, pk):
             pk_stock = request.POST.get('symbol')
             stock_rel = Stock.objects.get(id=pk_stock)
             print(stock_rel)
-            try:
-                print('getting portfolio name')
-                request.user.portfolio_set.get(name=name)
-                error_message = 'Exists already!!!'
 
-                print(error_message)
-                context = {
-                    'portfolio': portfolio,
-                    'error_message': error_message,
-                    'name': name,
-                    'list_portfolio': list_portfolio,
-                    'stocks': stocks,
-                }
-                return render(request, "home/portfolio/edit_portfolio.html", context)
-            except:
-                pass
             try:
                 portfolio_by_stock = request.user.portfolio_set.get(stock=stock_rel)
                 if portfolio_by_stock == portfolio:
+                    pass
+                # elif portfolio_by_stock != portfolio:
+
+                else:
+                    error_message_stock = f'{stock_rel.symbol} is already chosen!!!'
+                    context = {
+                        'portfolio': portfolio,
+                        'error_message': error_message,
+                        'error_message_stock': error_message_stock,
+                        'name': name,
+                        'list_portfolio': list_portfolio,
+                        'stocks': stocks,
+                    }
+                    return render(request, "home/portfolio/edit_portfolio.html", context)
+            except:
+                pass
+            try:
+                print('getting portfolio name')
+                get_portfolio = request.user.portfolio_set.get(name=name)
+
+                if get_portfolio == portfolio:
                     portfolio.name = name
                     portfolio.stock = stock_rel
                     portfolio.save()
                     return redirect('home:show_list_portfolio')
-                error_message_stock = f'{stock_rel.symbol} is already chosen!!!'
-                context = {
-                    'portfolio': portfolio,
-                    'error_message': error_message,
-                    'error_message_stock': error_message_stock,
-                    'name': name,
-                    'list_portfolio': list_portfolio,
-                    'stocks': stocks,
-                }
-                return render(request, "home/portfolio/edit_portfolio.html", context)
+                else:
+                    error_message = 'Exists already!!!'
+
+                    # print(error_message)
+                    context = {
+                        'portfolio': portfolio,
+                        'error_message': error_message,
+                        'name': name,
+                        'list_portfolio': list_portfolio,
+                        'stocks': stocks,
+                    }
+                    return render(request, "home/portfolio/edit_portfolio.html", context)
             except:
                 pass
             portfolio.name = name
@@ -187,6 +199,74 @@ def edit_portfolio(request, pk):
 
 def predict_stock(request, symbol):
     symbol = symbol.upper()
+    data = load_data_yfinance(symbol)
+    df_train = data[['Date', 'Close']]
+    df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
+    period = 200
+    m = Prophet()
+    m.fit(df_train)
+    future = m.make_future_dataframe(periods=period)
+    forecast = m.predict(future)
+
+    num = 0
+    for i in range(len(forecast) - period, len(forecast)):
+        if forecast['ds'][i].weekday() == 5 or forecast['ds'][i].weekday() == 6:
+            forecast = forecast.drop(i)
+            num += 1
+        else:
+            if forecast['yhat'][i] < 0:
+                forecast['yhat'][i] = 0
+            if forecast['yhat_upper'][i] < 0:
+                forecast['yhat_upper'][i] = 0
+            if forecast['yhat_lower'][i] < 0:
+                forecast['yhat_lower'][i] = 0
+    period -= num
+    df_pred = forecast[-period:]
+    predicted_div = plot_prediction(forecast, df_train, period)
+
+    context = {
+        'predicted_div': predicted_div,
+        'symbol': symbol,
+        'df_pred': df_pred,
+    }
+    return render(request, "home/predictions/predict_stock_portfolio.html", context)
+
+def get_tesla_pred(request):
+    symbol = "TSLA"
+    data = load_data_yfinance(symbol)
+    df_train = data[['Date', 'Close']]
+    df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
+    period = 200
+    m = Prophet()
+    m.fit(df_train)
+    future = m.make_future_dataframe(periods=period)
+    forecast = m.predict(future)
+
+    num = 0
+    for i in range(len(forecast) - period, len(forecast)):
+        if forecast['ds'][i].weekday() == 5 or forecast['ds'][i].weekday() == 6:
+            forecast = forecast.drop(i)
+            num += 1
+        else:
+            if forecast['yhat'][i] < 0:
+                forecast['yhat'][i] = 0
+            if forecast['yhat_upper'][i] < 0:
+                forecast['yhat_upper'][i] = 0
+            if forecast['yhat_lower'][i] < 0:
+                forecast['yhat_lower'][i] = 0
+    period -= num
+    df_pred = forecast[-period:]
+    predicted_div = plot_prediction(forecast, df_train, period)
+
+    context = {
+        'predicted_div': predicted_div,
+        'symbol': symbol,
+        'df_pred': df_pred,
+    }
+    return render(request, "home/predictions/predict_stock_portfolio.html", context)
+
+def get_apple_pred(request):
+    symbol = "AAPL"
     data = load_data_yfinance(symbol)
     df_train = data[['Date', 'Close']]
     df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})

@@ -2,6 +2,7 @@ import pandas as pd
 import pandas_datareader as pdr
 import matplotlib.pyplot as plt
 import numpy as np
+import yfinance as yf
 
 # import plotly.graph_objects as go
 # from plotly.offline import plot
@@ -67,7 +68,8 @@ def get_bollinger_bands(rm, rstd):
 def get_data(symbol, dtime=365):
     start = dt.datetime.now() - dt.timedelta(dtime)
     now = dt.datetime.now()
-    data = pdr.DataReader(symbol, 'yahoo', start, now)
+    # data = pdr.DataReader(symbol, 'yahoo', start, now)
+    data = yf.download(symbol, start, now)
     df = pd.DataFrame(data)
     df_final = pd.DataFrame()
     df['Date'] = df.index.values
@@ -118,9 +120,9 @@ def get_data_user_symbols(symbols, dtime=365, normalize=False):
 def get_macd_signal(data, dtime):
     # Calculate the MACD and signal indicators
     # Calculate the sort term exponential moving average (EMA)
-    ShortEMA = data.Close.ewm(span=dtime // 8, adjust=False).mean()
+    ShortEMA = data.Close.ewm(span=12, adjust=False).mean()
     # Calculate the long term exponential moving average (EMA)
-    LongEMA = data.Close.ewm(span=dtime // 6, adjust=False).mean()
+    LongEMA = data.Close.ewm(span=26, adjust=False).mean()
     # Calculate the MACD line
     MACD = ShortEMA - LongEMA
     # Calculate the signal line
@@ -155,17 +157,6 @@ def buy_sell(signal):
     return (Buy, Sell)
 
 
-def get_stock_quote(ticker_symbol, api):
-    url = f"https://api.twelvedata.com/quote?symbol={ticker_symbol}&apikey={api}"
-    response = requests.get(url).json()
-    for i in response:
-        try:
-            response[i] = float(response[i])
 
-        except Exception:
-            pass
-        if isinstance(response[i], float):
-            response[i] = round(response[i], 3)
-    return response
 
 

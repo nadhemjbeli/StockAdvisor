@@ -32,7 +32,6 @@ class Transaction(models.Model):
     #     verbose_name_plural = 'Activities'
     portfolio = models.ForeignKey(Portfolio, null=True, on_delete=models.SET_NULL)
 
-    type_activity = models.CharField(max_length=10)
     number_stocks = models.IntegerField(null=True)
     buying_price = models.FloatField(null=True)
     date_to_buy = models.DateTimeField(null=True)
@@ -41,7 +40,7 @@ class Transaction(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return f'{self.portfolio} - Activity {self.pk}'
+        return f'{self.portfolio} - Transaction {self.pk}'
 
 
 class Profile(models.Model):
@@ -50,3 +49,20 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+import datetime as dt
+class News(models.Model):
+    class Meta:
+        verbose_name_plural = 'News'
+
+    # portfolio = models.ForeignKey(Portfolio, null=True, on_delete=models.SET_NULL)
+    stock = models.ForeignKey(Stock, null=True, on_delete=models.SET_NULL)
+
+    title = models.TextField()
+    source = models.CharField(max_length=500)
+    description = models.TextField()
+    link = models.CharField(max_length=500)
+    date_article = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return f'{self.stock.symbol} - News {self.pk} - {self.date_article.strftime("%Y-%m-%d")}'

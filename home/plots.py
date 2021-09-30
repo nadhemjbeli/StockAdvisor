@@ -14,9 +14,12 @@ api_key = '701005b908bc42b8800ca2fac03f2736'
 
 # PlotlyGraph
 def candlestick(ts_df):
+    # deleting the dates that don't exist in our data from plotly
+    # since ploytly date index is continued
     dt_all = pd.date_range(start=ts_df.index[0], end=ts_df.index[-1])
     dt_obs = [d.strftime("%Y-%m-%d") for d in ts_df.index]
     dt_breaks = [d for d in dt_all.strftime("%Y-%m-%d").tolist() if not d in dt_obs]
+
     figure = go.Figure(
         data=[
             go.Candlestick(
@@ -25,8 +28,15 @@ def candlestick(ts_df):
                 low=ts_df['Low'],
                 open=ts_df['Open'],
                 close=ts_df['Close'],
+
             )
         ]
+    )
+
+    figure.update_layout(
+
+        xaxis_title="date",
+        yaxis_title="price ($)",
     )
 
     figure.update_xaxes(
@@ -43,7 +53,9 @@ def candlestick(ts_df):
                 dict(count=1, label="this year", step="year", stepmode="todate"),
                 dict(step="all")
             ])
-        ))
+        ),
+
+    )
     candlestick_div = plot(figure, output_type='div')
     return candlestick_div
 
@@ -106,6 +118,7 @@ def area_plot_1_day(symbol):
     # api_key = '701005b908bc42b8800ca2fac03f2736'
     df = get_historical_intraday(symbol, ouput_format='pandas', token=token, start=start_date, end=end_date)
     print("df: ", df)
+    # clean data
     dt_all = pd.date_range(start=df.index[0], end=df.index[-1])
     dt_obs = [d.strftime("%Y-%m-%d") for d in df.index]
     dt_breaks = [d for d in dt_all.strftime("%Y-%m-%d").tolist() if not d in dt_obs]
@@ -114,6 +127,11 @@ def area_plot_1_day(symbol):
     print(dt_breaks)
     figure.update_xaxes(
         rangebreaks=[dict(values=dt_breaks)]  # hide dates with no values
+    )
+    figure.update_layout(
+
+        xaxis_title="date",
+        yaxis_title="price ($)",
     )
     area_div = plot(figure, output_type='div')
     return area_div
@@ -154,6 +172,11 @@ def area_plot_1_day_candlestick(symbol):
                 close=df['close'],
             )
         ]
+    )
+    figure.update_layout(
+
+        xaxis_title="date",
+        yaxis_title="price ($)",
     )
     figure.update_xaxes(
         rangeslider_visible=False,
@@ -202,6 +225,11 @@ def compare_stock(df, list_symbols):
     fig.update_xaxes(
         dtick="M1",
         tickformat="%b\n%Y")
+    fig.update_layout(
+
+        xaxis_title="date",
+        yaxis_title="percentage",
+    )
     fig.update_layout(width=1200)
     compare_div = plot(fig, output_type='div')
     return compare_div
@@ -354,6 +382,7 @@ def plot_buy_sell(data, symbol):
     fig.update_layout(
         title=f"{symbol} Buys & Sells",
         xaxis_title="Days",
+        yaxis_title="HIgh",
     )
     fig.update_xaxes(rangeslider_visible=True)
     plotly_div = plot(fig, output_type='div')
@@ -384,6 +413,11 @@ def plot_macd_signal(data, symbol, MACD, signal):
         ]
     )
     fig.update_xaxes(rangeslider_visible=True)
+    fig.update_layout(
+        title=f"{symbol} MACD",
+        xaxis_title="Days",
+        yaxis_title="signal",
+    )
     plotly_div = plot(fig, output_type='div')
     return plotly_div
 
@@ -456,6 +490,11 @@ def plot_stats(df):
     ])
     # Change the bar mode
     fig1.update_layout(barmode='group', width=900)
+    fig1.update_layout(
+
+        xaxis_title="portfolios",
+        yaxis_title="price ($)",
+    )
     fig1_div = plot(fig1, output_type='div')
     return fig1_div
 
@@ -487,6 +526,11 @@ def plot_stats_transaction(df):
     ])
     # Change the bar mode
     fig1.update_layout(barmode='group', width=900)
+    fig1.update_layout(
+
+        xaxis_title="transaction",
+        yaxis_title="price ($)",
+    )
     fig1_div = plot(fig1, output_type='div')
     return fig1_div
 
