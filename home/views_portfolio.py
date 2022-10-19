@@ -234,6 +234,7 @@ def predict_stock(request, symbol):
 def get_tesla_pred(request):
     symbol = "TSLA"
     data = load_data_yfinance(symbol)
+    # print(data.head())
     df_train = data[['Date', 'Close']]
     df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
     period = 200
@@ -268,6 +269,7 @@ def get_tesla_pred(request):
 def get_apple_pred(request):
     symbol = "AAPL"
     data = load_data_yfinance(symbol)
+    print(data)
     df_train = data[['Date', 'Close']]
     df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
     period = 200

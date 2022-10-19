@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="" />
+    <list default="true" id="1f9841e6-02be-4f29-a7fe-3e5f17668330" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/scraping.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/scraping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/views_portfolio.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views_portfolio.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -161,7 +165,7 @@
       <workItem from="1660219711475" duration="6450000" />
       <workItem from="1660571257777" duration="5536000" />
       <workItem from="1661865398520" duration="2361000" />
-      <workItem from="1666189667158" duration="950000" />
+      <workItem from="1666189667158" duration="2602000" />
     </task>
     <task id="LOCAL-00003" summary="price change live update">
       <created>1616268893355</created>

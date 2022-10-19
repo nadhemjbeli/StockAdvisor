@@ -7,9 +7,11 @@ import json
 import datetime as dt
 import requests
 
-import yfinance as yf
+# import yfinance as yf
+from yahoo_fin.stock_info import get_data as gd
 
 token = 'pk_2287fdfeab07481297cac422c06f9dc6'
+
 
 def scrape_yahoo_numbered_data(some_list, dtype):
     list_smts = []
@@ -76,7 +78,6 @@ def get_stock_quote(ticker_symbol, api):
         if isinstance(response[i], float):
             response[i] = round(response[i], 3)
     return response
-
 
 
 # def load_yahoo_financials(json_data_financials, dtype='raw'):
@@ -153,8 +154,20 @@ def stock_price_yahoo(json_data_price):
 
 
 def load_data_yfinance(ticker):
+    import pandas as pd
     today = dt.datetime.now()
     start = today - dt.timedelta(800)
-    data = yf.download(ticker, start, today)
-    data.reset_index(inplace=True)
-    return data
+    df = gd(ticker, start, today)
+    # print(df)
+    df['Date'] = df.index.values
+    df_final = pd.DataFrame()
+    df_final['Date'] = df['Date'].dt.strftime('%Y-%m-%d')
+    df_final['Open'] = df['open']
+    df_final['High'] = df['high']
+    df_final['Low'] = df['low']
+    df_final['Close'] = df['close']
+    df_final['Volume'] = df['volume']
+    # print(df_final.info())
+    # df_final['Close'] = df.adjclose
+    df_final.reset_index(inplace=True)
+    return df_final
