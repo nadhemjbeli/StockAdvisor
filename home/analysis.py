@@ -3,6 +3,7 @@ import pandas_datareader as pdr
 import matplotlib.pyplot as plt
 import numpy as np
 import yfinance as yf
+from yahoo_fin.stock_info import get_data as gd
 
 # import plotly.graph_objects as go
 # from plotly.offline import plot
@@ -69,20 +70,28 @@ def get_data(symbol, dtime=365):
     start = dt.datetime.now() - dt.timedelta(dtime)
     now = dt.datetime.now()
     # data = pdr.DataReader(symbol, 'yahoo', start, now)
-    data = yf.download(symbol, start, now)
+    # data = yf.download(symbol, start, now)
+    data = gd(symbol, start, now)
     df = pd.DataFrame(data)
     df_final = pd.DataFrame()
     df['Date'] = df.index.values
     df_final['Date'] = df['Date'].dt.strftime('%Y-%m-%d')
+    # TODO: yf
+    # df_final['Open'] = df['Open']
+    # df_final['High'] = df['High']
+    # df_final['Low'] = df['Low']
+    # df_final['Close'] = df['Close']
+    # df_final['Volume'] = df['Volume']
+    # df = df.rename({'Adj Close': 'Adj'}, axis=1)
+    # df_final['Adj'] = df.Adj
+    # TODO: yahoo_fin.stock_info.get_data
+    df_final['Open'] = df['open']
+    df_final['High'] = df['high']
+    df_final['Low'] = df['low']
+    df_final['Close'] = df['close']
+    df_final['Volume'] = df['volume']
+    df_final['Adj'] = df.adjclose
 
-    df_final['Open'] = df['Open']
-    df_final['High'] = df['High']
-    df_final['Low'] = df['Low']
-    df_final['Close'] = df['Close']
-    df_final['Volume'] = df['Volume']
-
-    df = df.rename({'Adj Close': 'Adj'}, axis=1)
-    df_final['Adj'] = df.Adj
     return df_final
 
 
