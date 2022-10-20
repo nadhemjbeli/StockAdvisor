@@ -92,7 +92,6 @@ pyOpenSSL==20.0.1
 pyparsing==2.4.7
 pyppeteer==1.0.2
 pyquery==1.4.3
-pystan==2.17.1.0
 python-dateutil==2.8.1
 pytimeparse==1.1.8
 pytz==2021.1
