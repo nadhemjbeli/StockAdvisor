@@ -38,7 +38,6 @@ django-redis==4.12.1
 dpd-components==0.1.0
 ephem==3.7.7.1
 fake-useragent==0.1.11
-fbprophet==0.7.1
 feedfinder2==0.0.4
 feedparser==6.0.2
 filelock==3.0.12

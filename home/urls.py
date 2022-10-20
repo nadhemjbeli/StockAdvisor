@@ -47,7 +47,7 @@ urlpatterns = [
     path('analysis_news/', analysis_news, name='analysis_news'),
 
     #stock predictions
-    path('predict/<str:symbol>', predict_stock, name='get_prediction'),
-    path('tesla_pred/', get_tesla_pred, name='tesla_pred'),
-    path('apple_pred/', get_apple_pred, name='apple_pred'),
+    # path('predict/<str:symbol>', predict_stock, name='get_prediction'),
+    # path('tesla_pred/', get_tesla_pred, name='tesla_pred'),
+    # path('apple_pred/', get_apple_pred, name='apple_pred'),
 ]

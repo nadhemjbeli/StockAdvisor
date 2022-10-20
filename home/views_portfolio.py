@@ -4,7 +4,7 @@ from .analysis import get_data_user_symbols, get_data
 from .scraping import load_data_yfinance
 from django.contrib.auth.decorators import login_required
 import pandas as pd
-from fbprophet import Prophet
+# from fbprophet import Prophet
 from .plots import compare_stock, plot_prediction, plot_stock_unindexed
 from django.views.decorators.csrf import csrf_exempt
 
@@ -197,106 +197,106 @@ def edit_portfolio(request, pk):
     return render(request, "home/portfolio/edit_portfolio.html", context)
 
 
-def predict_stock(request, symbol):
-    symbol = symbol.upper()
-    data = load_data_yfinance(symbol)
-    df_train = data[['Date', 'Close']]
-    df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
-    period = 200
-    m = Prophet()
-    m.fit(df_train)
-    future = m.make_future_dataframe(periods=period)
-    forecast = m.predict(future)
-
-    num = 0
-    for i in range(len(forecast) - period, len(forecast)):
-        if forecast['ds'][i].weekday() == 5 or forecast['ds'][i].weekday() == 6:
-            forecast = forecast.drop(i)
-            num += 1
-        else:
-            if forecast['yhat'][i] < 0:
-                forecast['yhat'][i] = 0
-            if forecast['yhat_upper'][i] < 0:
-                forecast['yhat_upper'][i] = 0
-            if forecast['yhat_lower'][i] < 0:
-                forecast['yhat_lower'][i] = 0
-    period -= num
-    df_pred = forecast[-period:]
-    predicted_div = plot_prediction(forecast, df_train, period)
-
-    context = {
-        'predicted_div': predicted_div,
-        'symbol': symbol,
-        'df_pred': df_pred,
-    }
-    return render(request, "home/predictions/predict_stock_portfolio.html", context)
-
-def get_tesla_pred(request):
-    symbol = "TSLA"
-    data = load_data_yfinance(symbol)
-    # print(data.head())
-    df_train = data[['Date', 'Close']]
-    df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
-    period = 200
-    m = Prophet()
-    m.fit(df_train)
-    future = m.make_future_dataframe(periods=period)
-    forecast = m.predict(future)
-
-    num = 0
-    for i in range(len(forecast) - period, len(forecast)):
-        if forecast['ds'][i].weekday() == 5 or forecast['ds'][i].weekday() == 6:
-            forecast = forecast.drop(i)
-            num += 1
-        else:
-            if forecast['yhat'][i] < 0:
-                forecast['yhat'][i] = 0
-            if forecast['yhat_upper'][i] < 0:
-                forecast['yhat_upper'][i] = 0
-            if forecast['yhat_lower'][i] < 0:
-                forecast['yhat_lower'][i] = 0
-    period -= num
-    df_pred = forecast[-period:]
-    predicted_div = plot_prediction(forecast, df_train, period)
-
-    context = {
-        'predicted_div': predicted_div,
-        'symbol': symbol,
-        'df_pred': df_pred,
-    }
-    return render(request, "home/predictions/predict_stock_portfolio.html", context)
-
-def get_apple_pred(request):
-    symbol = "AAPL"
-    data = load_data_yfinance(symbol)
-    print(data)
-    df_train = data[['Date', 'Close']]
-    df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
-    period = 200
-    m = Prophet()
-    m.fit(df_train)
-    future = m.make_future_dataframe(periods=period)
-    forecast = m.predict(future)
-
-    num = 0
-    for i in range(len(forecast) - period, len(forecast)):
-        if forecast['ds'][i].weekday() == 5 or forecast['ds'][i].weekday() == 6:
-            forecast = forecast.drop(i)
-            num += 1
-        else:
-            if forecast['yhat'][i] < 0:
-                forecast['yhat'][i] = 0
-            if forecast['yhat_upper'][i] < 0:
-                forecast['yhat_upper'][i] = 0
-            if forecast['yhat_lower'][i] < 0:
-                forecast['yhat_lower'][i] = 0
-    period -= num
-    df_pred = forecast[-period:]
-    predicted_div = plot_prediction(forecast, df_train, period)
-
-    context = {
-        'predicted_div': predicted_div,
-        'symbol': symbol,
-        'df_pred': df_pred,
-    }
-    return render(request, "home/predictions/predict_stock_portfolio.html", context)
+# def predict_stock(request, symbol):
+#     symbol = symbol.upper()
+#     data = load_data_yfinance(symbol)
+#     df_train = data[['Date', 'Close']]
+#     df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
+#     period = 200
+#     m = Prophet()
+#     m.fit(df_train)
+#     future = m.make_future_dataframe(periods=period)
+#     forecast = m.predict(future)
+#
+#     num = 0
+#     for i in range(len(forecast) - period, len(forecast)):
+#         if forecast['ds'][i].weekday() == 5 or forecast['ds'][i].weekday() == 6:
+#             forecast = forecast.drop(i)
+#             num += 1
+#         else:
+#             if forecast['yhat'][i] < 0:
+#                 forecast['yhat'][i] = 0
+#             if forecast['yhat_upper'][i] < 0:
+#                 forecast['yhat_upper'][i] = 0
+#             if forecast['yhat_lower'][i] < 0:
+#                 forecast['yhat_lower'][i] = 0
+#     period -= num
+#     df_pred = forecast[-period:]
+#     predicted_div = plot_prediction(forecast, df_train, period)
+#
+#     context = {
+#         'predicted_div': predicted_div,
+#         'symbol': symbol,
+#         'df_pred': df_pred,
+#     }
+#     return render(request, "home/predictions/predict_stock_portfolio.html", context)
+#
+# def get_tesla_pred(request):
+#     symbol = "TSLA"
+#     data = load_data_yfinance(symbol)
+#     # print(data.head())
+#     df_train = data[['Date', 'Close']]
+#     df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
+#     period = 200
+#     m = Prophet()
+#     m.fit(df_train)
+#     future = m.make_future_dataframe(periods=period)
+#     forecast = m.predict(future)
+#
+#     num = 0
+#     for i in range(len(forecast) - period, len(forecast)):
+#         if forecast['ds'][i].weekday() == 5 or forecast['ds'][i].weekday() == 6:
+#             forecast = forecast.drop(i)
+#             num += 1
+#         else:
+#             if forecast['yhat'][i] < 0:
+#                 forecast['yhat'][i] = 0
+#             if forecast['yhat_upper'][i] < 0:
+#                 forecast['yhat_upper'][i] = 0
+#             if forecast['yhat_lower'][i] < 0:
+#                 forecast['yhat_lower'][i] = 0
+#     period -= num
+#     df_pred = forecast[-period:]
+#     predicted_div = plot_prediction(forecast, df_train, period)
+#
+#     context = {
+#         'predicted_div': predicted_div,
+#         'symbol': symbol,
+#         'df_pred': df_pred,
+#     }
+#     return render(request, "home/predictions/predict_stock_portfolio.html", context)
+#
+# def get_apple_pred(request):
+#     symbol = "AAPL"
+#     data = load_data_yfinance(symbol)
+#     print(data)
+#     df_train = data[['Date', 'Close']]
+#     df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
+#     period = 200
+#     m = Prophet()
+#     m.fit(df_train)
+#     future = m.make_future_dataframe(periods=period)
+#     forecast = m.predict(future)
+#
+#     num = 0
+#     for i in range(len(forecast) - period, len(forecast)):
+#         if forecast['ds'][i].weekday() == 5 or forecast['ds'][i].weekday() == 6:
+#             forecast = forecast.drop(i)
+#             num += 1
+#         else:
+#             if forecast['yhat'][i] < 0:
+#                 forecast['yhat'][i] = 0
+#             if forecast['yhat_upper'][i] < 0:
+#                 forecast['yhat_upper'][i] = 0
+#             if forecast['yhat_lower'][i] < 0:
+#                 forecast['yhat_lower'][i] = 0
+#     period -= num
+#     df_pred = forecast[-period:]
+#     predicted_div = plot_prediction(forecast, df_train, period)
+#
+#     context = {
+#         'predicted_div': predicted_div,
+#         'symbol': symbol,
+#         'df_pred': df_pred,
+#     }
+#     return render(request, "home/predictions/predict_stock_portfolio.html", context)
